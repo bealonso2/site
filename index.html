@@ -30,31 +30,40 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script>
-    $(document).ready(function () {
-      $("#moon").click(function () {
-        $("body").addClass("day");
-        $("body").removeClass("night");
-      });
-      $("#sun").click(function () {
-        $("body").removeClass("day");
-        $("body").addClass("night");
-      });
-    });
-
-  </script>
-
-  <script>
-    // TODO: fix this, it works inconsistently
-    // script to detect dark mode
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) { 
+    // Functions to activate dark and light modes
+    function activateDarkMode() {
       $("body").removeClass("day");
       $("body").addClass("night");
+    }
+    function activateLightMode() {
+      $("body").addClass("day");
+      $("body").removeClass("night");
+    }
+
+    // Event listeners for clicking the sun and moon
+    $(document).ready(function () {
+      $("#moon").click(function () {
+        activateLightMode();
+      });
+      $("#sun").click(function () {
+        activateDarkMode();
+      });
+      // Check if dark mode is enabled for page load
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        activateDarkMode();
+      }
     });
 
-    // script to detect light mode
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) { 
-      $("body").removeClass("night");
-      $("body").addClass("day");
+    // Activate dark mode when the user changes their settings if the event matches
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      if (event.matches)
+        activateDarkMode();
+    });
+
+    // Activate light mode when the user changes their settings if the event matches
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', event => {
+      if (event.matches)
+        activateLightMode();
     });
   </script>
 
@@ -78,12 +87,12 @@
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Output the result in an element with id="counter"
-      document.getElementById("counter").innerHTML = days + " days, " + hours + " hour" + (hours === 1 ? "" : "s") + ", " + minutes + " minute" + (minutes === 1 ? "" : "s") + ", and " + seconds + " second" + (seconds === 1 ? "" : "s");
+      $("#counter").html(`${days} days, ${hours} hour${hours === 1 ? "" : "s"}, ${minutes} minute${minutes === 1 ? "" : "s"}, and ${seconds} second${seconds === 1 ? "" : "s"}`);
 
       // If the count down errors, write some text 
       if (distance < 0) {
         clearInterval(x);
-        document.getElementById("counter").innerHTML = "year";
+        $("#counter").innerHTML = "year";
       }
     }, 1000);
   </script>
@@ -160,7 +169,7 @@
           </div>
           <div class="three columns">
             <h3>Principal Structures Engineer</h3>
-            <h4>2020-2021</h4>
+            <h4>2020-2022</h4>
           </div>
         </div>
       </div>
@@ -179,8 +188,6 @@
       </div>
     </div>
   </body>
-
-
   <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
