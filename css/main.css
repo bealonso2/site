@@ -218,11 +218,6 @@ body.day #sun {
 	width: 20px;
 }
 
-.spacer48 {
-	height: 48px;
-	width: 100%;
-}
-
 
 /* For devices smaller than 400px */
 @media (max-width: 550px) {
