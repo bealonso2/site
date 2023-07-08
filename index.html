@@ -21,9 +21,9 @@
 
     <!-- Custom CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <!-- <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/animate.css"> -->
 
     <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -103,17 +103,19 @@
 
 </head>
 
+<!-- TODO - figure out how to get rid of custom style things, add more padding to bootstrap containers, center the dot vertically -->
+
 <body class="day">
-    <div class="container animated fadeIn one">
-        <div class="row group">
-            <div class="three columns icon">
+    <div class="container-sm justify-content-start animated fadeIn one" style="padding: 50px;">
+        <div class="row">
+            <div class="container text-center col-sm-12 col-md-4 icon">
                 <img src="images/moon.svg" id="moon">
                 <img src="images/sun.svg" id="sun">
             </div>
 
-            <div class="">
+            <div class="col-md-7">
+                <div style="max-width: 500px;">
                 <h1 class="night">Hi, I'm Brian.</h1>
-
                 <div class="animated fadeIn two">
                     <p>I've been a stress engineer and plugin developer at <a href="https://collieraerospace.com"
                             target="_blank" class="underline">Collier Aerospace</a> for the last <span
@@ -123,49 +125,55 @@
                     </p>
                     <div class="spacer48"></div>
                 </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="animated fadeIn three">
-            <div class="">
-                <h4 class="">PREVIOUSLY</h4>
-            </div>
-            <div class="">
-                <div class="">
-                    <h2 class="night"><a href="https://www.spiritaero.com" target="_blank" class="underline">Spirit
-                            Aerosystems</a></h2>
-                </div>
-                <div class="">
-                    <h3>Design Engineer Intern</h3>
-                    <h4>2021</h4>
+        <div class="row justify-content-end animated fadeIn three">
+            <div class="col-md-7">
+                <div style="max-width: 500px;">
+                    <h4 class="">PREVIOUSLY</h4>
                 </div>
             </div>
-
-            <div class="">
-                <div class="">
-                    <h2 class="night"><a href="https://liquidrocketry.com/" target="_blank" class="underline">Liquid
-                            Rocketry
-                            Lab</a></h2>
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-sm-block"></div>
+            <div class="col-md-7">
+                <div style="max-width: 500px;">
+                <h2 class="night"><a href="https://www.spiritaero.com" target="_blank" class="underline">Spirit
+                        Aerosystems</a></h2>
+                <h3>Design Engineer Intern</h3>
+                <h4>2021</h4>
                 </div>
-                <div class="">
-                    <h3>Principal Structures Engineer</h3>
-                    <h4>2020-2022</h4>
+            </div>
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-sm-block"></div>
+            <div class="col-md-7">
+                <div style="max-width: 500px;">
+                <h2 class="night"><a href="https://liquidrocketry.com/" target="_blank" class="underline">Liquid
+                        Rocketry
+                        Lab</a></h2>
+                <h3>Principal Structures Engineer</h3>
+                <h4>2020-2022</h4>
                 </div>
             </div>
         </div>
-        <div class="animated fadeIn four">
-            <h4 class="">EDUCATION</h4>
-            <div class="">
-                <div class="">
-                    <h2 class="night"><a href="https://www.ncsu.edu/" target="_blank" class="underline">North
-                            Carolina State
-                            University</a></h2>
+        <div class="row justify-content-end animated fadeIn four">
+            <div class="col-md-7">
+                <div style="max-width: 500px;">
+                <h4>EDUCATION</h4>
                 </div>
-                <div class="">
-                    <h3>B.S. Aerospace Engineering</h3>
-                    <h3>Computer Programming Minor</h3>
-                    <h4>2018-2022</h4>
+            </div>
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-sm-block"></div>
+            <div class="col-md-7">
+                <div style="max-width: 500px;">
+                <h2 class="night"><a href="https://www.ncsu.edu/" target="_blank" class="underline">North
+                        Carolina State
+                        University</a></h2>
+                <h3>B.S. Aerospace Engineering</h3>
+                <h3>Computer Programming Minor</h3>
+                <h4>2018-2022</h4>
                 </div>
             </div>
         </div>
