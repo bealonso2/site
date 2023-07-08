@@ -235,3 +235,8 @@ body.day #sun {
 		float: right
 	}
 }
+
+/* Fixed max-width divs */
+div.fixed-max-width {
+	max-width: 500px;
+}
