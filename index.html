@@ -3,193 +3,107 @@
 
 <head>
 
-  <!-- Basic Page Needs
+    <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Brian Alonso</title>
-  <meta name="description" content="Stress engineer at Collier Aerospace">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <title>Brian Alonso</title>
+    <meta name="description" content="Stress engineer at Collier Aerospace">
+    <meta name="author" content="">
 
-  <!-- Mobile Specific Metas
+    <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- CSS
+    <!-- Bootstrap CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/animate.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-  <!-- Favicon
+    <!-- Custom CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/dot.png">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animate.css">
 
-  <!-- jsQuery
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/dot.png">
+
+    <!-- jsQuery
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script>
-    // Functions to activate dark and light modes
-    function activateDarkMode() {
-      $("body").removeClass("day");
-      $("body").addClass("night");
-    }
-    function activateLightMode() {
-      $("body").addClass("day");
-      $("body").removeClass("night");
-    }
-
-    // Event listeners for clicking the sun and moon
-    $(document).ready(function () {
-      $("#moon").click(function () {
-        activateLightMode();
-      });
-      $("#sun").click(function () {
-        activateDarkMode();
-      });
-      // Check if dark mode is enabled for page load
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        activateDarkMode();
-      }
-    });
-
-    // Activate dark mode when the user changes their settings if the event matches
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-      if (event.matches)
-        activateDarkMode();
-    });
-
-    // Activate light mode when the user changes their settings if the event matches
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', event => {
-      if (event.matches)
-        activateLightMode();
-    });
-  </script>
-
-  <script>
-    // Set the date we're counting up from
-    var countUpDate = new Date("Jan 25, 2022 09:00:00").getTime();
-
-    // Update the count up every 1 second
-    var x = setInterval(function () {
-
-      // Get todays date and time
-      var now = new Date().getTime();
-
-      // Find the distance between now and the count down date
-      var distance = now - countUpDate;
-
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Output the result in an element with id="counter"
-      $("#counter").html(`${days} days, ${hours} hour${hours === 1 ? "" : "s"}, ${minutes} minute${minutes === 1 ? "" : "s"}, and ${seconds} second${seconds === 1 ? "" : "s"}`);
-
-      // If the count down errors, write some text 
-      if (distance < 0) {
-        clearInterval(x);
-        $("#counter").innerHTML = "year";
-      }
-    }, 1000);
-  </script>
-
-  <!-- Google Analytics
+    <!-- Custom JS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-  <!-- <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-48335777-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-
-    <script>
-      var trackOutboundLink = function(url) {
-         ga('send', 'event', 'outbound', 'click', url, {
-           'transport': 'beacon',
-           'hitCallback': function(){document.location = url;}
-         });
-      }
-    </script> -->
+    <script src="index.js"></script>
 
 </head>
 
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
-  <body class="day">
-    <div class="container animated fadeIn one">
-      <div class="row group">
-        <div class="three columns icon">
-          <img src="images/moon.svg" id="moon">
-          <img src="images/sun.svg" id="sun">
+<body class="day">
+    <div class="container-sm p-3 align-items-center animated fadeIn one">
+        <div class="row justify-content-center align-items-center">
+            <div class="text-center col-12 col-md-5 pt-3 pt-md-0 icon">
+                <img src="images/moon.svg" id="moon">
+                <img src="images/sun.svg" id="sun">
+            </div>
+            <div class="col-md-7 pt-3 fixed-max-width">
+                <h1 class="night">Hi, I'm Brian.</h1>
+                <div class="animated fadeIn two">
+                    <p>I've been a stress engineer and plugin developer at <a href="https://collieraerospace.com"
+                            target="_blank" class="underline">Collier Aerospace</a> for the last <span
+                            id="counter"><br></span>.</p>
+                    <p>I live in Raleigh, North Carolina. Keep up with me on <a
+                            href="https://twitter.com/thebrianalonso" target="_blank" class="underline">Twitter</a>.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <div class="six columns offset-by-three">
-          <h1 class="night">Hi, I'm Brian.</h1>
-
-          <div class="animated fadeIn two">
-            <p>I've been a stress engineer and plugin developer at <a href="https://collieraerospace.com"
-                target="_blank" class="underline">Collier Aerospace</a> for the last <span id="counter"><br></span>.</p>
-            <p>I live in Raleigh, North Carolina. Keep up with me on <a href="https://twitter.com/thebrianalonso"
-                target="_blank" class="underline">Twitter</a>.</p>
-            <div class="spacer48"></div>
-          </div>
+        <div class="row justify-content-center animated fadeIn three">
+            <div class="col-md-5"></div>
+            <div class="col-md-7  pt-5 fixed-max-width">
+                <h4 class="">Previously</h4>
+            </div>
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-sm-block"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-7 pb-3 fixed-max-width">
+                <h2 class="night"><a href="https://www.spiritaero.com" target="_blank" class="underline">Spirit
+                        Aerosystems</a></h2>
+                <h3>Design Engineer Intern</h3>
+                <h4>2021</h4>
+            </div>
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-sm-block"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-7 pb-3 fixed-max-width">
+                <h2 class="night"><a href="https://liquidrocketry.com/" target="_blank" class="underline">Liquid
+                        Rocketry
+                        Lab</a></h2>
+                <h3>Principal Structures Engineer</h3>
+                <h4>2020-2022</h4>
+                <h3>Structures Engineer</h3>
+                <h4>2018-2020</h4>
+            </div>
         </div>
-
-      </div>
-
-      <div class="animated fadeIn three">
-        <div class="row group">
-          <h4 class="six columns offset-by-six">PREVIOUSLY</h4>
+        <div class="row justify-content-center animated fadeIn four">
+            <div class="col-md-5"></div>
+            <div class="col-md-7 pt-4 fixed-max-width">
+                <h4>Education</h4>
+            </div>
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-sm-block"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-7 fixed-max-width">
+                <h2 class="night"><a href="https://mae.ncsu.edu/" target="_blank" class="underline">North
+                        Carolina State
+                        University</a></h2>
+                <h3>B.S. Aerospace Engineering</h3>
+                <h3>Computer Programming Minor</h3>
+                <h4>2018-2022</h4>
+            </div>
         </div>
-        <div class="row group">
-          <div class="three columns offset-by-six">
-            <h2 class="night"><a href="https://www.spiritaero.com" target="_blank" class="underline">Spirit Aerosystems</a></h2>
-          </div>
-          <div class="three columns">
-            <h3>Design Engineer Intern</h3>
-            <h4>2021</h4>
-          </div>
-        </div>
-
-        <div class="row group">
-          <div class="three columns offset-by-six">
-            <h2 class="night"><a href="https://liquidrocketry.com/" target="_blank" class="underline">Liquid Rocketry Lab</a></h2>
-          </div>
-          <div class="three columns">
-            <h3>Principal Structures Engineer</h3>
-            <h4>2020-2022</h4>
-          </div>
-        </div>
-      </div>
-      <div class="animated fadeIn four">
-        <h4 class="six columns offset-by-six">EDUCATION</h4>
-        <div class="row group">
-          <div class="three columns offset-by-six">
-            <h2 class="night"><a href="https://www.ncsu.edu/" target="_blank" class="underline">North Carolina State University</a></h2>
-          </div>
-          <div class="three columns">
-            <h3>B.S. Aerospace Engineering</h3>
-            <h3>Computer Programming Minor</h3>
-            <h4>2018-2022</h4>
-          </div>
-        </div>
-      </div>
     </div>
-  </body>
-  <!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 
 </html>
