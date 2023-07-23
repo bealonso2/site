@@ -83,7 +83,9 @@ body.night h1 {
 }
 
 /* + day h2 and h3 */
-body.day h1, body.day h2, body.day h3 {
+body.day h1,
+body.day h2,
+body.day h3 {
 	color: #403E43;
 }
 
@@ -149,4 +151,23 @@ body.day #sun {
 /* Fixed max-width divs */
 div.fixed-max-width {
 	max-width: 400px;
+}
+
+/* Only for larger than mobile */
+@media screen and (min-width: 768px) {
+	#main>.row:last-child {
+		/* styles for the last row */
+		padding-bottom: 50px;
+	}
+
+	/* Footer background image */
+	footer {
+		background-color: inherit;
+		/* Make a little bit transparent */
+		opacity: 0.9;
+		/* Keep at bottom of page */
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
 }
