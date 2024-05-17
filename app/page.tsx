@@ -1,113 +1,154 @@
+"use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [time, setTime] = useState("two years");
+
+  useEffect(() => {
+    var countUpDate = new Date("Jan 25, 2022 09:00:00").getTime();
+
+    // Update the count up every 1 second
+    setInterval(function () {
+      // Get todays date and time and find the distance between now and the count down date
+      var distance = new Date().getTime() - countUpDate;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setTime(
+        `${days} days, ${hours} hour${
+          hours === 1 ? "" : "s"
+        }, ${minutes} minute${minutes === 1 ? "" : "s"}, and ${seconds} second${
+          seconds === 1 ? "" : "s"
+        }`
+      );
+    }, 1000);
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <main className="flex min-h-screen flex-col items-center justify-between p-12 pb-24 lg:p-24">
+        <div className="z-10 w-full max-w-md lg:max-w-4xl justify-between font-mono text-sm flex flex-col lg:flex-row">
+          <div className="flex items-start justify-center w-full lg:mt-24">
+            <img className="dark:hidden" src="moon.svg" id="moon" />
+            <img className="light:hidden" src="sun.svg" id="sun" />
+          </div>
+          <div className="w-full">
+            <div className="my-8 space-y-4">
+              <h1 className="text-3xl font-bold">Hi, I'm Brian.</h1>
+              <p>
+                I've been a stress engineer and plugin developer at{" "}
+                <a href="https://collieraerospace.com" target="_blank">
+                  Collier Aerospace{" "}
+                </a>
+                for the last {time}.
+              </p>
+              <p>
+                I live in Raleigh, North Carolina. Keep up with me on{" "}
+                <a href="https://x.com/thebrianalonso" target="_blank">
+                  X
+                </a>{" "}
+                and{" "}
+                <a href="https://github.com/bealonso2" target="_blank">
+                  GitHub
+                </a>
+                . Read my long-form thoughts on the climate crisis, personal
+                development, and software engineering{" "}
+                <a href="https://blog.balonso.com">on my blog</a>.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h2 className="header-experience">Currently</h2>
+              <div className="div-experience">
+                <h3 className="">
+                  <a href="https://collieraerospace.com" target="_blank">
+                    Collier Aerospace
+                  </a>
+                </h3>
+                <h4>Stress Engineer</h4>
+                <h4>Plugin Developer</h4>
+                <h5 className="date-experience">2022-Present</h5>
+              </div>
+              <h2 className="header-experience">Previously</h2>
+              <div className="div-experience">
+                <h3 className="">
+                  <a href="https://www.spiritaero.com" target="_blank">
+                    Spirit Aerosystems
+                  </a>
+                </h3>
+                <h4>Design Engineer Intern</h4>
+                <h5 className="date-experience">2021</h5>
+              </div>
+              <div className="div-experience">
+                <h3 className="">
+                  <a href="https://liquidrocketry.com/" target="_blank">
+                    Liquid Rocketry Lab
+                  </a>
+                </h3>
+                <h4>Principal Structures Engineer</h4>
+                <h5 className="date-experience">2020-2022</h5>
+                <h4>Structures Engineer</h4>
+                <h5 className="date-experience">2018-2020</h5>
+              </div>
+              <h2 className="header-experience">Education</h2>
+              <div className="div-experience">
+                <h3>
+                  <a href="https://mae.ncsu.edu/" target="_blank">
+                    North Carolina State University
+                  </a>
+                </h3>
+                <h5 className="date-experience">2018-2022</h5>
+                <h4>B.S. Aerospace Engineering</h4>
+                <h4>Computer Programming Minor</h4>
+                <h4>AIAA President</h4>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </main>
+      <footer>
+        <div className="font-mono fixed bottom-0 left-0 flex h-auto w-full items-end justify-center">
+          <span className="flex items-center py-5">
+            Follow me on
+            <a
+              href="https://x.com/thebrianalonso"
+              target="_blank"
+              className="p-1.5 w-auto"
+            >
+              <Image
+                className=""
+                src="/X_logo_2023_original.svg.png"
+                alt="link to X account"
+                width={16}
+                height={16}
+              />
+            </a>
+            and
+            <a
+              href="https://github.com/bealonso2"
+              target="_blank"
+              className="p-1.5 w-auto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <title>Link to GitHub account</title>
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+              </svg>
+            </a>
+          </span>
+        </div>
+      </footer>
+    </>
   );
 }
