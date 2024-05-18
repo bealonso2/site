@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
@@ -34,7 +33,38 @@ const ThemeSwitcher = () => {
           onClick={() => handleThemeChange("dark")}
           className="w-6 h-6"
         >
-          <img src="/sun.svg" alt="Sun icon" />
+          <svg
+            width="21px"
+            height="21px"
+            viewBox="0 0 21 21"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+          >
+            <title>Sun icon</title>
+            <g
+              id="Page-3"
+              stroke="none"
+              strokeWidth="1"
+              fill="none"
+              fillRule="evenodd"
+              opacity="0.900000036"
+            >
+              <g
+                id="iPhone-8-Copy-15"
+                transform="translate(-302.000000, -48.000000)"
+                fill="#221F26"
+              >
+                <g
+                  id="Group-3-Copy"
+                  transform="translate(312.677062, 58.357694) rotate(-15.000000) translate(-312.677062, -58.357694) translate(302.677062, 48.357694)"
+                >
+                  <circle id="Oval-3-Copy" cx="10" cy="10" r="10"></circle>
+                </g>
+              </g>
+            </g>
+          </svg>
+          {/* <img src="/sun.svg" alt="Sun icon" /> */}
         </button>
       )}
       {theme === "dark" && (
@@ -43,7 +73,38 @@ const ThemeSwitcher = () => {
           onClick={() => handleThemeChange("light")}
           className="w-6 h-6"
         >
-          <img src="/moon.svg" alt="Moon icon" />
+          <svg
+            viewBox="0 0 24 25"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+          >
+            <title>Moon icon</title>
+            <g
+              id="Page-3"
+              stroke="none"
+              strokeWidth="1"
+              fill="none"
+              fillRule="evenodd"
+            >
+              <g
+                id="Desktop-Copy-8"
+                transform="translate(-160.000000, -105.000000)"
+                fill="#FFFFFF"
+              >
+                <g
+                  id="Group-3-Copy"
+                  transform="translate(171.248050, 117.896900) rotate(-15.000000) translate(-171.248050, -117.896900) translate(160.748050, 105.896900)"
+                >
+                  <path
+                    d="M16.715257,0.9618689 C13.3362372,2.56661875 11,6.01048066 11,10 C11,15.504356 15.447222,19.9700076 20.9445607,19.9998496 C18.7472743,22.4549343 15.5540718,24 12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C13.6739195,0 15.267788,0.342739111 16.715257,0.9618689 Z"
+                    id="Combined-Shape"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+          {/* <img src="/moon.svg" alt="Moon icon" /> */}
         </button>
       )}
     </div>
@@ -156,6 +217,7 @@ export default function Home({ initialTime }: { initialTime: string }) {
                     North Carolina State University
                   </a>
                 </h3>
+                <h4></h4>
                 <h5 className="date-experience">2018-2022</h5>
                 <h4>B.S. Aerospace Engineering</h4>
                 <h4>Computer Programming Minor</h4>
