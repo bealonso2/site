@@ -2,33 +2,39 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [time, setTime] = useState("two years");
+// Function to calculate time difference
+const calculateTimeDifference = () => {
+  const countUpDate = new Date("Jan 25, 2022 09:00:00").getTime();
+  const distance = new Date().getTime() - countUpDate;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  return `${days} days, ${hours} hour${
+    hours === 1 ? "" : "s"
+  }, ${minutes} minute${minutes === 1 ? "" : "s"}, and ${seconds} second${
+    seconds === 1 ? "" : "s"
+  }`;
+};
+
+export default function Home({ initialTime }: { initialTime: string }) {
+  const [time, setTime] = useState(initialTime);
 
   useEffect(() => {
-    var countUpDate = new Date("Jan 25, 2022 09:00:00").getTime();
+    // Call the function immediately upon component mount
+    setTime(calculateTimeDifference());
 
     // Update the count up every 1 second
-    setInterval(function () {
-      // Get todays date and time and find the distance between now and the count down date
-      var distance = new Date().getTime() - countUpDate;
-
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      setTime(
-        `${days} days, ${hours} hour${
-          hours === 1 ? "" : "s"
-        }, ${minutes} minute${minutes === 1 ? "" : "s"}, and ${seconds} second${
-          seconds === 1 ? "" : "s"
-        }`
-      );
+    const interval = setInterval(() => {
+      setTime(calculateTimeDifference());
     }, 1000);
+
+    // Clean up the interval
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -36,8 +42,18 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-between p-12 pb-24 lg:p-24">
         <div className="z-10 w-full max-w-md lg:max-w-4xl justify-between font-mono text-sm flex flex-col lg:flex-row">
           <div className="flex items-start justify-center w-full lg:mt-24">
-            <img className="dark:hidden" src="moon.svg" id="moon" />
-            <img className="light:hidden" src="sun.svg" id="sun" />
+            <img
+              className="dark:hidden"
+              src="moon.svg"
+              id="moon"
+              alt="Moon icon"
+            />
+            <img
+              className="light:hidden"
+              src="sun.svg"
+              id="sun"
+              alt="Sun icon"
+            />
           </div>
           <div className="w-full">
             <div className="my-8 space-y-4">
@@ -112,7 +128,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <footer>
+      <footer className="">
         <div className="font-mono fixed bottom-0 left-0 flex h-auto w-full items-end justify-center">
           <span className="flex items-center py-5">
             Follow me on
