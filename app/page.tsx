@@ -1,6 +1,54 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { themeChange } from "theme-change";
+
+const ThemeSwitcher = () => {
+  const [theme, setTheme] = useState("light");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme") || "light";
+    setTheme(currentTheme);
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    themeChange(false); // Initialize theme change
+    setMounted(true);
+  }, []);
+
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  // Prevent mismatch during SSR by only rendering after mounting
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <div>
+      {theme === "light" && (
+        <button
+          data-set-theme="dark"
+          onClick={() => handleThemeChange("dark")}
+          className="w-6 h-6"
+        >
+          <img src="/sun.svg" alt="Sun icon" />
+        </button>
+      )}
+      {theme === "dark" && (
+        <button
+          data-set-theme="light"
+          onClick={() => handleThemeChange("light")}
+          className="w-6 h-6"
+        >
+          <img src="/moon.svg" alt="Moon icon" />
+        </button>
+      )}
+    </div>
+  );
+};
 
 // Function to calculate time difference
 const calculateTimeDifference = () => {
@@ -42,18 +90,7 @@ export default function Home({ initialTime }: { initialTime: string }) {
       <main className="flex min-h-screen flex-col items-center justify-between p-12 pb-24 lg:p-24">
         <div className="z-10 w-full max-w-md lg:max-w-4xl justify-between font-mono text-sm flex flex-col lg:flex-row">
           <div className="flex items-start justify-center w-full lg:mt-24">
-            <img
-              className="dark:hidden"
-              src="moon.svg"
-              id="moon"
-              alt="Moon icon"
-            />
-            <img
-              className="light:hidden"
-              src="sun.svg"
-              id="sun"
-              alt="Sun icon"
-            />
+            <ThemeSwitcher />
           </div>
           <div className="w-full">
             <div className="my-8 space-y-4">
@@ -137,13 +174,19 @@ export default function Home({ initialTime }: { initialTime: string }) {
               target="_blank"
               className="p-1.5 w-auto"
             >
-              <Image
-                className=""
-                src="/X_logo_2023_original.svg.png"
-                alt="link to X account"
-                width={16}
-                height={16}
-              />
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 1200 1227"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>Link to X account</title>
+                <path
+                  d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
+                  fill="currentColor"
+                />
+              </svg>
             </a>
             and
             <a
