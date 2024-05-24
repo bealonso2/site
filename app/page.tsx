@@ -39,35 +39,58 @@ export default function Home({ initialTime }: { initialTime: string }) {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
-        <div className="w-full max-w-md text-md">
+        <div className="w-full max-w-md lg:max-w-xl text-md">
           <div className="my-8 space-y-4">
             <h1 className="text-3xl font-bold">Hi, I'm Brian.</h1>
             <p>
               I've been a stress engineer and plugin developer at{" "}
-              <a href="https://collieraerospace.com" target="_blank">
+              <a
+                href="https://collieraerospace.com"
+                target="_blank"
+                className="a-enhanced"
+              >
                 Collier Aerospace{" "}
               </a>
               for the last {time}.
             </p>
             <p>
               I live in Raleigh, North Carolina. Keep up with me on{" "}
-              <a href="https://x.com/thebrianalonso" target="_blank">
+              <a
+                href="https://x.com/thebrianalonso"
+                target="_blank"
+                className="a-enhanced"
+              >
                 X
               </a>{" "}
               and{" "}
-              <a href="https://github.com/bealonso2" target="_blank">
+              <a
+                href="https://github.com/bealonso2"
+                target="_blank"
+                className="a-enhanced"
+              >
                 GitHub
               </a>
               . Read my long-form thoughts on the climate crisis, personal
               development, and software engineering{" "}
-              <a href="https://blog.balonso.com">on my blog</a>.
+              <a
+                href="https://blog.balonso.com"
+                target="_blank"
+                className="a-enhanced"
+              >
+                on my blog
+              </a>
+              .
             </p>
           </div>
           <div className="space-y-4">
             <h2 className="header-experience">Currently</h2>
             <div className="div-experience">
               <h3 className="">
-                <a href="https://collieraerospace.com" target="_blank">
+                <a
+                  href="https://collieraerospace.com"
+                  target="_blank"
+                  className="a-enhanced"
+                >
                   Collier Aerospace
                 </a>
               </h3>
@@ -78,7 +101,11 @@ export default function Home({ initialTime }: { initialTime: string }) {
             <h2 className="header-experience">Previously</h2>
             <div className="div-experience">
               <h3 className="">
-                <a href="https://www.spiritaero.com" target="_blank">
+                <a
+                  href="https://www.spiritaero.com"
+                  target="_blank"
+                  className="a-enhanced"
+                >
                   Spirit Aerosystems
                 </a>
               </h3>
@@ -87,7 +114,7 @@ export default function Home({ initialTime }: { initialTime: string }) {
             </div>
             <div className="div-experience">
               <h3 className="">
-                <a href="https://liquidrocketry.com/" target="_blank">
+                <a href="" target="_blank" className="a-enhanced">
                   Liquid Rocketry Lab
                 </a>
               </h3>
@@ -99,7 +126,11 @@ export default function Home({ initialTime }: { initialTime: string }) {
             <h2 className="header-experience">Education</h2>
             <div className="div-experience">
               <h3>
-                <a href="https://mae.ncsu.edu/" target="_blank">
+                <a
+                  href="https://mae.ncsu.edu/"
+                  target="_blank"
+                  className="a-enhanced"
+                >
                   North Carolina State University
                 </a>
               </h3>

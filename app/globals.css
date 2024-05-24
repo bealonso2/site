@@ -70,18 +70,15 @@
   animation-delay: 1.65s;
 }
 
-/* a {
+a.a-enhanced {
   @apply font-semibold;
-}
-
-a {
   display: inline;
   position: relative;
   overflow: hidden;
   width: 40px;
 }
 
-a:after {
+a.a-enhanced:after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -95,8 +92,8 @@ a:after {
   transition-timing-function: ease-out;
 }
 
-a:hover:after,
-a:focus:after,
-a:active:after {
+a.a-enhanced:hover:after,
+a.a-enhanced:focus:after,
+a.a-enhanced:active:after {
   right: 0;
-} */
+}
