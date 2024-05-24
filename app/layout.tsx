@@ -97,7 +97,7 @@ export default function RootLayout({
             </label>
           </div>
           <div className="navbar-end md:hidden">
-            <div className="dropdown">
+            <div className="dropdown relative">
               <div
                 tabIndex={0}
                 role="button"
@@ -120,7 +120,7 @@ export default function RootLayout({
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 absolute right-0"
               >
                 <li>
                   <a>Item 1</a>
