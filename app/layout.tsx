@@ -45,7 +45,7 @@ export default function RootLayout({
               Brian Alonso
             </a>
           </div>
-          <div className="navbar-center hidden lg:flex">
+          <div className="navbar-center hidden md:flex">
             <ul className="menu menu-horizontal px-1">
               <li>
                 <a>Item 1</a>
@@ -68,7 +68,7 @@ export default function RootLayout({
               </li>
             </ul>
           </div>
-          <div className="navbar-center lg:navbar-end">
+          <div className="flex-shrink md:navbar-end">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -96,12 +96,12 @@ export default function RootLayout({
               </svg>
             </label>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end md:hidden">
             <div className="dropdown">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost lg:hidden"
+                className="btn btn-ghost md:hidden"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

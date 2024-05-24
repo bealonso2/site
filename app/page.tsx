@@ -39,7 +39,7 @@ export default function Home({ initialTime }: { initialTime: string }) {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
-        <div className="w-full max-w-md lg:max-w-xl text-md">
+        <div className="w-full max-w-md md:max-w-xl text-md">
           <div className="my-8 space-y-4">
             <h1 className="text-3xl font-bold">Hi, I'm Brian.</h1>
             <p>
