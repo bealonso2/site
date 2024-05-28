@@ -4,6 +4,21 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const links = [
+  {
+    name: "X",
+    url: "https://x.com/thebrianalonso",
+  },
+  {
+    name: "Blog",
+    url: "https://blog.balonso.com",
+  },
+  {
+    name: "Projects",
+    url: "https://x.com/thebrianalonso",
+  },
+];
+
 export const metadata: Metadata = {
   title: "Brian Alonso",
   description: "Stress engineer at Collier Aerospace",
@@ -47,25 +62,13 @@ export default function RootLayout({
           </div>
           <div className="navbar-center hidden md:flex">
             <ul className="menu menu-horizontal px-1">
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <details>
-                  <summary>Parent</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a>Submenu 1</a>
-                    </li>
-                    <li>
-                      <a>Submenu 2</a>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {links.map((link) => (
+                <li key={link.name}>
+                  <a href={link.url} target="_blank">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="flex-shrink md:navbar-end">
@@ -118,13 +121,14 @@ export default function RootLayout({
                         />
                       </svg>
                     </summary>
-                    <ul className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 absolute right-0">
-                      <li>
-                        <a>Submenu 1</a>
-                      </li>
-                      <li>
-                        <a>Submenu 2</a>
-                      </li>
+                    <ul className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box absolute right-0">
+                      {links.map((link) => (
+                        <li key={link.name}>
+                          <a href={link.url} target="_blank">
+                            {link.name}
+                          </a>
+                        </li>
+                      ))}
                     </ul>
                   </details>
                 </li>
