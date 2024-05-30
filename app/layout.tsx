@@ -15,7 +15,29 @@ const links = [
   },
   {
     name: "Projects",
-    url: "https://x.com/thebrianalonso",
+    links: [
+      {
+        name: "Random Footballer",
+        url: "https://randomfootballer.com",
+      },
+      {
+        name: "Do Not Waste Your Life",
+        url: "https://donotwasteyourlife.com",
+      },
+    ],
+  },
+  {
+    name: "Products",
+    links: [
+      {
+        name: "LuckyLink",
+        url: "https://luckylink.app",
+      },
+      {
+        name: "EarthWallet",
+        url: "https://earthwallet.app",
+      },
+    ],
   },
 ];
 
@@ -64,9 +86,24 @@ export default function RootLayout({
             <ul className="menu menu-horizontal px-1">
               {links.map((link) => (
                 <li key={link.name}>
-                  <a href={link.url} target="_blank">
-                    {link.name}
-                  </a>
+                  {link.links ? (
+                    <details>
+                      <summary>{link.name}</summary>
+                      <ul>
+                        {link.links.map((sublink) => (
+                          <li key={sublink.name}>
+                            <a href={sublink.url} target="_blank">
+                              {sublink.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : (
+                    <a href={link.url} target="_blank">
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -124,9 +161,24 @@ export default function RootLayout({
                     <ul className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box absolute right-0">
                       {links.map((link) => (
                         <li key={link.name}>
-                          <a href={link.url} target="_blank">
-                            {link.name}
-                          </a>
+                          {link.links ? (
+                            <details>
+                              <summary>{link.name}</summary>
+                              <ul>
+                                {link.links.map((sublink) => (
+                                  <li key={sublink.name}>
+                                    <a href={sublink.url} target="_blank">
+                                      {sublink.name}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </details>
+                          ) : (
+                            <a href={link.url} target="_blank">
+                              {link.name}
+                            </a>
+                          )}
                         </li>
                       ))}
                     </ul>
