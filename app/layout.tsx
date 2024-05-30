@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import { NavMenu } from "./NavMenu";
 
-const inter = Inter({ subsets: ["latin"] });
+const RobotoFlex = Roboto_Flex({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Brian Alonso",
@@ -39,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${RobotoFlex.className} font-light`}>
         <header className="navbar bg-neutral text-neutral-content">
           <div className="navbar-start">
             <a href="/" className="btn btn-ghost text-xl">
@@ -108,7 +111,7 @@ export default function RootLayout({
         </header>
         {children}
         <footer className="">
-          <div className="font-mono fixed bottom-0 left-0 flex h-auto w-full items-end justify-center">
+          <div className="fixed bottom-0 left-0 flex h-auto w-full items-end justify-center">
             <span className="flex items-center py-5">
               Follow me on
               <a
