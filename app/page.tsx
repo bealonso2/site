@@ -40,7 +40,7 @@ export default function Home({ initialTime }: { initialTime: string }) {
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
         <div className="w-full max-w-md md:max-w-xl text-md">
-          <div className="my-8 space-y-4">
+          <div className="opacity-0 animate-fadeIn-delay-1 my-8 space-y-4">
             <h1 className="text-3xl font-semibold">Hi, I'm Brian.</h1>
             <p>
               I've been a stress engineer and plugin developer at{" "}
@@ -83,62 +83,70 @@ export default function Home({ initialTime }: { initialTime: string }) {
             </p>
           </div>
           <div className="space-y-4">
-            <h2 className="header-experience">Currently</h2>
-            <div className="div-experience">
-              <h3 className="">
-                <a
-                  href="https://collieraerospace.com"
-                  target="_blank"
-                  className="a-enhanced"
-                >
-                  Collier Aerospace
-                </a>
-              </h3>
-              <h4>Stress Engineer</h4>
-              <h4>Plugin Developer</h4>
-              <h5 className="date-experience">2022-Present</h5>
+            <div className="opacity-0 animate-fadeIn-delay-2">
+              <h2 className="header-experience">Currently</h2>
+              <div className="div-experience">
+                <h3 className="">
+                  <a
+                    href="https://collieraerospace.com"
+                    target="_blank"
+                    className="a-enhanced"
+                  >
+                    Collier Aerospace
+                  </a>
+                </h3>
+                <h4>Stress Engineer</h4>
+                <h4>Plugin Developer</h4>
+                <h5 className="date-experience">2022-Present</h5>
+              </div>
             </div>
-            <h2 className="header-experience">Previously</h2>
-            <div className="div-experience">
-              <h3 className="">
-                <a
-                  href="https://www.spiritaero.com"
-                  target="_blank"
-                  className="a-enhanced"
-                >
-                  Spirit Aerosystems
-                </a>
-              </h3>
-              <h4>Design Engineer Intern</h4>
-              <h5 className="date-experience">2021</h5>
+            <div className="opacity-0 animate-fadeIn-delay-3">
+              <h2 className="header-experience">Previously</h2>
+              <div className="div-experience">
+                <h3 className="">
+                  <a
+                    href="https://www.spiritaero.com"
+                    target="_blank"
+                    className="a-enhanced"
+                  >
+                    Spirit Aerosystems
+                  </a>
+                </h3>
+                <h4>Design Engineer Intern</h4>
+                <h5 className="date-experience">2021</h5>
+              </div>
             </div>
-            <div className="div-experience">
-              <h3 className="">
-                <a href="" target="_blank" className="a-enhanced">
-                  Liquid Rocketry Lab
-                </a>
-              </h3>
-              <h4>Principal Structures Engineer</h4>
-              <h5 className="date-experience">2020-2022</h5>
-              <h4>Structures Engineer</h4>
-              <h5 className="date-experience">2018-2020</h5>
+            <div className="opacity-0 animate-fadeIn-delay-4">
+              <div className="div-experience">
+                <h3 className="">
+                  <a href="" target="_blank" className="a-enhanced">
+                    Liquid Rocketry Lab
+                  </a>
+                </h3>
+                <h4>Principal Structures Engineer</h4>
+                <h5 className="date-experience">2020-2022</h5>
+                <h4>Structures Engineer</h4>
+                <h5 className="date-experience">2018-2020</h5>
+              </div>
             </div>
-            <h2 className="header-experience">Education</h2>
-            <div className="div-experience">
-              <h3>
-                <a
-                  href="https://mae.ncsu.edu/"
-                  target="_blank"
-                  className="a-enhanced"
-                >
-                  North Carolina State University
-                </a>
-              </h3>
-              <h4></h4>
-              <h5 className="date-experience">2018-2022</h5>
-              <h4>B.S. Aerospace Engineering</h4>
-              <h4>Computer Programming Minor</h4>
-              <h4>AIAA President</h4>
+            <div className="opacity-0 animate-fadeIn-delay-5">
+              <h2 className="header-experience">Education</h2>
+              <div className="div-experience">
+                <h3>
+                  <a
+                    href="https://mae.ncsu.edu/"
+                    target="_blank"
+                    className="a-enhanced"
+                  >
+                    North Carolina State University
+                  </a>
+                </h3>
+                <h4></h4>
+                <h5 className="date-experience">2018-2022</h5>
+                <h4>B.S. Aerospace Engineering</h4>
+                <h4>Computer Programming Minor</h4>
+                <h4>AIAA President</h4>
+              </div>
             </div>
           </div>
         </div>

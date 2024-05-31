@@ -2,98 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-experience {
-  @apply text-sm tracking-wider uppercase leading-5 font-semibold pt-4;
-}
-
-.date-experience {
-  @apply text-xs tracking-wider leading-5 uppercase font-medium py-1;
-}
-
-.div-experience {
-  @apply space-y-1.5;
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
+@layer components {
+  .header-experience {
+    @apply text-sm tracking-wider uppercase leading-5 font-semibold pt-4;
   }
 
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
+  .date-experience {
+    @apply text-xs tracking-wider leading-5 uppercase font-medium py-1;
   }
 
-  100% {
-    opacity: 1;
+  .div-experience {
+    @apply space-y-1.5;
   }
-}
 
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
+  a.a-enhanced {
+    @apply font-semibold;
+    display: inline;
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+  }
 
-/* Add delayed effect to landing page */
-.fadeIn.one {
-  -webkit-animation-delay: 0.75s;
-  -moz-animation-delay: 0.75s;
-  animation-delay: 0.75s;
-}
+  a.a-enhanced:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: -3px;
+    background: #8a898c;
+    height: 1.5px;
+    transition-property: left right;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+  }
 
-.fadeIn.two {
-  -webkit-animation-delay: 0.9s;
-  -moz-animation-delay: 0.9s;
-  animation-delay: 0.9s;
-}
-
-.fadeIn.three {
-  -webkit-animation-delay: 1.05s;
-  -moz-animation-delay: 1.05s;
-  animation-delay: 1.05s;
-}
-
-.fadeIn.four {
-  -webkit-animation-delay: 0.65s;
-  -moz-animation-delay: 0.65s;
-  animation-delay: 0.65s;
-}
-
-.fadeIn.five {
-  -webkit-animation-delay: 1.65s;
-  -moz-animation-delay: 1.65s;
-  animation-delay: 1.65s;
-}
-
-a.a-enhanced {
-  @apply font-semibold;
-  display: inline;
-  position: relative;
-  overflow: hidden;
-  width: 40px;
-}
-
-a.a-enhanced:after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 0;
-  right: 100%;
-  bottom: -3px;
-  background: #8a898c;
-  height: 1.5px;
-  transition-property: left right;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-out;
-}
-
-a.a-enhanced:hover:after,
-a.a-enhanced:focus:after,
-a.a-enhanced:active:after {
-  right: 0;
+  a.a-enhanced:hover:after,
+  a.a-enhanced:focus:after,
+  a.a-enhanced:active:after {
+    right: 0;
+  }
 }

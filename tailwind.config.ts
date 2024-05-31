@@ -6,6 +6,24 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  theme: {
+    extend: {
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 1s ease-in-out forwards",
+        "fadeIn-delay-1": "fadeIn 1s ease-in-out 0.75s forwards",
+        "fadeIn-delay-2": "fadeIn 1s ease-in-out 0.9s forwards",
+        "fadeIn-delay-3": "fadeIn 1s ease-in-out 1.05s forwards",
+        "fadeIn-delay-4": "fadeIn 1s ease-in-out 0.65s forwards",
+        "fadeIn-delay-5": "fadeIn 1s ease-in-out 1.65s forwards",
+      },
+    },
+  },
   plugins: [require("daisyui")],
   daisyui: {
     themes: ["dark", "light"],
