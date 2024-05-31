@@ -43,14 +43,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${RobotoFlex.className} font-light`}>
-        <header className="navbar bg-neutral text-neutral-content">
+        <header className="navbar bg-base-200 px-4">
           <div className="navbar-start">
             <a href="/" className="btn btn-ghost text-xl">
               Brian Alonso
             </a>
           </div>
           <div className="navbar-center hidden md:flex">
-            <NavMenu className="menu menu-horizontal px-1" />
+            <NavMenu className="menu menu-horizontal bg-base-200 px-1" />
           </div>
           <div className="flex-shrink md:navbar-end">
             <label className="swap swap-rotate">
@@ -102,7 +102,7 @@ export default function RootLayout({
                         />
                       </svg>
                     </summary>
-                    <NavMenu className="dropdown-content mt-3 z-[1] p-2 shadow bg-neutral text-neutral-content rounded-box absolute right-0" />
+                    <NavMenu className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box absolute right-0" />
                   </details>
                 </li>
               </ul>
