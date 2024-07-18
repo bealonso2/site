@@ -1,9 +1,36 @@
 "use server";
 
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { writeFile, unlink } from "fs/promises";
 import sqlite3 from "sqlite3";
 sqlite3.verbose();
 
 const getQuery = async (query: string): Promise<any> => {
+  const s3Client = new S3Client([
+    {
+      region: "us-east-1",
+      credentials: {
+        accessKeyId: process.env.AWS_KEY,
+        secretAccessKey: process.env.AWS_SECRET,
+      },
+    },
+  ]);
+
+  const bucketName = "pl-prediction";
+  const key = "2024/data.db";
+  const command = new GetObjectCommand({ Bucket: bucketName, Key: key });
+  const response = await s3Client.send(command);
+  const s3Db = response.Body;
+
+  if (!s3Db) {
+    console.error("Error fetching database from S3");
+    return;
+  }
+
+  // Write the database to a file
+  // @ts-ignore
+  await writeFile("data.db", s3Db);
+
   const db = new sqlite3.Database("./data.db");
 
   const promise = new Promise((resolve, reject) => {
@@ -19,8 +46,19 @@ const getQuery = async (query: string): Promise<any> => {
     });
   });
 
-  // Close the database connection and return the promise
-  db.close();
+  // Close the database connection
+  db.close((err) => {
+    if (err) {
+      console.error("Error closing the database", err.message);
+      return;
+    }
+
+    // Delete the database file after the connection is closed
+    unlink("./data.db").catch((error) =>
+      console.error("Error deleting database file", error)
+    );
+  });
+
   return promise;
 };
 
