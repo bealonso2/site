@@ -1,86 +1,70 @@
-"use client";
+import FootballContainer from "@/components/FootballContainer";
+import {
+  getAverageFinishData,
+  getPositionData,
+  getSimulationsData,
+} from "@/lib/football/data";
 
-import { getAveragePositions } from "@/lib/football/data";
-import { useEffect, useState } from "react";
+// Force the page to never revalidate
+export const revalidate = false;
 
-const seasons = {
-  "2023/24": 2023,
-};
+export default async function Football() {
+  const avgFinishData = await getAverageFinishData();
+  const positionData = await getPositionData();
+  const simulationData = await getSimulationsData();
 
-const dates = [new Date()];
+  // Organize the data by season and date
+  var seasonToDatesMap: any = {};
 
-function ProbabilityTableData(data: number) {
-  return <td>{data < 0.01 ? "<0.1%" : `${(data * 100).toFixed(0)}%`}</td>;
-}
+  simulationData.forEach((result: any) => {
+    // Ensure the season key exists
+    if (!seasonToDatesMap[result.season]) {
+      seasonToDatesMap[result.season] = {};
+    }
 
-export default function Football() {
-  var [data, setData] = useState<any[]>([]);
-  // Get average positions on component mount
-  useEffect(() => {
-    getAveragePositions().then((results) => {
-      console.log(results);
-      setData(results);
+    // Map date to uuid
+    seasonToDatesMap[result.season][result.date] = result.uuid;
+  });
+
+  // Organize avgFinishData by simulation_uuid
+  var avgFinishDataMap: any = {};
+
+  avgFinishData.forEach((result: any) => {
+    avgFinishDataMap[result.simulation_uuid] =
+      avgFinishDataMap[result.simulation_uuid] || [];
+    avgFinishDataMap[result.simulation_uuid].push({
+      team: result.team,
+      place: result.place,
+      bottom_3: result.bottom_3,
+      top_4: result.top_4,
+      win_premier_league: result.win_premier_league,
     });
-  }, []);
+  });
+
+  // Organize positionData by simulation_uuid
+  var positionDataMap: any = {};
+
+  positionData.forEach((result: any) => {
+    // Ensure simulation_uuid exists
+    if (!positionDataMap[result.simulation_uuid]) {
+      positionDataMap[result.simulation_uuid] = {};
+    }
+
+    // Ensure team exists within simulation_uuid
+    if (!positionDataMap[result.simulation_uuid][result.team]) {
+      positionDataMap[result.simulation_uuid][result.team] = {};
+    }
+
+    // Assign position to count within team
+    positionDataMap[result.simulation_uuid][result.team][result.position] =
+      result.count;
+  });
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
-      <div>
-        <h1 className="text-3xl font-semibold">Premier League Prediction</h1>
-
-        <div className="overflow-x-auto py-5">
-          <table className="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Team</th>
-                <th>Avg. Place</th>
-                <th>Finish Bottom 3</th>
-                <th>Finish Top 4</th>
-                <th>Win Premier League</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row, i) => (
-                <tr key={i} className="hover">
-                  <th>{i + 1}</th>
-                  <td>{row.team}</td>
-                  <td>{row.place}</td>
-                  {ProbabilityTableData(row.bottom_3)}
-                  {ProbabilityTableData(row.top_4)}
-                  {ProbabilityTableData(row.win_premier_league)}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Dropdown to toggle between seasons */}
-        <div className="flex justify-evenly">
-          <label className="mr-2">
-            Forecast from
-            <select className="ml-2">
-              {dates.map((date, i) => (
-                <option key={i} value={date.toLocaleDateString()}>
-                  {date.toLocaleDateString() === new Date().toLocaleDateString()
-                    ? "Today"
-                    : date.toLocaleDateString()}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Season
-            <select className="ml-2">
-              {Object.keys(seasons).map((season) => (
-                <option key={season} value={season}>
-                  {season}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </div>
-    </div>
+    <FootballContainer
+      avgFinishData={avgFinishDataMap}
+      positionData={positionDataMap}
+      seasonToDates={seasonToDatesMap}
+    />
   );
 }
