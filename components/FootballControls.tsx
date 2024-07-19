@@ -30,10 +30,12 @@ export default function TableControls({
           {dates.map((date, i) => {
             return (
               <option key={i} value={date}>
-                {new Date(date).toLocaleDateString() ===
-                new Date().toLocaleDateString()
-                  ? "Today"
-                  : new Date(date).toLocaleDateString()}
+                {
+                  /* Get todays date in YYYY-MM-DD format */
+                  new Date().toISOString().split("T")[0] === date
+                    ? "Today"
+                    : date
+                }
               </option>
             );
           })}

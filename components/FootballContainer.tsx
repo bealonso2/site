@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableControls from "./FootballControls";
 import FootballTable from "./FootballTable";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function FootballContainer({
   avgFinishData,
@@ -35,12 +36,22 @@ export default function FootballContainer({
   const [positionDataState, setPositionDataState] = useState<any>(
     positionData[simulationUUID]
   );
+  // Use the search params to determine the active view
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    var seasonParam = searchParams.get("season");
+    seasonParam && setSeasonAndDates(seasonParam);
+    var dateParam = searchParams.get("forecast");
+    dateParam && setDateAndUUID(dateParam);
+  }, [searchParams]);
 
   // Update the season (state) and dates list (state) when the season changes
   const setSeasonAndDates = (newSeason: any) => {
     // Get the dates from the season
     const datesAndUUIDs = seasonToDates[newSeason];
     if (!datesAndUUIDs) {
+      console.log("No dates found for season: ", newSeason);
       return;
     }
 
@@ -57,6 +68,7 @@ export default function FootballContainer({
   const setDateAndUUID = (date: string) => {
     const uuid = seasonToDates[season][date];
     if (!uuid) {
+      console.log("No simulation found for date: ", date);
       return;
     }
     setDate(date);

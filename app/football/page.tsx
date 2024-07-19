@@ -22,6 +22,9 @@ export default async function Football() {
       seasonToDatesMap[result.season] = {};
     }
 
+    // Trim the date to just the date
+    result.date = result.date.split(" ")[0];
+
     // Map date to uuid
     seasonToDatesMap[result.season][result.date] = result.uuid;
   });
