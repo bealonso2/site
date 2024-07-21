@@ -266,40 +266,6 @@ var each_hour = {};
 //     }
 //   });
 
-//   // Function for share button
-//   $("#share").on("click", function () {
-//     // see if the user has calculated their life expectancy
-//     if ($("#timeRemaining").text() == "") {
-//       alert("Please calculate your life expectancy first.");
-//     } else {
-//       // Determine if 24 hour time is being used
-//       let timeFormat24Hours = Boolean($(".24hrs").is(":visible"));
-//       // Assemble the tweet text
-//       let tweetText = `If my life were only a 24-hour day, it would be ${
-//         timeFormat24Hours
-//           ? time.hours.toString().padStart(2, "0")
-//           : time.hours <= 12
-//           ? time.hours == 0
-//             ? 12
-//             : time.hours
-//           : key - 12
-//       }:${time.minutes.toString().padStart(2, "0")}:${time.seconds
-//         .toString()
-//         .padStart(2, "0")}${
-//         timeFormat24Hours ? "" : time.hours < 12 ? " AM" : " PM"
-//       }. Calculate yours at https://www.donotwasteyourlife.com/.`;
-//       // Hashtags
-//       let hashtags = ["my24hourlife"];
-
-//       // Open the tweet in a new tab
-//       // TODO why do I have to use www for my domain?
-//       let tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-//         tweetText
-//       )}&hashtags=${encodeURIComponent(hashtags.join(","))}`;
-//       window.open(tweetUrl, "_blank");
-//     }
-//   });
-
 //   // Function for events + button
 //   $("#addEvent").on("click", function (event) {
 //     // Enable the submit button
@@ -400,6 +366,51 @@ var each_hour = {};
 //       }
 //     );
 //   });
+
+function ShareButton({
+  is24HourTime,
+  time,
+}: {
+  is24HourTime: boolean;
+  time: Time;
+}) {
+  // Function for share button
+  const shareFunction = () => {
+    const hourText = is24HourTime
+      ? time.hours.toString().padStart(2, "0")
+      : time.hours <= 12
+      ? time.hours === 0
+        ? 12
+        : time.hours
+      : time.hours - 12;
+    const minuteText = time.minutes.toString().padStart(2, "0");
+    const secondText = time.seconds.toString().padStart(2, "0");
+    const amPmText = is24HourTime ? "" : time.hours < 12 ? " AM" : " PM";
+
+    // Assemble the tweet text
+    const tweetText = `If my life were only a 24-hour day, it would be ${hourText}:${minuteText}:${secondText}${amPmText}. Calculate yours at https://balonso.com/dnwyl.`;
+
+    // Hashtags
+    const hashtags = ["myLifeIn24Hours"];
+
+    // Open the tweet in a new tab
+    let tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      tweetText
+    )}&hashtags=${encodeURIComponent(hashtags.join(","))}`;
+    window.open(tweetUrl, "_blank");
+  };
+
+  return (
+    <button
+      id="share"
+      type="button"
+      className="btn btn-primary-content w-full sm:w-auto"
+      onClick={shareFunction}
+    >
+      Share on X
+    </button>
+  );
+}
 
 export default function DNWYLContainer({
   countries,
@@ -587,7 +598,7 @@ export default function DNWYLContainer({
               </ul>
               <div className="significantEventsContainer"></div>
             </div>
-            <div className="my-10">
+            <div className="my-10 space-y-5">
               {/*  Button to toggle between 12 and 24 hour time  */}
               <div className="form-control">
                 <label className="label cursor-pointer flex flex-row justify-center gap-4">
@@ -601,15 +612,7 @@ export default function DNWYLContainer({
                   <span className="label-text">12 Hour Time</span>
                 </label>
               </div>
-              {/* <div className="col-6 col-md-4 col-lg-6 col-xl-5 col-xxl-4">
-                  <button
-                    id="share"
-                    type="button"
-                    className="btn btn-dark w-100"
-                  >
-                    Tweet
-                  </button>
-                </div> */}
+              <ShareButton is24HourTime={is24HourTime} time={time} />
             </div>
           </div>
           {/* <div className="col-12 col-lg-6 align-self-center">
