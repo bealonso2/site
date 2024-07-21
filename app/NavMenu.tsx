@@ -16,7 +16,7 @@ const links = [
       },
       {
         name: "Do Not Waste Your Life",
-        url: "https://donotwasteyourlife.com",
+        url: "/dnwyl",
       },
     ],
   },
@@ -36,6 +36,9 @@ const links = [
 ];
 
 export const NavMenu = ({ className }: { className: string }) => {
+  const determineTarget = (url: string) => {
+    return url.startsWith("/") ? "_self" : "_blank";
+  };
   return (
     <ul className={className}>
       {links.map((link) => (
@@ -46,7 +49,7 @@ export const NavMenu = ({ className }: { className: string }) => {
               <ul>
                 {link.links.map((sublink) => (
                   <li key={sublink.name}>
-                    <a href={sublink.url} target="_blank">
+                    <a href={sublink.url} target={determineTarget(sublink.url)}>
                       {sublink.name}
                     </a>
                   </li>
@@ -54,7 +57,7 @@ export const NavMenu = ({ className }: { className: string }) => {
               </ul>
             </details>
           ) : (
-            <a href={link.url} target="_blank">
+            <a href={link.url} target={determineTarget(link.url)}>
               {link.name}
             </a>
           )}
