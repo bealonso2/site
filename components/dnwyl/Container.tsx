@@ -534,7 +534,18 @@ export default function DNWYLContainer({
                   <span className="label-text">12 Hour Time</span>
                 </label>
               </div>
-              <ShareButton is24HourTime={is24HourTime} time={time} />
+              <div className="space-y-3 sm:space-y-0 sm:space-x-3 sm:flex sm:justify-center">
+                <ShareButton is24HourTime={is24HourTime} time={time} />
+                <button
+                  className="btn btn-primary-content w-full sm:w-auto"
+                  onClick={
+                    // Function to alert the user that the feature is not yet implemented
+                    () => alert("This feature is coming soon.")
+                  }
+                >
+                  Export to Calendar
+                </button>
+              </div>
             </div>
           </div>
           {/* <div className="col-12 col-lg-6 align-self-center">
