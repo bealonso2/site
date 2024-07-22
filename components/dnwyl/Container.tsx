@@ -57,8 +57,6 @@ class EachHour {
     this.year = parseInt(year);
   }
 }
-// List of each hour data
-var each_hour = {};
 
 // // Function to save off calendar files
 // function createCalendarFiles() {
@@ -143,66 +141,6 @@ var each_hour = {};
 //     document.body.appendChild(link);
 //     link.click();
 //     document.body.removeChild(link);
-//   });
-// }
-
-// // Function to add tool tips for each hour of life
-// function eachHour() {
-//   // Get the each hour section
-//   let eachHourSection = $("#eachHour");
-
-//   // Find the z index of the center class
-//   let centerZIndex = Math.max(
-//     0,
-//     ...[
-//       ...Array.from($(".clock").find(".center")).map((element) =>
-//         parseInt($(element).css("z-index"))
-//       ),
-//     ].filter((element) => !isNaN(element))
-//   );
-
-//   let eventsZIndex = centerZIndex - 1;
-
-//   let hourToTooltip = {};
-
-//   // Loop through each hour of life
-//   Object.entries(each_hour).forEach(([key, value]) => {
-//     // Hour on clock
-//     let hour = parseInt(key % 12);
-
-//     let hourStr = `Hour ${key}: ${value.day}/${value.month}/${value.year}`;
-
-//     // If dict entry does not exist, create it
-//     if (!hourToTooltip[hour]) {
-//       hourToTooltip[hour] = [hourStr];
-//     } else {
-//       hourToTooltip[hour].push(hourStr);
-//     }
-//   });
-
-//   Object.entries(hourToTooltip).forEach(([key, value]) => {
-//     let hourLi = eachHourSection
-//       .find("li")
-//       .eq((key - 1) % 12)
-//       .find("div");
-
-//     // Create a div to hold the event name, date, and time. Display this div as a tooltip
-//     let hourTooltipDiv = $("<div>");
-
-//     // Add a class to the div
-//     hourTooltipDiv.addClass("significantEventTooltip");
-
-//     // Set the z index of the event
-//     hourTooltipDiv.css("z-index", eventsZIndex);
-
-//     // Set the text of the div
-//     hourTooltipDiv.empty();
-//     value.forEach(function (item) {
-//       hourTooltipDiv.append($("<div>").text(item));
-//     });
-
-//     // Add the event name div to the event div
-//     hourLi.append(hourTooltipDiv);
 //   });
 // }
 
@@ -427,14 +365,14 @@ export default function DNWYLContainer({
   const [is24HourTime, setIs24HourTime] = useState(false);
   const [greeting, setGreeting] = useState("");
   const [inspirationalRemark, setInspirationalRemark] = useState("");
-  const [eachHour, setEachHour] = useState({});
+  const [eachHour, setEachHour] = useState<Record<number, EachHour>>({});
 
   const formSubmitCallback = (
     birthday: any,
     lifespan: any,
     yearsRemaining: any,
     timeMessage: any,
-    eachHour: any,
+    eachHour: { [x: number]: { day: any; month: any; year: any } },
     currentTime: any
   ) => {
     // Store the remaining life data
@@ -455,8 +393,18 @@ export default function DNWYLContainer({
     setGreeting(timeMessage.greeting);
     setInspirationalRemark(timeMessage.inspirationalRemark);
 
+    // Flatten the each hour data
+    const eachHourData = Object.entries(eachHour).reduce(
+      (acc, [key, value]) => {
+        const keyInt = parseInt(key);
+        acc[keyInt] = new EachHour(keyInt, value.day, value.month, value.year);
+        return acc;
+      },
+      {} as Record<number, EachHour>
+    );
+
     // Store every hour of life
-    setEachHour(eachHour);
+    setEachHour(eachHourData);
 
     // Indicate that the form has been submitted
     setIsFormSubmitted(true);
@@ -535,66 +483,40 @@ export default function DNWYLContainer({
                 </span>
               </div>
               <ul id="eachHour">
-                <li>
-                  <div className="hourDiv">
-                    <span>1</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>2</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>3</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>4</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>5</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>6</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>7</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>8</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>9</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>10</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>11</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="hourDiv">
-                    <span>12</span>
-                  </div>
-                </li>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
+                  <li key={hour}>
+                    <div className="hourDiv">
+                      <span>{hour}</span>
+
+                      <div
+                        className="significantEventTooltip"
+                        key={hour}
+                        style={{ zIndex: 19 }}
+                      >
+                        {
+                          // Display the date for each hour.
+                          Array.from({ length: 25 }, (_, i) => i).map((i) => {
+                            if (i % 12 === hour % 12) {
+                              var value = eachHour[i];
+                              if (value) {
+                                return (
+                                  <div key={i}>
+                                    Hour {value.hour}:{" "}
+                                    {new Date(
+                                      value.year,
+                                      value.month - 1,
+                                      value.day
+                                    ).toLocaleDateString()}
+                                  </div>
+                                );
+                              }
+                            }
+                          })
+                        }
+                      </div>
+                    </div>
+                  </li>
+                ))}
               </ul>
               <div className="significantEventsContainer"></div>
             </div>
