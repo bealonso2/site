@@ -1,6 +1,7 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import BlinkingTick from "./BlinkingTick";
 import DNWYLForm from "./Form";
 
@@ -15,8 +16,6 @@ class Time {
     this.seconds = parseInt(seconds);
   }
 }
-
-var significant_events = [];
 
 class RemainingLife {
   years: number;
@@ -55,6 +54,20 @@ class EachHour {
     this.day = parseInt(day);
     this.month = parseInt(month);
     this.year = parseInt(year);
+  }
+}
+
+class SignificantEvent {
+  name: string;
+  date: string;
+  percent: number;
+  time: string;
+
+  constructor(name: string, date: string, percent: number, time: string) {
+    this.name = name;
+    this.date = date;
+    this.percent = percent;
+    this.time = time;
   }
 }
 
@@ -144,56 +157,6 @@ class EachHour {
 //   });
 // }
 
-// // Function to display significant events
-// function significantEvents() {
-//   // Get the significant events section
-//   let significantEventsSection = $(".significantEventsContainer");
-
-//   // Clear existing events
-//   significantEventsSection.empty();
-
-//   // Loop through each significant event
-//   significant_events.forEach((event) => {
-//     // Create a div to hold the event
-//     let eventDiv = $("<div>");
-
-//     // Add a class to the div
-//     eventDiv.addClass("significantEventLine");
-
-//     // Set the z index of the event
-//     eventDiv.css("z-index", 7);
-
-//     // Get the percent of the event
-//     let percent = parseFloat(event.percent) * 100;
-
-//     // Rotate the event by event.percent
-//     eventDiv.css("transform", `rotate(${percent * 3.6}deg)`);
-
-//     // Create a div to hold the event name, date, and time. Display this div as a tooltip
-//     let eventNameDiv = $("<span>");
-
-//     // Add a class to the div
-//     eventNameDiv.addClass("significantEventTooltip");
-
-//     // Un-rotate the event name div by -event.percent
-//     eventNameDiv.css("transform", `rotate(-${percent * 3.6}deg)`);
-
-//     // Set the text of the div
-//     eventNameDiv.text(
-//       `${event.name} - ${event.date
-//         .toString()
-//         .substring(0, 10)
-//         .replace(/-/g, "/")} ${event.time}`
-//     );
-
-//     // Add the event name div to the event div
-//     eventDiv.append(eventNameDiv);
-
-//     // Add the event to the DOM
-//     significantEventsSection.append(eventDiv);
-//   });
-// }
-
 //   // Function to export remaining hours to calendar
 //   $("#exportToCalendar").on("click", function () {
 //     // see if the user has calculated their life expectancy
@@ -202,107 +165,6 @@ class EachHour {
 //     } else {
 //       createCalendarFiles();
 //     }
-//   });
-
-//   // Function for events + button
-//   $("#addEvent").on("click", function (event) {
-//     // Enable the submit button
-//     $("#significantEventsForm").find("button").eq(-1).prop("disabled", false);
-//     let container = $("#significantEventsFormContainer");
-
-//     // Append a blank event at the end of the container children
-//     container.append(
-//       // Create a div to hold the event
-//       $("<div>")
-//         .addClass("significantEvent")
-//         .addClass("col")
-//         .append(
-//           // Create a div to hold the event name
-//           $("<div>").addClass("eventName").addClass("py-1").append(
-//             // Create an input for the event name
-//             $("<input>")
-//               .attr("type", "text")
-//               .attr("name", "eventName")
-//               .attr("placeholder", "Event Name")
-//           )
-//         )
-//         .append(
-//           // Create a div to hold the event date
-//           $("<div>").addClass("eventDate").addClass("py-1").append(
-//             // Create an input for the event date
-//             $("<input>").attr("type", "date").attr("name", "eventDate")
-//           )
-//         )
-//     );
-
-//     // Cancel the default action of the button
-//     event.preventDefault();
-//   });
-
-//   // Function for events submit button
-//   $("#significantEventsForm").on("submit", function (event) {
-//     // Prevent the default action of the form
-//     event.preventDefault();
-
-//     // Get the form
-//     let form = $(this).find("form");
-
-//     // Get the form data
-//     let formData = form.serializeArray();
-
-//     // Get form data into pairs of eventName and eventDate
-//     let eventPairs = [];
-//     for (let i = 0; i < formData.length; i += 2) {
-//       // Skip empty event names and dates
-//       if (formData[i].value == "" || isNaN(Date.parse(formData[i + 1].value))) {
-//         continue;
-//       }
-//       eventPairs.push({
-//         name: formData[i].value,
-//         date: formData[i + 1].value,
-//       });
-//     }
-
-//     if (eventPairs.length == 0) {
-//       alert(
-//         "Please enter at least one event name and date. To calculate significant events."
-//       );
-//       return;
-//     }
-
-//     // Make a request to the server to get the event times
-//     $.ajax({
-//       url: `${url}/significant_events`,
-//       method: "POST",
-//       dataType: "json",
-//       data: JSON.stringify({
-//         birthday: {
-//           year: remaining_life.birthday.year,
-//           month: remaining_life.birthday.month,
-//           day: remaining_life.birthday.day,
-//         },
-//         years_at_death: remaining_life.lifespan,
-//         events: eventPairs,
-//       }),
-//       dataType: "json",
-//     }).then(
-//       function (data) {
-//         // Set the significant events
-//         significant_events = data.events;
-
-//         // Display the significant events
-//         significantEvents();
-
-//         // Finally, remove the significant events section
-//         $(this).hide();
-//       },
-//       function (jqXHR, textStatus, errorThrown) {
-//         console.log(jqXHR, textStatus, errorThrown);
-//         alert(
-//           "There was an error getting the significant events. Please try again later."
-//         );
-//       }
-//     );
 //   });
 
 function ShareButton({
@@ -350,22 +212,72 @@ function ShareButton({
   );
 }
 
+function SignificantEventDiv({
+  removeFunction,
+  calculateAndSet,
+}: {
+  removeFunction: any;
+  calculateAndSet: any;
+}) {
+  const [eventName, setEventName] = useState("");
+  const [eventDate, setEventDate] = useState("");
+
+  useEffect(() => {
+    calculateAndSet(eventName, eventDate);
+  }, [eventName, eventDate]);
+
+  return (
+    <div className="flex flex-col gap-2 items-center justify-center">
+      <input
+        className="py-1 max-w-xs w-full"
+        type="text"
+        name="eventName"
+        placeholder="Event Name"
+        autoComplete="off"
+        value={eventName}
+        onChange={(e) => setEventName(e.target.value)}
+      />
+      <input
+        className="py-1 max-w-xs w-full"
+        type="date"
+        name="eventDate"
+        autoComplete="off"
+        value={eventDate}
+        onChange={(e) => setEventDate(e.target.value)}
+      />
+      <button
+        className="btn btn-sm btn-primary-content py-1 max-w-xs w-full"
+        type="button"
+        onClick={removeFunction}
+      >
+        Remove
+      </button>
+    </div>
+  );
+}
+
 export default function DNWYLContainer({
   countries,
   postLifeIsTimeData,
+  calculateSignificantEvent,
 }: {
   countries: string[];
   postLifeIsTimeData: any;
+  calculateSignificantEvent: any;
 }) {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [time, setTime] = useState(new Time(0, 0, 0));
-  const [remaining_life, setRemainingLife] = useState(
+  const [remainingLife, setRemainingLife] = useState(
     new RemainingLife(0, 0, 0, 0, 0)
   );
   const [is24HourTime, setIs24HourTime] = useState(false);
   const [greeting, setGreeting] = useState("");
   const [inspirationalRemark, setInspirationalRemark] = useState("");
   const [eachHour, setEachHour] = useState<Record<number, EachHour>>({});
+  const [significantEvents, setSignificantEvents] = useState<string[]>([]);
+  const [significantEventsData, setSignificantEventsData] = useState<
+    Map<string, SignificantEvent>
+  >(new Map());
 
   const formSubmitCallback = (
     birthday: any,
@@ -410,6 +322,52 @@ export default function DNWYLContainer({
     setIsFormSubmitted(true);
   };
 
+  const handleSignificantEventDelete = (uuid: string) => {
+    setSignificantEvents(significantEvents.filter((i) => i !== uuid));
+    significantEventsData.delete(uuid);
+    setSignificantEventsData(significantEventsData);
+  };
+
+  const calculateAndSetSignificantEvents = async (
+    uuid: string,
+    eventName: string,
+    eventDate: string
+  ) => {
+    if (eventName === "" || isNaN(Date.parse(eventDate))) {
+      return;
+    }
+    try {
+      const data = await calculateSignificantEvent(
+        {
+          birthday: {
+            year: remainingLife.birthday.year,
+            month: remainingLife.birthday.month,
+            day: remainingLife.birthday.day,
+          },
+          lifespan: remainingLife.lifespan,
+        },
+        eventName,
+        eventDate
+      );
+      const firstEvent = data.events[0];
+      setSignificantEventsData((prevMap) => {
+        const newMap = new Map(prevMap); // Create a shallow copy of the previous Map
+        newMap.set(
+          uuid,
+          new SignificantEvent(
+            firstEvent.name,
+            firstEvent.date,
+            firstEvent.percent,
+            firstEvent.time
+          )
+        );
+        return newMap; // Return the new Map to update the state
+      });
+    } catch (error) {
+      console.error("Error fetching significant event data:", error);
+    }
+  };
+
   return (
     <>
       <DNWYLForm
@@ -426,8 +384,8 @@ export default function DNWYLContainer({
           {/*  Kind of want to consider moving this down under the clock at some point  */}
           <div className="my-2">
             <h3 id="timeRemaining" className="font-medium text-xl">
-              You have {Math.floor(remaining_life.years)} years left of your
-              estimated {Math.ceil(remaining_life.lifespan)} year life.
+              You have {Math.floor(remainingLife.years)} years left of your
+              estimated {Math.ceil(remainingLife.lifespan)} year life.
             </h3>
             <div>
               <p>{inspirationalRemark}</p>
@@ -518,7 +476,30 @@ export default function DNWYLContainer({
                   </li>
                 ))}
               </ul>
-              <div className="significantEventsContainer"></div>
+              <div className="significantEventsContainer">
+                {Array.from(significantEventsData.entries()).map(
+                  ([index, event]) => (
+                    <div
+                      key={index}
+                      className="significantEventLine"
+                      style={{
+                        zIndex: 7,
+                        transform: `rotate(${event.percent * 360 * 2}deg)`,
+                      }}
+                    >
+                      <span
+                        className="significantEventTooltip"
+                        style={{
+                          transform: `rotate(-${event.percent * 360 * 2}deg)`,
+                        }}
+                      >
+                        {event.name}:{" "}
+                        {new Date(event.date).toLocaleDateString()} {event.time}
+                      </span>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
             <div className="my-10 space-y-5">
               {/*  Button to toggle between 12 and 24 hour time  */}
@@ -548,53 +529,52 @@ export default function DNWYLContainer({
               </div>
             </div>
           </div>
-          {/* <div className="col-12 col-lg-6 align-self-center">
-              <div className="text-justify">
-                <div className="row">
-                  <div
-                    id="significantEventsForm"
-                    className="col align-self-center"
-                  >
-                    <h4>What are some significant events in your life?</h4>
-                    <p>
-                      Enter some events that you want to visualize on your 24 hour
-                      life. These will be displayed on the clock.
-                    </p>
-                    <form>
-                      <div
-                        id="significantEventsFormContainer"
-                        className="row"
-                      ></div>
-                      <button
-                        type="button"
-                        id="addEvent"
-                        className="btn btn-dark my-2"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-plus-circle"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                        </svg>
-                      </button>
-                      <button
-                        id="submitEvents"
-                        type="submit"
-                        className="btn btn-dark my-2"
-                        disabled
-                      >
-                        Submit
-                      </button>
-                    </form>
-                  </div>
-                </div>
+          <div id="significantEventsForm" className="space-y-4">
+            <h4 className="text-lg font-semibold">
+              What are some significant events in your life?
+            </h4>
+            <p className="">
+              Enter some events that you want to visualize on your 24 hour life.
+              These will be displayed on the clock.
+            </p>
+            <form className="flex flex-col items-center">
+              <div
+                id="significantEventsFormContainer"
+                className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
+              >
+                {significantEvents.map((i) => (
+                  <SignificantEventDiv
+                    key={i}
+                    removeFunction={() => handleSignificantEventDelete(i)}
+                    calculateAndSet={(eventName: string, eventDate: string) =>
+                      calculateAndSetSignificantEvents(i, eventName, eventDate)
+                    }
+                  />
+                ))}
               </div>
-            </div> */}
+              <button
+                type="button"
+                id="addEvent"
+                className="btn btn-primary-content my-3 max-w-xs w-full"
+                onClick={() => {
+                  setSignificantEvents([...significantEvents, uuidv4()]);
+                }}
+              >
+                Add Event{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-plus-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+                </svg>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </>

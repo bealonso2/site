@@ -28,9 +28,6 @@ export default function DNWYLForm({
   // Function to handle form submission
   const formFunction = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // formSubmitCallback();
-
-    console.log(birthDate, sex, location);
 
     const birthday = {
       year: parseInt(birthDate.substring(0, 4)),
@@ -73,7 +70,6 @@ export default function DNWYLForm({
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
   return (
     <form className={`text-center my-3 ${className}`} onSubmit={formFunction}>
-      {/*  */}
       <div className="mb-5 flex flex-col items-center md:flex-row gap-4 w-full">
         <label className="form-control w-full max-w-xs">
           <div className="label">

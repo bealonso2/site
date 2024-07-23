@@ -39,6 +39,33 @@ async function postLifeIsTimeData(birthday: any, sex: string, country: string) {
   return response.json();
 }
 
+async function calculateSignificantEvent(
+  remainingLife: {
+    birthday: { year: number; month: number; day: number };
+    lifespan: number;
+  },
+  eventName: string,
+  eventDate: string
+) {
+  "use server";
+  const response = await fetch(`${url}/significant_events`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      birthday: {
+        year: remainingLife.birthday.year,
+        month: remainingLife.birthday.month,
+        day: remainingLife.birthday.day,
+      },
+      years_at_death: remainingLife.lifespan,
+      events: [{ name: eventName, date: eventDate }],
+    }),
+  });
+  return await response.json();
+}
+
 export default async function Page() {
   const countries = await populateLocationDropdown();
 
@@ -74,6 +101,7 @@ export default async function Page() {
         <DNWYLContainer
           countries={countries}
           postLifeIsTimeData={postLifeIsTimeData}
+          calculateSignificantEvent={calculateSignificantEvent}
         />
       </div>
     </div>
