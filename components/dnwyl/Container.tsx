@@ -72,20 +72,10 @@ class SignificantEvent {
 }
 
 // // Function to save off calendar files
-// function createCalendarFiles() {
-//   // Try to get the user's timezone
-//   if (
-//     typeof Intl === "undefined" ||
-//     typeof Intl.DateTimeFormat === "undefined"
-//   ) {
-//     timezone = "America/New_York"; // fallback timezone
-//   } else {
-//     timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-//   }
-
-//   // See if user is using 24 hour time
-//   let timeFormat24Hours = Boolean($(".24hrs").is(":visible"));
-
+// function createCalendarFiles(
+//   each_hour: Record<number, EachHour>,
+//   timeFormat24Hours: boolean
+// ) {
 //   Object.entries(each_hour).forEach(([key, value]) => {
 //     // Create a date from value.year, value.month, value.day
 //     let date = new Date(value.year, value.month - 1, value.day, 0, 0, 0, 0);
@@ -95,10 +85,16 @@ class SignificantEvent {
 //       return;
 //     }
 
-//     timeStr = "";
+//     // Get the hour from the key
+//     const hour = parseInt(key);
+
+//     // Create a string for the time
+//     var timeStr = "";
+
+//     // Populate the time string based on the time format
 //     if (timeFormat24Hours) {
-//       if (key >= 24) {
-//         timeStr += (key - 24).toString().padStart(2, "0");
+//       if (hour == 24) {
+//         timeStr += (hour - 24).toString().padStart(2, "0");
 //         timeStr += ":00";
 //         timeStr += " + 1";
 //       } else {
@@ -106,17 +102,17 @@ class SignificantEvent {
 //         timeStr += ":00";
 //       }
 //     } else {
-//       if (key == 0 || key == 24 || key == 12) {
+//       if (hour == 0 || hour == 24 || hour == 12) {
 //         timeStr += "12";
-//       } else if (key > 12 && key < 24) {
-//         timeStr += (key - 12).toString();
+//       } else if (hour > 12 && hour < 24) {
+//         timeStr += (hour - 12).toString();
 //       } else {
 //         timeStr += key.toString();
 //       }
 //       timeStr += ":00";
-//       if (key < 12) {
+//       if (hour < 12) {
 //         timeStr += " AM";
-//       } else if (key < 24) {
+//       } else if (hour < 24) {
 //         timeStr += " PM";
 //       } else {
 //         timeStr += " AM + 1";
@@ -130,20 +126,26 @@ class SignificantEvent {
 //     endDate.setSeconds(59);
 
 //     const data = `BEGIN:VCALENDAR
-//   VERSION:2.0
-//   PRODID:-//www.donotwasteyourlife.com//NONSGML v1.0//EN
-//   BEGIN:VEVENT
-//   UID:hour_${key}.ics
-//   DTSTAMP:${new Date()
-//     .toISOString()
-//     .replace(/[-:]/g, "")
-//     .replace(/\.\d\d\d/g, "")}Z
-//   DTSTART;VALUE=DATE:${date.toISOString().substring(0, 10)}
-//   DTEND;VALUE=DATE:${endDate.toISOString().substring(0, 10)}
-//   SUMMARY:${timeStr} of my 24 hour day
-//   DESCRIPTION:If my life were a 24 hour day, it would be ${timeStr}
-//   END:VEVENT
-//   END:VCALENDAR`;
+//     VERSION:2.0
+//     PRODID:-//balonso.com/dnwyl//NONSGML v1.0//EN
+//     BEGIN:VEVENT
+//     UID:hour_${key}
+//     DTSTAMP:${new Date()
+//       .toISOString()
+//       .replace(/[-:]/g, "")
+//       .replace(/\.\d\d\d/g, "")}Z
+//     DTSTART;VALUE=DATE:${date.toISOString().substring(0, 10).replace(/-/g, "")}
+//     DTEND;VALUE=DATE:${endDate.toISOString().substring(0, 10).replace(/-/g, "")}
+//     SUMMARY:${timeStr
+//       .replace(/,/g, "\\,")
+//       .replace(/;/g, "\\;")
+//       .replace(/\\/g, "\\\\")} of my 24 hour day
+//     DESCRIPTION:If my life were a 24 hour day, it would be ${timeStr
+//       .replace(/,/g, "\\,")
+//       .replace(/;/g, "\\;")
+//       .replace(/\\/g, "\\\\")}
+//     END:VEVENT
+//     END:VCALENDAR`;
 
 //     const blob = new Blob([data], { type: "text/calendar" });
 //     const url = URL.createObjectURL(blob);
@@ -154,18 +156,9 @@ class SignificantEvent {
 //     document.body.appendChild(link);
 //     link.click();
 //     document.body.removeChild(link);
+//     URL.revokeObjectURL(url);
 //   });
 // }
-
-//   // Function to export remaining hours to calendar
-//   $("#exportToCalendar").on("click", function () {
-//     // see if the user has calculated their life expectancy
-//     if ($("#timeRemaining").text() == "") {
-//       alert("Please calculate your life expectancy first.");
-//     } else {
-//       createCalendarFiles();
-//     }
-//   });
 
 function ShareButton({
   is24HourTime,
