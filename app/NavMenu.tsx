@@ -11,6 +11,10 @@ const links = [
     name: "Projects",
     links: [
       {
+        name: "Premier League Prediction",
+        url: "/football",
+      },
+      {
         name: "Random Footballer",
         url: "https://randomfootballer.com",
       },
