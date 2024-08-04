@@ -84,7 +84,15 @@ function PositionsHistogram({
   );
 }
 
-function TeamEntry({ team, crest }: { team: string; crest: string }) {
+function TeamEntry({
+  team,
+  crest,
+  points,
+}: {
+  team: string;
+  crest: string;
+  points: number;
+}) {
   return (
     <div className="flex items-center">
       <Image
@@ -94,7 +102,8 @@ function TeamEntry({ team, crest }: { team: string; crest: string }) {
         height={32}
         className="w-8 h-8 mr-2"
       />
-      <span>{team}</span>
+      <span className="mr-2">{team}</span>
+      <span>{points} pts.</span>
     </div>
   );
 }
@@ -102,10 +111,12 @@ function TeamEntry({ team, crest }: { team: string; crest: string }) {
 export default function FootballTable({
   avgFinishData,
   positionData,
+  currentPoints,
   teamToCrest,
 }: {
   avgFinishData: any[];
   positionData: { [key: string]: { [key: string]: number } };
+  currentPoints: { [key: string]: number };
   teamToCrest: { [key: string]: string };
 }) {
   // Determine the total count of all positions for the first team
@@ -151,7 +162,11 @@ export default function FootballTable({
           <tr key={i} className="hover">
             <th>{i + 1}</th>
             <td>
-              <TeamEntry team={row.team} crest={teamToCrest[row.team]} />
+              <TeamEntry
+                team={row.team}
+                crest={teamToCrest[row.team]}
+                points={currentPoints[row.team]}
+              />
             </td>
             <td>{row.place}</td>
             <td className="hidden md:table-cell">

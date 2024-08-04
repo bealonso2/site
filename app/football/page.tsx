@@ -3,6 +3,7 @@ import {
   getAverageFinishData,
   getPositionData,
   getSimulationsData,
+  getCurrentPoints,
   getCrests,
 } from "@/lib/football/data";
 
@@ -13,6 +14,7 @@ export default async function Football() {
   const avgFinishData = await getAverageFinishData();
   const positionData = await getPositionData();
   const simulationData = await getSimulationsData();
+  const currentPoints = await getCurrentPoints();
   const crests = await getCrests();
 
   // Organize the data by season and date
@@ -65,6 +67,17 @@ export default async function Football() {
       result.count;
   });
 
+  // Organize current points by simulation_uuid
+  var currentPointsMap: any = {};
+
+  currentPoints.forEach((result: any) => {
+    currentPointsMap[result.simulation_uuid] =
+      currentPointsMap[result.simulation_uuid] || {};
+
+    // Update the points for the team
+    currentPointsMap[result.simulation_uuid][result.team] = result.points;
+  });
+
   // Organize crests by team
   var crestsMap: any = {};
 
@@ -76,6 +89,7 @@ export default async function Football() {
     <FootballContainer
       avgFinishData={avgFinishDataMap}
       positionData={positionDataMap}
+      currentPoints={currentPointsMap}
       seasonToDates={seasonToDatesMap}
       teamToCrest={crestsMap}
     />

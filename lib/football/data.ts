@@ -80,6 +80,15 @@ export const getAverageFinishData = async (): Promise<any> => {
   `);
 };
 
+export const getCurrentPoints = async (): Promise<any> => {
+  return getQuery(`
+    SELECT * FROM team_to_points
+    JOIN simulations
+      ON team_to_points.simulation_uuid = simulations.uuid
+    ORDER BY id DESC, points DESC;
+  `);
+};
+
 export const getSimulationsData = async (): Promise<any> => {
   return getQuery(`
     SELECT * FROM simulations

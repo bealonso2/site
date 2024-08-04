@@ -8,11 +8,13 @@ import { usePathname, useSearchParams } from "next/navigation";
 export default function FootballContainer({
   avgFinishData,
   positionData,
+  currentPoints,
   seasonToDates,
   teamToCrest,
 }: {
   avgFinishData: any;
   positionData: any;
+  currentPoints: any;
   seasonToDates: any;
   teamToCrest: any;
 }) {
@@ -40,6 +42,9 @@ export default function FootballContainer({
   const [positionDataState, setPositionDataState] = useState<any>(
     positionData[simulationUUID]
   );
+  const [currentPointsState, setCurrentPointsState] = useState<any>(
+    currentPoints[simulationUUID]
+  );
   // Use the search params to determine the active view
   const searchParams = useSearchParams();
 
@@ -49,6 +54,10 @@ export default function FootballContainer({
     var dateParam = searchParams.get("forecast");
     dateParam && setDateAndUUID(dateParam);
   }, [searchParams]);
+
+  useEffect(() => {
+    console.log(currentPointsState);
+  }, [currentPointsState]);
 
   // Update the season (state) and dates list (state) when the season changes
   const setSeasonAndDates = (newSeason: any) => {
@@ -84,6 +93,7 @@ export default function FootballContainer({
     setSimulationUUID(uuid);
     setAvgFinishDataState(avgFinishData[uuid]);
     setPositionDataState(positionData[uuid]);
+    setCurrentPointsState(currentPoints[uuid]);
   };
 
   return (
@@ -94,6 +104,7 @@ export default function FootballContainer({
           <FootballTable
             avgFinishData={avgFinishDataState}
             positionData={positionDataState}
+            currentPoints={currentPointsState}
             teamToCrest={teamToCrest}
           />
         </div>
