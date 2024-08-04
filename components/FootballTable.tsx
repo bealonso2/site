@@ -2,8 +2,20 @@ import * as d3 from "d3";
 import Image from "next/image";
 import { useMemo } from "react";
 
-function ProbabilityTableData(data: number) {
-  return <td>{data < 0.01 ? "<0.1%" : `${(data * 100).toFixed(0)}%`}</td>;
+function ProbabilityTableData({ data }: { data: number }) {
+  var tdText = "";
+
+  if (data === 1) {
+    // Return a checkbox if the data is 1
+    tdText = "✓";
+  } else if (data === 0) {
+    tdText = "–";
+  } else if (data < 0.01) {
+    tdText = "<0.1%";
+  } else {
+    tdText = `${(data * 100).toFixed(0)}%`;
+  }
+  return <td className="text-center">{tdText}</td>;
 }
 
 type BarPlotProps = {
@@ -114,7 +126,13 @@ export default function FootballTable({
   currentPoints,
   teamToCrest,
 }: {
-  avgFinishData: any[];
+  avgFinishData: {
+    team: string;
+    place: number;
+    bottom_3: number;
+    top_4: number;
+    win_premier_league: number;
+  }[];
   positionData: { [key: string]: { [key: string]: number } };
   currentPoints: { [key: string]: number };
   teamToCrest: { [key: string]: string };
@@ -175,9 +193,9 @@ export default function FootballTable({
                 maxPctFinish={maxPct}
               />
             </td>
-            {ProbabilityTableData(row.bottom_3)}
-            {ProbabilityTableData(row.top_4)}
-            {ProbabilityTableData(row.win_premier_league)}
+            <ProbabilityTableData data={row.bottom_3} />
+            <ProbabilityTableData data={row.top_4} />
+            <ProbabilityTableData data={row.win_premier_league} />
           </tr>
         ))}
       </tbody>
