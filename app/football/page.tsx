@@ -3,6 +3,7 @@ import {
   getAverageFinishData,
   getPositionData,
   getSimulationsData,
+  getCrests,
 } from "@/lib/football/data";
 
 // Force the page to never revalidate
@@ -12,6 +13,7 @@ export default async function Football() {
   const avgFinishData = await getAverageFinishData();
   const positionData = await getPositionData();
   const simulationData = await getSimulationsData();
+  const crests = await getCrests();
 
   // Organize the data by season and date
   var seasonToDatesMap: any = {};
@@ -63,11 +65,19 @@ export default async function Football() {
       result.count;
   });
 
+  // Organize crests by team
+  var crestsMap: any = {};
+
+  crests.forEach((result: any) => {
+    crestsMap[result.team] = result.crest;
+  });
+
   return (
     <FootballContainer
       avgFinishData={avgFinishDataMap}
       positionData={positionDataMap}
       seasonToDates={seasonToDatesMap}
+      teamToCrest={crestsMap}
     />
   );
 }

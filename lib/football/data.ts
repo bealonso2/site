@@ -86,3 +86,9 @@ export const getSimulationsData = async (): Promise<any> => {
     ORDER BY id DESC;
   `);
 };
+
+export const getCrests = async (): Promise<any> => {
+  return getQuery(`
+    SELECT * FROM team_to_crests;
+  `);
+};

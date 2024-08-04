@@ -9,10 +9,12 @@ export default function FootballContainer({
   avgFinishData,
   positionData,
   seasonToDates,
+  teamToCrest,
 }: {
   avgFinishData: any;
   positionData: any;
   seasonToDates: any;
+  teamToCrest: any;
 }) {
   // Get the most recent season
   const seasons = Object.keys(seasonToDates).sort(
@@ -92,6 +94,7 @@ export default function FootballContainer({
           <FootballTable
             avgFinishData={avgFinishDataState}
             positionData={positionDataState}
+            teamToCrest={teamToCrest}
           />
         </div>
         <TableControls

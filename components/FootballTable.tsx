@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import Image from "next/image";
 import { useMemo } from "react";
 
 function ProbabilityTableData(data: number) {
@@ -83,12 +84,29 @@ function PositionsHistogram({
   );
 }
 
+function TeamEntry({ team, crest }: { team: string; crest: string }) {
+  return (
+    <div className="flex items-center">
+      <Image
+        src={crest}
+        alt={`${team} crest`}
+        width={32}
+        height={32}
+        className="w-8 h-8 mr-2"
+      />
+      <span>{team}</span>
+    </div>
+  );
+}
+
 export default function FootballTable({
   avgFinishData,
   positionData,
+  teamToCrest,
 }: {
   avgFinishData: any[];
   positionData: { [key: string]: { [key: string]: number } };
+  teamToCrest: { [key: string]: string };
 }) {
   // Determine the total count of all positions for the first team
   const totalCount = Object.values(
@@ -132,7 +150,9 @@ export default function FootballTable({
         {avgFinishData.map((row, i) => (
           <tr key={i} className="hover">
             <th>{i + 1}</th>
-            <td>{row.team}</td>
+            <td>
+              <TeamEntry team={row.team} crest={teamToCrest[row.team]} />
+            </td>
             <td>{row.place}</td>
             <td className="hidden md:table-cell">
               <PositionsHistogram
