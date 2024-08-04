@@ -15,7 +15,9 @@ export default function FootballContainer({
   seasonToDates: any;
 }) {
   // Get the most recent season
-  const seasons = Object.keys(seasonToDates);
+  const seasons = Object.keys(seasonToDates).sort(
+    (a, b) => Number(b) - Number(a)
+  );
   const firstSeason = seasons[0];
 
   // Get the most recent date associated with the first season
