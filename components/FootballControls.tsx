@@ -3,22 +3,22 @@ export default function TableControls({
   dates,
   season,
   seasons,
-  setDateAndUUID,
-  setSeasonAndDates,
+  setDate,
+  setSeason,
 }: {
   date: string;
   dates: string[];
   season: string;
   seasons: string[];
-  setDateAndUUID: (date: string) => void;
-  setSeasonAndDates: (season: string) => void;
+  setDate: (date: string) => void;
+  setSeason: (season: string) => void;
 }) {
   const handleDateChange = (event: any) => {
-    setDateAndUUID(event.target.value);
+    setDate(event.target.value);
   };
 
   const handleSeasonChange = (event: any) => {
-    setSeasonAndDates(event.target.value);
+    setSeason(event.target.value);
   };
 
   // Dropdown to toggle between seasons

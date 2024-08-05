@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import TableControls from "./FootballControls";
 import FootballTable from "./FootballTable";
@@ -51,17 +50,13 @@ export default function FootballContainer({
 
   useEffect(() => {
     var seasonParam = searchParams.get("season");
-    seasonParam && setSeasonAndDates(seasonParam);
+    seasonParam && setSeasonWithChecks(seasonParam);
     var dateParam = searchParams.get("forecast");
-    dateParam && setDateAndUUID(dateParam);
+    dateParam && setDate(dateParam);
   }, [searchParams]);
 
-  useEffect(() => {
-    console.log(currentPointsState);
-  }, [currentPointsState]);
-
-  // Update the season (state) and dates list (state) when the season changes
-  const setSeasonAndDates = (newSeason: any) => {
+  // Update the season (state) safely
+  const setSeasonWithChecks = (newSeason: string) => {
     // Get the dates from the season
     const datesAndUUIDs = seasonToDates[newSeason];
     if (!datesAndUUIDs) {
@@ -69,33 +64,42 @@ export default function FootballContainer({
       return;
     }
 
-    // Set the season and dates
+    // Set the season
     setSeason(newSeason);
-    const datesList = Object.keys(datesAndUUIDs);
+  };
+
+  // Update the dates list (state) and date when the season changes
+  useEffect(() => {
+    if (!seasonToDates[season]) {
+      console.log("No dates found for season: ", season);
+      return;
+    }
+
+    // Set the dates list
+    const datesList = Object.keys(seasonToDates[season]);
     setDates(datesList);
 
     // Set the date to the latest date
-    setDateAndUUID(datesList[0]);
-  };
+    setDate(datesList[0]);
+  }, [season, seasonToDates]);
 
-  // Update the date (state) and uuid when the date changes
-  const setDateAndUUID = (date: string) => {
-    const uuid = seasonToDates[season][date];
-    if (!uuid) {
+  // Update the uuid (state) when the date or season changes
+  useEffect(() => {
+    if (!seasonToDates[season] || !seasonToDates[season][date]) {
       console.log("No simulation found for date: ", date);
       return;
     }
-    setDate(date);
-    setDataAndUUID(uuid);
-  };
 
-  // Update uuid (state) and data when the uuid changes
-  const setDataAndUUID = (uuid: string) => {
+    const uuid = seasonToDates[season][date];
     setSimulationUUID(uuid);
-    setAvgFinishDataState(avgFinishData[uuid]);
-    setPositionDataState(positionData[uuid]);
-    setCurrentPointsState(currentPoints[uuid]);
-  };
+  }, [date, season, seasonToDates]);
+
+  // Update data when the uuid changes
+  useEffect(() => {
+    setAvgFinishDataState(avgFinishData[simulationUUID] || {});
+    setPositionDataState(positionData[simulationUUID] || {});
+    setCurrentPointsState(currentPoints[simulationUUID] || {});
+  }, [simulationUUID, avgFinishData, positionData, currentPoints]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
@@ -188,8 +192,8 @@ export default function FootballContainer({
           dates={dates}
           season={season}
           seasons={seasons}
-          setDateAndUUID={setDateAndUUID}
-          setSeasonAndDates={setSeasonAndDates}
+          setDate={setDate}
+          setSeason={setSeasonWithChecks}
         />
       </div>
     </div>
