@@ -105,6 +105,21 @@ function TeamEntry({
   crest: string;
   points: number;
 }) {
+  // Lol this is a mess but it works!
+  // TODO: Create this mapping in the database
+  var strippedTeamName = team.replace(/ FC$/, "");
+  strippedTeamName = strippedTeamName.replace("Manchester", "Man.");
+  strippedTeamName = strippedTeamName.includes("Man")
+    ? strippedTeamName.replace("United", "Utd")
+    : strippedTeamName.replace("United", "");
+  strippedTeamName = strippedTeamName.replace("Nottingham", "Nott'm");
+  strippedTeamName = strippedTeamName.replace("Hotspur", "");
+  strippedTeamName = strippedTeamName.replace("AFC", "");
+  strippedTeamName = strippedTeamName.replace("& Hove Albion", "");
+  strippedTeamName = strippedTeamName.replace(
+    "Wolverhampton Wanderers",
+    "Wolves"
+  );
   return (
     <div className="flex items-center">
       <Image
@@ -114,8 +129,8 @@ function TeamEntry({
         height={32}
         className="w-8 h-8 mr-2"
       />
-      <span className="mr-2">{team}</span>
-      <span>{points} pts.</span>
+      <span className="mr-2">{strippedTeamName}</span>
+      <span className="text-xs font-thin text-nowrap">{points} pts.</span>
     </div>
   );
 }
@@ -166,27 +181,29 @@ export default function FootballTable({
     <table className="table">
       <thead>
         <tr>
-          <th></th>
+          <th className="hidden sm:table-cell"></th>
           <th>Team</th>
-          <th>Avg. Place</th>
-          <th className="hidden md:table-cell">All Places</th>
-          <th>Finish Bottom 3</th>
-          <th>Finish Top 4</th>
-          <th>Win Premier League</th>
+          <th className="text-center text-wrap max-w-48 hidden sm:table-cell">
+            Avg. Simulated Finish
+          </th>
+          <th className="hidden md:table-cell text-center">All Places</th>
+          <th className="text-center text-wrap">Finish Bottom 3</th>
+          <th className="text-center text-wrap">Finish Top 4</th>
+          <th className="text-center text-wrap">Win Premier League</th>
         </tr>
       </thead>
       <tbody>
         {avgFinishData.map((row, i) => (
           <tr key={i} className="hover">
-            <th>{i + 1}</th>
+            <th className="hidden sm:table-cell max-w-min">{i + 1}</th>
             <td>
               <TeamEntry
                 team={row.team}
                 crest={teamToCrest[row.team]}
-                points={currentPoints[row.team]}
+                points={currentPoints?.[row.team] ?? 0}
               />
             </td>
-            <td>{row.place}</td>
+            <td className="text-center hidden sm:table-cell">{row.place}</td>
             <td className="hidden md:table-cell">
               <PositionsHistogram
                 positionData={normalizedPositionData[row.team]}
