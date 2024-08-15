@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
-import { NavMenu } from "./NavMenu";
+import { NavMenu } from "../components/NavMenu";
 
 const RobotoFlex = Roboto_Flex({
   subsets: ["latin"],

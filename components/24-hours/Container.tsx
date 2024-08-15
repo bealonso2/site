@@ -181,7 +181,7 @@ function ShareButton({
     const amPmText = is24HourTime ? "" : time.hours < 12 ? " AM" : " PM";
 
     // Assemble the tweet text
-    const tweetText = `If my life were only a 24-hour day, it would be ${hourText}:${minuteText}:${secondText}${amPmText}. Calculate yours at https://balonso.com/dnwyl.`;
+    const tweetText = `If my life were only a 24-hour day, it would be ${hourText}:${minuteText}:${secondText}${amPmText}. Calculate yours at https://balonso.com/24-hours.`;
 
     // Hashtags
     const hashtags = ["myLifeIn24Hours"];

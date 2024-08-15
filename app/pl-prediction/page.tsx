@@ -1,4 +1,4 @@
-import FootballContainer from "@/components/FootballContainer";
+import FootballContainer from "@/components/pl-prediction/FootballContainer";
 import {
   getAverageFinishData,
   getPositionData,

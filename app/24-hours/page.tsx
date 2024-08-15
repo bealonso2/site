@@ -1,6 +1,6 @@
 // Import .main.css file
-import "@/app/dnwyl/main.css";
-import DNWYLContainer from "@/components/dnwyl/Container";
+import "@/app/24-hours/main.css";
+import DNWYLContainer from "@/components/24-hours/Container";
 
 // URL:
 const url = "https://n9y1gnbx8d.execute-api.us-east-1.amazonaws.com/Prod";
@@ -72,7 +72,7 @@ export default async function Page() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
       <div>
-        <h1 className="text-3xl font-semibold">Do Not Waste Your Life</h1>
+        <h1 className="text-3xl font-semibold">Life in 24 Hours Calculator</h1>
         <div className="py-3 space-y-5 max-w-2xl">
           {/* Thinking about moving this stuff to the onboarding part of the app.
               Collapsed in some way when you get to the main page. */}
