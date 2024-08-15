@@ -86,8 +86,8 @@ export default async function Page() {
               href="https://www.youtube-nocookie.com/embed/JAX0XPkmVc0"
               target="_blank"
             >
-              John Mayer and his discussion of the time on his 'Born and Raised'
-              album
+              John Mayer and his discussion of the time on his &apos;Born and
+              Raised&apos; album
             </a>
             , is yet another example of the power that accepting mortality has
             on your life and how you chose to spend your remaining hours.

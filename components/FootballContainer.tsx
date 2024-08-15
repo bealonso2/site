@@ -45,15 +45,15 @@ export default function FootballContainer({
   const [currentPointsState, setCurrentPointsState] = useState<any>(
     currentPoints[simulationUUID]
   );
-  // Use the search params to determine the active view
-  const searchParams = useSearchParams();
+  // // Use the search params to determine the active view
+  // const searchParams = useSearchParams();
 
-  useEffect(() => {
-    var seasonParam = searchParams.get("season");
-    seasonParam && setSeasonWithChecks(seasonParam);
-    var dateParam = searchParams.get("forecast");
-    dateParam && setDate(dateParam);
-  }, [searchParams]);
+  // useEffect(() => {
+  //   var seasonParam = searchParams.get("season");
+  //   seasonParam && setSeasonWithChecks(seasonParam);
+  //   var dateParam = searchParams.get("forecast");
+  //   dateParam && setDate(dateParam);
+  // }, [searchParams]);
 
   // Update the season (state) safely
   const setSeasonWithChecks = (newSeason: string) => {
