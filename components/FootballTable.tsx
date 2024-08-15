@@ -8,12 +8,14 @@ function ProbabilityTableData({ data }: { data: number }) {
   if (data === 1) {
     // Return a checkbox if the data is 1
     tdText = "✓";
-  } else if (data === 0) {
-    tdText = "–";
+
+    // TODO: add a dash if place is confirmed as impossible
+    // } else if (data === 0) {
+    //   tdText = "–";
   } else if (data < 0.01) {
     tdText = "<0.1%";
   } else {
-    tdText = `${(data * 100).toFixed(0)}%`;
+    tdText = `${(data * 100).toFixed(2)}%`;
   }
   return <td className="text-center">{tdText}</td>;
 }
@@ -203,7 +205,9 @@ export default function FootballTable({
                 points={currentPoints?.[row.team] ?? 0}
               />
             </td>
-            <td className="text-center hidden sm:table-cell">{row.place}</td>
+            <td className="text-center hidden sm:table-cell">
+              {parseFloat(row.place.toFixed(2))}
+            </td>
             <td className="hidden md:table-cell">
               <PositionsHistogram
                 positionData={normalizedPositionData[row.team]}
