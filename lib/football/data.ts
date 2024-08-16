@@ -12,7 +12,7 @@ const resultsKey = "2024/results.db";
 const dataKey = "2024/data.db";
 
 const getQuery = async (query: string, key: string): Promise<any> => {
-  const s3Client = new S3Client({ region: "us-east-1" });
+  const s3Client = new S3Client({});
 
   const command = new GetObjectCommand({ Bucket: bucketName, Key: key });
   const response = await s3Client.send(command);
