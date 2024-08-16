@@ -1,0 +1,263 @@
+:root {
+  --clock-diameter: 300px;
+  --clock-border: 20px;
+}
+
+/* Hyperlinks to have no underline and effectively just have emphasis */
+/* Reset default link styles */
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  position: relative;
+  /* Important for the ::before pseudo-element positioning */
+  /* Change link color as needed */
+  font-weight: bold;
+}
+
+/* Underline styling */
+a::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #333;
+  /* Change underline color as needed */
+  transition: width 0.3s ease;
+  /* Adjust the transition duration as desired */
+}
+
+/* Hover effect */
+a:hover::before {
+  width: 100%;
+}
+
+/* Analog clock */
+.clock {
+  width: var(--clock-diameter);
+  height: var(--clock-diameter);
+  border-radius: 50%;
+  background-color: antiquewhite;
+  margin: auto;
+  position: relative;
+  border: var(--clock-border) solid cornsilk;
+}
+
+.center {
+  --diameter: 20px;
+  background-color: #000;
+  position: absolute;
+  left: calc(50% - (var(--diameter) / 2));
+  top: calc(50% - (var(--diameter) / 2));
+  width: var(--diameter);
+  height: var(--diameter);
+  border-radius: 50%;
+  z-index: 20;
+}
+
+.hourHand {
+  --width: 10px;
+  width: var(--width);
+  height: 75px;
+  background-color: #000;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  position: absolute;
+  bottom: calc((var(--clock-diameter) / 2) - var(--clock-border));
+  left: calc(
+    ((var(--clock-diameter) - var(--width)) / 2) - var(--clock-border)
+  );
+  z-index: 8;
+}
+
+.minuteHand {
+  --width: 5px;
+  width: var(--width);
+  height: 120px;
+  background-color: #000;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  position: absolute;
+  bottom: calc((var(--clock-diameter) / 2) - var(--clock-border));
+  left: calc(
+    ((var(--clock-diameter) - var(--width)) / 2) - var(--clock-border)
+  );
+  z-index: 9;
+}
+
+.secondHand {
+  --width: 2px;
+  width: var(--width);
+  height: 120px;
+  background-color: red;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  position: absolute;
+  bottom: calc((var(--clock-diameter) / 2) - var(--clock-border));
+  left: calc(
+    ((var(--clock-diameter) - var(--width)) / 2) - var(--clock-border)
+  );
+  z-index: 10;
+}
+
+#significantEventLineContainer {
+  text-align: center;
+}
+
+.significantEventLine {
+  padding: 0px 2px;
+  --width: 2px;
+  width: var(--width);
+  height: calc(var(--clock-diameter) / 2);
+  background-color: grey;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  position: absolute;
+  bottom: calc((var(--clock-diameter) / 2) - var(--clock-border));
+  left: calc(
+    ((var(--clock-diameter) - var(--width)) / 2) - var(--clock-border)
+  );
+  z-index: 10;
+  transform: rotate(90deg);
+  box-sizing: border-box;
+}
+
+.significantEventLine:hover {
+  background-color: red;
+}
+
+/* Tooltip CSS */
+.significantEventLine .significantEventTooltip,
+.hourDiv .significantEventTooltip {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.significantEventLine:hover .significantEventTooltip,
+.hourDiv:hover .significantEventTooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.digitalTime {
+  position: absolute;
+  top: 45%;
+  left: 10%;
+  border: 1px solid #fff8dc;
+  background-color: #fff;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+}
+
+.digitalTime small {
+  color: red;
+  transition: all 0.05s;
+  transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+}
+
+.clock ul {
+  list-style: none;
+  padding: 0;
+}
+
+.clock ul li {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 10px;
+  color: red;
+}
+
+.clock ul li:nth-child(1) {
+  right: 22%;
+  top: 6.5%;
+}
+
+.clock ul li:nth-child(2) {
+  right: 6%;
+  top: 25%;
+}
+
+.clock ul li:nth-child(3) {
+  right: 1%;
+  top: calc(50% - 10px);
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.clock ul li:nth-child(4) {
+  right: 6%;
+  top: 69%;
+}
+
+.clock ul li:nth-child(5) {
+  right: 22%;
+  top: 84%;
+}
+
+.clock ul li:nth-child(6) {
+  right: calc(50% - 10px);
+  top: calc(99% - 20px);
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.clock ul li:nth-child(7) {
+  left: 22%;
+  top: 84%;
+}
+
+.clock ul li:nth-child(8) {
+  left: 6%;
+  top: 69%;
+}
+
+.clock ul li:nth-child(9) {
+  left: 1%;
+  top: calc(50% - 10px);
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.clock ul li:nth-child(10) {
+  left: 6%;
+  top: 25%;
+}
+
+.clock ul li:nth-child(11) {
+  left: 22%;
+  top: 6.5%;
+}
+
+.clock ul li:nth-child(12) {
+  right: calc(50% - 10px);
+  top: 1%;
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
