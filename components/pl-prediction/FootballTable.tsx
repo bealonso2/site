@@ -123,7 +123,7 @@ function TeamEntry({
     "Wolves"
   );
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-between">
       <Image
         src={crest}
         alt={`${team} crest`}
@@ -131,8 +131,12 @@ function TeamEntry({
         height={32}
         className="w-8 h-8 mr-2"
       />
-      <span className="mr-2">{strippedTeamName}</span>
-      <span className="text-xs font-thin text-nowrap">{points} pts.</span>
+      <span className="overflow-x-hidden text-ellipsis mr-1 sm:mr-2">
+        {strippedTeamName}
+      </span>
+      <span className="text-xs font-thin text-nowrap justify-end">
+        {points} pts.
+      </span>
     </div>
   );
 }
@@ -180,46 +184,48 @@ export default function FootballTable({
   );
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th className="hidden sm:table-cell"></th>
-          <th>Team</th>
-          <th className="text-center text-wrap max-w-48 hidden sm:table-cell">
-            Avg. Simulated Finish
-          </th>
-          <th className="hidden md:table-cell text-center">All Places</th>
-          <th className="text-center text-wrap">Finish Bottom 3</th>
-          <th className="text-center text-wrap">Finish Top 4</th>
-          <th className="text-center text-wrap">Win Premier League</th>
-        </tr>
-      </thead>
-      <tbody>
-        {avgFinishData.map((row, i) => (
-          <tr key={i} className="hover">
-            <th className="hidden sm:table-cell max-w-min">{i + 1}</th>
-            <td>
-              <TeamEntry
-                team={row.team}
-                crest={teamToCrest[row.team]}
-                points={currentPoints?.[row.team] ?? 0}
-              />
-            </td>
-            <td className="text-center hidden sm:table-cell">
-              {parseFloat(row.place.toFixed(2))}
-            </td>
-            <td className="hidden md:table-cell">
-              <PositionsHistogram
-                positionData={normalizedPositionData[row.team]}
-                maxPctFinish={maxPct}
-              />
-            </td>
-            <ProbabilityTableData data={row.bottom_3} />
-            <ProbabilityTableData data={row.top_4} />
-            <ProbabilityTableData data={row.win_premier_league} />
+    <div className="overflow-x-auto py-5">
+      <table className="table min-w-full">
+        <thead>
+          <tr>
+            <th className="hidden sm:table-cell"></th>
+            <th className="sticky left-0 z-10 bg-base-100">Team</th>
+            <th className="text-center text-wrap">Avg. Simulated Finish</th>
+            <th className="hidden md:table-cell text-center">All Places</th>
+            <th className="text-center text-wrap">Finish Bottom 3</th>
+            <th className="text-center text-wrap">Finish Top 4</th>
+            <th className="text-center text-wrap">Win Premier League</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {avgFinishData.map((row, i) => (
+            <tr key={i} className="hover">
+              <th className="sticky left-0 hidden sm:table-cell max-w-min">
+                {i + 1}
+              </th>
+              <td className="sticky left-0 z-10 bg-base-100 p-2 pr-1">
+                <TeamEntry
+                  team={row.team}
+                  crest={teamToCrest[row.team]}
+                  points={currentPoints?.[row.team] ?? 0}
+                />
+              </td>
+              <td className="text-center">
+                {parseFloat(row.place.toFixed(2))}
+              </td>
+              <td className="hidden md:table-cell">
+                <PositionsHistogram
+                  positionData={normalizedPositionData[row.team]}
+                  maxPctFinish={maxPct}
+                />
+              </td>
+              <ProbabilityTableData data={row.bottom_3} />
+              <ProbabilityTableData data={row.top_4} />
+              <ProbabilityTableData data={row.win_premier_league} />
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

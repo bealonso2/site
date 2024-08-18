@@ -110,7 +110,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
-        <footer className="fixed bottom-0 left-0 flex h-auto w-full items-end justify-center pointer-events-none">
+        <footer className="fixed bottom-0 left-0 flex h-auto w-full items-end justify-center pointer-events-none z-50">
           <div className="pb-5 pointer-events-none">
             <span className="flex items-center pointer-events-auto">
               Follow me on
