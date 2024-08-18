@@ -50,7 +50,7 @@ export const NavMenu = ({ className }: { className: string }) => {
           {link.links ? (
             <details>
               <summary>{link.name}</summary>
-              <ul>
+              <ul className="bg-base-200">
                 {link.links.map((sublink) => (
                   <li key={sublink.name}>
                     <a href={sublink.url} target={determineTarget(sublink.url)}>

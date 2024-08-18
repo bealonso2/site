@@ -41,16 +41,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-base-200">
       <body className={`${RobotoFlex.className} font-light`}>
-        <header className="navbar bg-base-200 px-4">
+        <header className="navbar px-4">
           <div className="navbar-start">
             <a href="/" className="btn btn-ghost text-xl">
               Brian Alonso
             </a>
           </div>
           <div className="navbar-center hidden md:flex">
-            <NavMenu className="menu menu-horizontal bg-base-200 px-1" />
+            <NavMenu className="menu menu-horizontal px-1" />
           </div>
           <div className="flex-shrink md:navbar-end">
             <label className="swap swap-rotate">
@@ -101,13 +101,13 @@ export default function RootLayout({
                       />
                     </svg>
                   </summary>
-                  <NavMenu className="dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box absolute right-0" />
+                  <NavMenu className="dropdown-content mt-3 z-[1] bg-base-200 p-2 shadow rounded-box absolute right-0" />
                 </details>
               </li>
             </ul>
           </div>
         </header>
-        {children}
+        <div className="bg-base-100">{children}</div>
         <footer className="fixed bottom-0 left-0 flex h-auto w-full items-end justify-center pointer-events-none z-50">
           <div className="pb-5 pointer-events-none">
             <span className="flex items-center pointer-events-auto">
