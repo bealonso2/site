@@ -1,7 +1,8 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
-import "./globals.css";
 import { NavMenu } from "../components/NavMenu";
+import "./globals.css";
 
 const RobotoFlex = Roboto_Flex({
   subsets: ["latin"],
@@ -107,7 +108,10 @@ export default function RootLayout({
             </ul>
           </div>
         </header>
-        <div className="bg-base-100">{children}</div>
+        <div className="bg-base-100">
+          {children}
+          <Analytics />
+        </div>
         <footer className="fixed bottom-0 left-0 flex h-auto w-full items-end justify-center pointer-events-none z-50">
           <div className="pb-5 pointer-events-none">
             <span className="flex items-center pointer-events-auto">
