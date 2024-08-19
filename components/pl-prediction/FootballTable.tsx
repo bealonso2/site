@@ -189,7 +189,9 @@ export default function FootballTable({
         <thead>
           <tr>
             <th className="hidden sm:table-cell"></th>
-            <th className="sticky left-0 z-10 bg-base-100">Team</th>
+            <th className="sticky left-0 z-10 bg-base-100 sm:bg-inherit">
+              Team
+            </th>
             <th className="text-center text-wrap">Avg. Simulated Finish</th>
             <th className="hidden md:table-cell text-center">All Places</th>
             <th className="text-center text-wrap">Finish Bottom 3</th>
@@ -199,11 +201,11 @@ export default function FootballTable({
         </thead>
         <tbody>
           {avgFinishData.map((row, i) => (
-            <tr key={i} className="hover">
+            <tr key={i} className="sm:hover">
               <th className="sticky left-0 hidden sm:table-cell max-w-min">
                 {i + 1}
               </th>
-              <td className="sticky left-0 z-10 bg-base-100 p-2 pr-1">
+              <td className="sticky left-0 z-10 bg-base-100 sm:bg-inherit p-2 pr-1">
                 <TeamEntry
                   team={row.team}
                   crest={teamToCrest[row.team]}
