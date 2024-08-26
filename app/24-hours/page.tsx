@@ -1,6 +1,7 @@
 // Import .main.css file
 import "@/app/24-hours/main.css";
 import DNWYLContainer from "@/components/24-hours/Container";
+import PageContainer from "@/components/layout/PageContainer";
 
 // URL:
 const url = "https://n9y1gnbx8d.execute-api.us-east-1.amazonaws.com/Prod";
@@ -70,7 +71,7 @@ export default async function Page() {
   const countries = await populateLocationDropdown();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-12 pb-24">
+    <PageContainer>
       <div>
         <h1 className="text-3xl font-semibold">Life in 24 Hours Calculator</h1>
         <div className="py-3 space-y-5 max-w-2xl">
@@ -104,6 +105,6 @@ export default async function Page() {
           calculateSignificantEvent={calculateSignificantEvent}
         />
       </div>
-    </div>
+    </PageContainer>
   );
 }

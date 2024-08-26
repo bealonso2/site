@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import TableControls from "./FootballControls";
 import FootballTable from "./FootballTable";
+import PageContainer from "../layout/PageContainer";
 
 export default function FootballContainer({
   avgFinishData,
@@ -102,7 +103,7 @@ export default function FootballContainer({
   }, [simulationUUID, avgFinishData, positionData, currentPoints]);
 
   return (
-    <main className="flex min-h-screen flex-col items-stretch justify-between px-4 md:px-12 py-12 pb-24">
+    <PageContainer>
       <div className="flex flex-row justify-between gap-10 mb-10">
         <h1 className="text-3xl font-semibold mt-auto">
           Premier League Prediction
@@ -203,6 +204,6 @@ export default function FootballContainer({
         setDate={setDate}
         setSeason={setSeasonWithChecks}
       />
-    </main>
+    </PageContainer>
   );
 }
