@@ -6,7 +6,7 @@ export default function About() {
       <article className="prose mx-auto">
         <h1>About Premier League Prediction</h1>
         <p>
-          This is a web app that predicts the final standings of the English
+          This is a web app that forecasts the final standings of the English
           Premier League based on historical data. The data is sourced from{" "}
           <a
             href="
@@ -31,26 +31,100 @@ export default function About() {
         <p>
           The model uses an Elo-based system to predict the final league
           standings. The Elo rating system is a method for calculating the
-          relative skill levels of players in two-player games such as chess.
-          The model uses the Elo rating system to measure the relative strength
-          of each Premier League club and uses this information to assess how
-          likely a result is in a given match.
+          relative skill levels of players in two-player games such as chess. In
+          this case, the Elo rating system is used to measure the relative
+          strength of each Premier League club and uses this information to
+          assess how likely a result is in a given match.
         </p>
+        <h4>Elo Calculation</h4>
+
         <p>
           Before the season, each club is assigned an Elo rating based on their
           performance in the previous season. The Elo ratings of all clubs are
           adjusted based on club value.
         </p>
-        {/* <h4>Elo Calculation</h4>
         <p>
-          The model uses the following formula to calculate the Elo rating for
-          each club:
+          Newly promoted teams receive the maximum Elo of the relegated teams.
+          These values are then adjusted based on club value.
+        </p>
+        <p>
+          Clubs retain 50% of their Elo rating from the previous season. This
+          attempts to implicitly factor out the adjustment for club value in the
+          previous season. <code>1500</code> is the average Elo rating in this
+          model.
         </p>
         <pre>
           <code>
-            R<sub>n</sub> = R<sub>o</sub> + K * (W - E)
+            Elo<sub>base</sub> = Elo<sub>previous season</sub> * 0.5 + 1500 *
+            0.5
           </code>
-        </pre> */}
+        </pre>
+        <p>
+          Club values are then used to adjust the Elo rating. The club value
+          adjustment is normalized for each club based on the maximum and
+          minimum club values. As the best and richest teams win more often, the
+          normalized club values are exponentially adjusted. Club values are
+          factored into the Elo rating as follows:
+        </p>
+        <pre>
+          <code>
+            Elo<sub>adjusted</sub> = Elo<sub>base</sub> + 300 * Normalized
+            Exponential Club Value
+          </code>
+        </pre>
+        <p>
+          The adjustment factor is currently set to 300, meaning the best clubs
+          get a 300 point bump to their Elo rating.
+        </p>
+        <h4>Elo Updates</h4>
+        <p>
+          As the season progresses, the Elo rating of each club is updated based
+          on the outcome of each match. The model uses the following formulas to
+          calculate Elo rating for each match:
+        </p>
+        <h5 className="font-semibold">Win/Lose</h5>
+        <pre>
+          <code>
+            Expected Win = 1 / [1 + 10 <sup>(Loser Elo - Winner Elo) / 400</sup>
+            ]
+          </code>
+        </pre>
+        <pre>
+          <code>Change in Winner Elo = K * (1 - Expected Win)</code>
+        </pre>
+        <pre>
+          <code>Change in Loser Elo = - Change in Winner Elo</code>
+        </pre>
+        <h5 className="font-semibold">Draw</h5>
+        <pre>
+          <code>
+            Expected Home Win = 1 / [1 + 10 <sup>Away Elo - Home Elo / 400</sup>
+            ]
+          </code>
+        </pre>
+        <pre>
+          <code>Change in Home Elo = K * (0.5 - Expected Home Win)</code>
+        </pre>
+        <pre>
+          <code>Change in Away Elo = - Change in Home Elo</code>
+        </pre>
+        <h5 className="font-semibold">Decay</h5>
+        <p>
+          The Elo rating of each club has a half-life of 1/4 of the season. This
+          ensures that the most recent matches have the most impact on a team's
+          Elo rating.
+        </p>
+        <pre>
+          <code>
+            Decay Factor = 0.5 <sup>1 / 38 / 4</sup>
+          </code>
+        </pre>
+        <pre>
+          <code>
+            Elo<sub>decayed</sub> = Elo * Decay Factor + 1500 * (1 - Decay
+            Factor)
+          </code>
+        </pre>
         <h3>Model Architecture</h3>
         <p>The model is trained on the following data:</p>
         <ul>
