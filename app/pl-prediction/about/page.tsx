@@ -1,4 +1,5 @@
 import PageContainer from "@/components/layout/PageContainer";
+import Equation from "@/components/pl-prediction/Equation";
 
 export default function About() {
   return (
@@ -53,12 +54,7 @@ export default function About() {
           previous season. <code>1500</code> is the average Elo rating in this
           model.
         </p>
-        <pre>
-          <code>
-            Elo<sub>base</sub> = Elo<sub>previous season</sub> * 0.5 + 1500 *
-            0.5
-          </code>
-        </pre>
+        <Equation text={"\\text{Elo}_\\text{base} = \\text{Elo}_\\text{previous season} \\times 0.5 + 1500 \\times 0.5"} />
         <p>
           Club values are then used to adjust the Elo rating. The club value
           adjustment is normalized for each club based on the maximum and
@@ -66,12 +62,7 @@ export default function About() {
           normalized club values are exponentially adjusted. Club values are
           factored into the Elo rating as follows:
         </p>
-        <pre>
-          <code>
-            Elo<sub>adjusted</sub> = Elo<sub>base</sub> + 300 * Normalized
-            Exponential Club Value
-          </code>
-        </pre>
+        <Equation text={"\\text{Elo}_\\text{adjusted} = \\text{Elo}_\\text{base} + 300 \\times \\text{Normalized Exponential Club Value}"}/>
         <p>
           The adjustment factor is currently set to 300, meaning the best clubs
           get a 300 point bump to their Elo rating.
@@ -83,48 +74,22 @@ export default function About() {
           calculate Elo rating for each match:
         </p>
         <h5 className="font-semibold">Win/Lose</h5>
-        <pre>
-          <code>
-            Expected Win = 1 / [1 + 10 <sup>(Loser Elo - Winner Elo) / 400</sup>
-            ]
-          </code>
-        </pre>
-        <pre>
-          <code>Change in Winner Elo = K * (1 - Expected Win)</code>
-        </pre>
-        <pre>
-          <code>Change in Loser Elo = - Change in Winner Elo</code>
-        </pre>
+        <Equation text={"\\text{Expected Win} = 1 \\div \\left(1 + 10^{\\frac{\\text{Loser Elo} - \\text{Winner Elo}}{400}}\\right)"} />
+        {/* <Equation text={"\\;\\;"} /> */}
+        <Equation text={"\\text{Change in Winner Elo} = K \\times (1 - \\text{Expected Win})"} />
+        <Equation text={"\\text{Change in Loser Elo} = - \\text{Change in Winner Elo}"} />
         <h5 className="font-semibold">Draw</h5>
-        <pre>
-          <code>
-            Expected Home Win = 1 / [1 + 10 <sup>Away Elo - Home Elo / 400</sup>
-            ]
-          </code>
-        </pre>
-        <pre>
-          <code>Change in Home Elo = K * (0.5 - Expected Home Win)</code>
-        </pre>
-        <pre>
-          <code>Change in Away Elo = - Change in Home Elo</code>
-        </pre>
+        <Equation text={"\\text{Expected Home Win} = 1 \\div \\left(1 + 10^{\\frac{\\text{Away Elo} - \\text{Home Elo}}{400}}\\right)"} />
+        <Equation text={"\\text{Change in Home Elo} = K \\times (0.5 - \\text{Expected Home Win})"} />
+        <Equation text={"\\text{Change in Away Elo} = - \\text{Change in Home Elo}"} />
         <h5 className="font-semibold">Decay</h5>
         <p>
           The Elo rating of each club has a half-life of 1/4 of the season. This
           ensures that the most recent matches have the most impact on a
           team&apos;s Elo rating.
         </p>
-        <pre>
-          <code>
-            Decay Factor = 0.5 <sup>1 / 38 / 4</sup>
-          </code>
-        </pre>
-        <pre>
-          <code>
-            Elo<sub>decayed</sub> = Elo * Decay Factor + 1500 * (1 - Decay
-            Factor)
-          </code>
-        </pre>
+        <Equation text={"\\text{Decay Factor} = 0.5^{\\frac{1}{38 \\div 4}}"} />
+        <Equation text={"\\text{Elo}_{\\text{decayed}} = \\text{Elo} \\times \\text{Decay Factor} + 1500 \\times (1 - \\text{Decay Factor})"} />
         <h3>Model Architecture</h3>
         <p>The model is trained on the following data:</p>
         <ul>
