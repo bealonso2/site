@@ -111,8 +111,8 @@ export default function About() {
         <h5 className="font-semibold">Decay</h5>
         <p>
           The Elo rating of each club has a half-life of 1/4 of the season. This
-          ensures that the most recent matches have the most impact on a team's
-          Elo rating.
+          ensures that the most recent matches have the most impact on a
+          team&apos;s Elo rating.
         </p>
         <pre>
           <code>
