@@ -54,7 +54,7 @@ export default function About() {
           previous season. <code>1500</code> is the average Elo rating in this
           model.
         </p>
-        <Equation text={"\\text{Elo}_\\text{base} = \\text{Elo}_\\text{previous season} \\times 0.5 + 1500 \\times 0.5"} />
+        <Equation text={"\\text{Elo}_\\text{base} = \\text{Elo}_\\text{previous season} \\times \\frac{1}{2} + 1500 \\times \\frac{1}{2}"} />
         <p>
           Club values are then used to adjust the Elo rating. The club value
           adjustment is normalized for each club based on the maximum and
