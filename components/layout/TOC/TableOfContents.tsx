@@ -1,13 +1,18 @@
+"use client";
 import React from "react";
-import { Heading } from "./useTOCHeadings";
+import useTOCHeadings, { Heading } from "./useTOCHeadings";
 
 interface TOCProps {
-  headings: Heading[];
+  headings?: Heading[];
 }
 
 const TOC: React.FC<TOCProps> = ({ headings }) => {
+  if (!headings) {
+    headings = useTOCHeadings();
+  }
+
   const renderTOC = (
-    headings: TOCProps["headings"],
+    headings: Heading[],
     currentLevel = 2
   ): JSX.Element | null => {
     const items: JSX.Element[] = [];

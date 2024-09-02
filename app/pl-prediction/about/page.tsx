@@ -1,12 +1,8 @@
-"use client";
 import PageContainerArticle from "@/components/layout/PageContainerArticle";
 import TOC from "@/components/layout/TOC/TableOfContents";
-import useTOCHeadings from "@/components/layout/TOC/useTOCHeadings";
 import Equation from "@/components/pl-prediction/Equation";
 
-export default function About() {
-  const headings = useTOCHeadings();
-  
+export default function About() {  
   return (
     <PageContainerArticle>
         <h1>About Premier League Prediction</h1>
@@ -31,7 +27,7 @@ export default function About() {
           ></a>
           FiveThirtyEight club soccer predictions.
         </p>
-        <TOC headings={headings} />
+        <TOC />
         <h2>Model</h2>
         <h3>Methodology</h3>
         <p>
