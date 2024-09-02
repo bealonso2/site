@@ -2,14 +2,11 @@
 import React from "react";
 import useTOCHeadings, { Heading } from "./useTOCHeadings";
 
-interface TOCProps {
-  headings?: Heading[];
-}
+interface TOCProps {}
 
-const TOC: React.FC<TOCProps> = ({ headings }) => {
-  if (!headings) {
-    headings = useTOCHeadings();
-  }
+const TOC: React.FC<TOCProps> = () => {
+  // TODO: add parameters to specify the minimum and maximum heading levels to include
+  const headings = useTOCHeadings();
 
   const renderTOC = (
     headings: Heading[],
