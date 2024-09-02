@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import TableControls from "./FootballControls";
 import FootballTable from "./FootballTable";
 import PageContainer from "../layout/PageContainer";
+import TabNavigation from "./TabNavigation";
 
 export default function FootballContainer({
   avgFinishData,
@@ -180,16 +181,7 @@ export default function FootballContainer({
         </div>
       </div>
       {/* Links to other pages related to the project */}
-      <div className="flex flex-row justify-center gap-4 mb-4">
-        <a href="/pl-prediction/about" className="btn btn-outline">
-          About
-        </a>
-        <div className="btn btn-outline">
-          <div className="tooltip" data-tip="Coming Soon">
-            <a className="">Match Predictions</a>
-          </div>
-        </div>
-      </div>
+      <TabNavigation />
       <FootballTable
         avgFinishData={avgFinishDataState}
         positionData={positionDataState}

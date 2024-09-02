@@ -1,11 +1,13 @@
 import PageContainerArticle from "@/components/layout/PageContainerArticle";
 import TOC from "@/components/layout/TOC/TableOfContents";
 import Equation from "@/components/pl-prediction/Equation";
+import TabNavigation from "@/components/pl-prediction/TabNavigation";
 
 export default function About() {  
   return (
     <PageContainerArticle>
         <h1>About Premier League Prediction</h1>
+        <TabNavigation />
         <p>
           This is a web app that forecasts the final standings of the English
           Premier League based on historical data. The data is sourced from{" "}
