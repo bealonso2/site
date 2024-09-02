@@ -1,10 +1,15 @@
+"use client";
 import PageContainer from "@/components/layout/PageContainer";
+import TOC from "@/components/layout/TOC/TableOfContents";
+import useTOCHeadings from "@/components/layout/TOC/useTOCHeadings";
 import Equation from "@/components/pl-prediction/Equation";
 
 export default function About() {
+  const headings = useTOCHeadings();
+  
   return (
     <PageContainer>
-      <article className="prose mx-auto">
+        <article className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto">
         <h1>About Premier League Prediction</h1>
         <p>
           This is a web app that forecasts the final standings of the English
@@ -27,6 +32,7 @@ export default function About() {
           ></a>
           FiveThirtyEight club soccer predictions.
         </p>
+        <TOC headings={headings} />
         <h2>Model</h2>
         <h3>Methodology</h3>
         <p>
