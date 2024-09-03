@@ -4,11 +4,11 @@
 
 @layer components {
   .header-experience {
-    @apply text-sm tracking-wider uppercase leading-5 font-semibold pt-4;
+    @apply pt-4 text-sm font-semibold uppercase leading-5 tracking-wider;
   }
 
   .date-experience {
-    @apply text-xs tracking-wider leading-5 uppercase font-medium py-1;
+    @apply py-1 text-xs font-medium uppercase leading-5 tracking-wider;
   }
 
   .div-experience {

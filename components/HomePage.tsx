@@ -21,8 +21,8 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
 
   return (
     <PageContainer>
-      <div className="w-full max-w-md md:max-w-xl text-md">
-        <div className="opacity-0 animate-fadeIn-delay-1 md:my-8 space-y-4">
+      <div className="text-md w-full max-w-md md:max-w-xl">
+        <div className="animate-fadeIn-delay-1 space-y-4 opacity-0 md:my-8">
           <h1 className="text-3xl font-semibold">Hi, I&apos;m Brian.</h1>
           <p>
             I&apos;ve been a stress engineer and plugin developer at{" "}
@@ -65,7 +65,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
           </p>
         </div>
         <div className="space-y-4">
-          <div className="opacity-0 animate-fadeIn-delay-2">
+          <div className="animate-fadeIn-delay-2 opacity-0">
             <h2 className="header-experience">Currently</h2>
             <div className="div-experience">
               <h3 className="">
@@ -82,7 +82,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
               <h5 className="date-experience">2022-Present</h5>
             </div>
           </div>
-          <div className="opacity-0 animate-fadeIn-delay-3">
+          <div className="animate-fadeIn-delay-3 opacity-0">
             <h2 className="header-experience">Previously</h2>
             <div className="div-experience">
               <h3 className="">
@@ -98,7 +98,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
               <h5 className="date-experience">2021</h5>
             </div>
           </div>
-          <div className="opacity-0 animate-fadeIn-delay-4">
+          <div className="animate-fadeIn-delay-4 opacity-0">
             <div className="div-experience">
               <h3 className="">
                 <a href="" target="_blank" className="a-enhanced">
@@ -111,7 +111,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
               <h5 className="date-experience">2018-2020</h5>
             </div>
           </div>
-          <div className="opacity-0 animate-fadeIn-delay-5">
+          <div className="animate-fadeIn-delay-5 opacity-0">
             <h2 className="header-experience">Education</h2>
             <div className="div-experience">
               <h3>

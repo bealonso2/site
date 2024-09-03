@@ -30,7 +30,7 @@ const useTOCHeadings = (): Heading[] => {
           text: heading.textContent || "",
           level,
         };
-      }
+      },
     );
 
     setHeadings(headingArray);

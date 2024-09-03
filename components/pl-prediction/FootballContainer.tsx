@@ -22,7 +22,7 @@ export default function FootballContainer({
 }) {
   // Get the most recent season
   const seasons = Object.keys(seasonToDates).sort(
-    (a, b) => Number(b) - Number(a)
+    (a, b) => Number(b) - Number(a),
   );
   const firstSeason = seasons[0];
 
@@ -39,13 +39,13 @@ export default function FootballContainer({
   const [simulationUUID, setSimulationUUID] = useState<string>(firstSimUUID);
   const [dates, setDates] = useState<string[]>(firstDates);
   const [avgFinishDataState, setAvgFinishDataState] = useState<any[]>(
-    avgFinishData[simulationUUID]
+    avgFinishData[simulationUUID],
   );
   const [positionDataState, setPositionDataState] = useState<any>(
-    positionData[simulationUUID]
+    positionData[simulationUUID],
   );
   const [currentPointsState, setCurrentPointsState] = useState<any>(
-    currentPoints[simulationUUID]
+    currentPoints[simulationUUID],
   );
   // // Use the search params to determine the active view
   // const searchParams = useSearchParams();
@@ -105,8 +105,8 @@ export default function FootballContainer({
 
   return (
     <PageContainer>
-      <div className="flex flex-row justify-between gap-10 mb-10">
-        <h1 className="text-3xl font-semibold mt-auto">
+      <div className="mb-10 flex flex-row justify-between gap-10">
+        <h1 className="mt-auto text-3xl font-semibold">
           Premier League Prediction
         </h1>
         <div className="hidden sm:block">

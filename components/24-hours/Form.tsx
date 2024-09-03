@@ -15,7 +15,7 @@ export default function DNWYLForm({
     yearsRemaining: any,
     timeMessage: any,
     eachHour: any,
-    currentTime: any
+    currentTime: any,
   ) => void;
   postLifeIsTimeData: (birthday: any, sex: string, country: string) => any;
   className?: string;
@@ -43,7 +43,7 @@ export default function DNWYLForm({
           response.years_remaining,
           response.time_message,
           response.each_hour_of_life,
-          response.current_time
+          response.current_time,
         );
       })
       .catch((error: any) => {
@@ -53,7 +53,7 @@ export default function DNWYLForm({
 
   // Handle input changes
   const handleBirthDateChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setBirthDate(event.target.value);
   };
@@ -61,7 +61,7 @@ export default function DNWYLForm({
     setSex(event.target.value);
   };
   const handleLocationChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setLocation(event.target.value);
   };
@@ -69,8 +69,8 @@ export default function DNWYLForm({
   // Date picker to consume birth date which can't be before 1900 or after today ref:
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
   return (
-    <form className={`text-center my-3 ${className}`} onSubmit={formFunction}>
-      <div className="mb-5 flex flex-col items-center md:flex-row gap-4 w-full">
+    <form className={`my-3 text-center ${className}`} onSubmit={formFunction}>
+      <div className="mb-5 flex w-full flex-col items-center gap-4 md:flex-row">
         <label className="form-control w-full max-w-xs">
           <div className="label">
             <span className="label-text">What is your birth date?</span>
@@ -125,7 +125,7 @@ export default function DNWYLForm({
           </select>
         </label>
       </div>
-      <button type="submit" className="btn btn-primary-content">
+      <button type="submit" className="btn-primary-content btn">
         Calculate!
       </button>
     </form>

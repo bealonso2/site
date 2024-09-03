@@ -12,7 +12,7 @@ export default function PageContainerArticle({
   return (
     <PageContainer className={pageContainerClassName}>
       <article
-        className={`prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto ${articleClassName}`}
+        className={`prose prose-sm mx-auto sm:prose lg:prose-lg xl:prose-xl ${articleClassName}`}
       >
         {children}
       </article>

@@ -120,7 +120,7 @@ function TeamEntry({
   strippedTeamName = strippedTeamName.replace("& Hove Albion", "");
   strippedTeamName = strippedTeamName.replace(
     "Wolverhampton Wanderers",
-    "Wolves"
+    "Wolves",
   );
   return (
     <div className="flex items-center justify-between">
@@ -129,12 +129,12 @@ function TeamEntry({
         alt={`${team} crest`}
         width={32}
         height={32}
-        className="w-8 h-8 mr-2"
+        className="mr-2 h-8 w-8"
       />
-      <span className="overflow-x-hidden text-ellipsis mr-1 sm:mr-2">
+      <span className="mr-1 overflow-x-hidden text-ellipsis sm:mr-2">
         {strippedTeamName}
       </span>
-      <span className="text-xs font-thin text-nowrap justify-end">
+      <span className="justify-end text-nowrap text-xs font-thin">
         {points} pts.
       </span>
     </div>
@@ -160,7 +160,7 @@ export default function FootballTable({
 }) {
   // Determine the total count of all positions for the first team
   const totalCount = Object.values(
-    positionData[Object.keys(positionData)[0]]
+    positionData[Object.keys(positionData)[0]],
   ).reduce((a, b) => a + b, 0);
 
   // Normalize the data. Store the largest value of all the teams
@@ -175,12 +175,12 @@ export default function FootballTable({
           acc[position] = normalizedCount;
           return acc;
         },
-        {} as { [key: string]: number }
+        {} as { [key: string]: number },
       );
       acc[team] = newPositionData;
       return acc;
     },
-    {} as { [key: string]: { [key: string]: number } }
+    {} as { [key: string]: { [key: string]: number } },
   );
 
   return (
@@ -192,20 +192,20 @@ export default function FootballTable({
             <th className="sticky left-0 z-10 bg-base-100 sm:bg-inherit">
               Team
             </th>
-            <th className="text-center text-wrap">Avg. Simulated Finish</th>
-            <th className="hidden md:table-cell text-center">All Places</th>
-            <th className="text-center text-wrap">Finish Bottom 3</th>
-            <th className="text-center text-wrap">Finish Top 4</th>
-            <th className="text-center text-wrap">Win Premier League</th>
+            <th className="text-wrap text-center">Avg. Simulated Finish</th>
+            <th className="hidden text-center md:table-cell">All Places</th>
+            <th className="text-wrap text-center">Finish Bottom 3</th>
+            <th className="text-wrap text-center">Finish Top 4</th>
+            <th className="text-wrap text-center">Win Premier League</th>
           </tr>
         </thead>
         <tbody>
           {avgFinishData.map((row, i) => (
             <tr key={i} className="sm:hover">
-              <th className="sticky left-0 hidden sm:table-cell max-w-min">
+              <th className="sticky left-0 hidden max-w-min sm:table-cell">
                 {i + 1}
               </th>
-              <td className="sticky left-0 z-10 bg-base-100 sm:bg-inherit p-2 pr-1">
+              <td className="sticky left-0 z-10 bg-base-100 p-2 pr-1 sm:bg-inherit">
                 <TeamEntry
                   team={row.team}
                   crest={teamToCrest[row.team]}

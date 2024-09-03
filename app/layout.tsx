@@ -97,7 +97,7 @@ export default function RootLayout({
                       />
                     </svg>
                   </summary>
-                  <NavMenu className="dropdown-content mt-3 z-[1] bg-base-200 p-2 shadow rounded-box absolute right-0" />
+                  <NavMenu className="dropdown-content absolute right-0 z-[1] mt-3 rounded-box bg-base-200 p-2 shadow" />
                 </details>
               </li>
             </ul>
@@ -107,14 +107,14 @@ export default function RootLayout({
           {children}
           <Analytics />
         </div>
-        <footer className="fixed bottom-0 left-0 flex h-auto w-full items-end justify-center pointer-events-none z-50">
-          <div className="pb-5 pointer-events-none">
-            <span className="flex items-center pointer-events-auto">
+        <footer className="pointer-events-none fixed bottom-0 left-0 z-50 flex h-auto w-full items-end justify-center">
+          <div className="pointer-events-none pb-5">
+            <span className="pointer-events-auto flex items-center">
               Follow me on
               <a
                 href="https://x.com/thebrianalonso"
                 target="_blank"
-                className="p-1.5 w-auto"
+                className="w-auto p-1.5"
               >
                 <svg
                   width="16"
@@ -134,7 +134,7 @@ export default function RootLayout({
               <a
                 href="https://github.com/bealonso2"
                 target="_blank"
-                className="p-1.5 w-auto"
+                className="w-auto p-1.5"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

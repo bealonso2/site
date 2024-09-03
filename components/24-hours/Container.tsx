@@ -31,7 +31,7 @@ class RemainingLife {
     lifespan: any,
     birthdayYear: any,
     birthdayMonth: any,
-    birthdayDay: any
+    birthdayDay: any,
   ) {
     this.years = years;
     this.lifespan = lifespan;
@@ -172,10 +172,10 @@ function ShareButton({
     const hourText = is24HourTime
       ? time.hours.toString().padStart(2, "0")
       : time.hours <= 12
-      ? time.hours === 0
-        ? 12
-        : time.hours
-      : time.hours - 12;
+        ? time.hours === 0
+          ? 12
+          : time.hours
+        : time.hours - 12;
     const minuteText = time.minutes.toString().padStart(2, "0");
     const secondText = time.seconds.toString().padStart(2, "0");
     const amPmText = is24HourTime ? "" : time.hours < 12 ? " AM" : " PM";
@@ -188,7 +188,7 @@ function ShareButton({
 
     // Open the tweet in a new tab
     let tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      tweetText
+      tweetText,
     )}&hashtags=${encodeURIComponent(hashtags.join(","))}`;
     window.open(tweetUrl, "_blank");
   };
@@ -197,7 +197,7 @@ function ShareButton({
     <button
       id="share"
       type="button"
-      className="btn btn-primary-content w-full sm:w-auto"
+      className="btn-primary-content btn w-full sm:w-auto"
       onClick={shareFunction}
     >
       Share on X
@@ -220,9 +220,9 @@ function SignificantEventDiv({
   }, [eventName, eventDate]);
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center">
+    <div className="flex flex-col items-center justify-center gap-2">
       <input
-        className="py-1 max-w-xs w-full"
+        className="w-full max-w-xs py-1"
         type="text"
         name="eventName"
         placeholder="Event Name"
@@ -231,7 +231,7 @@ function SignificantEventDiv({
         onChange={(e) => setEventName(e.target.value)}
       />
       <input
-        className="py-1 max-w-xs w-full"
+        className="w-full max-w-xs py-1"
         type="date"
         name="eventDate"
         autoComplete="off"
@@ -239,7 +239,7 @@ function SignificantEventDiv({
         onChange={(e) => setEventDate(e.target.value)}
       />
       <button
-        className="btn btn-sm btn-primary-content py-1 max-w-xs w-full"
+        className="btn-primary-content btn btn-sm w-full max-w-xs py-1"
         type="button"
         onClick={removeFunction}
       >
@@ -261,7 +261,7 @@ export default function DNWYLContainer({
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [time, setTime] = useState(new Time(0, 0, 0));
   const [remainingLife, setRemainingLife] = useState(
-    new RemainingLife(0, 0, 0, 0, 0)
+    new RemainingLife(0, 0, 0, 0, 0),
   );
   const [is24HourTime, setIs24HourTime] = useState(false);
   const [greeting, setGreeting] = useState("");
@@ -278,7 +278,7 @@ export default function DNWYLContainer({
     yearsRemaining: any,
     timeMessage: any,
     eachHour: { [x: number]: { day: any; month: any; year: any } },
-    currentTime: any
+    currentTime: any,
   ) => {
     // Store the remaining life data
     setRemainingLife(
@@ -287,11 +287,11 @@ export default function DNWYLContainer({
         lifespan,
         birthday.year,
         birthday.month,
-        birthday.day
-      )
+        birthday.day,
+      ),
     );
     setTime(
-      new Time(currentTime.hours, currentTime.minutes, currentTime.seconds)
+      new Time(currentTime.hours, currentTime.minutes, currentTime.seconds),
     );
 
     // Set the greeting and inspirational remark
@@ -305,7 +305,7 @@ export default function DNWYLContainer({
         acc[keyInt] = new EachHour(keyInt, value.day, value.month, value.year);
         return acc;
       },
-      {} as Record<number, EachHour>
+      {} as Record<number, EachHour>,
     );
 
     // Store every hour of life
@@ -324,7 +324,7 @@ export default function DNWYLContainer({
   const calculateAndSetSignificantEvents = async (
     uuid: string,
     eventName: string,
-    eventDate: string
+    eventDate: string,
   ) => {
     if (eventName === "" || isNaN(Date.parse(eventDate))) {
       return;
@@ -340,7 +340,7 @@ export default function DNWYLContainer({
           lifespan: remainingLife.lifespan,
         },
         eventName,
-        eventDate
+        eventDate,
       );
       const firstEvent = data.events[0];
       setSignificantEventsData((prevMap) => {
@@ -351,8 +351,8 @@ export default function DNWYLContainer({
             firstEvent.name,
             firstEvent.date,
             firstEvent.percent,
-            firstEvent.time
-          )
+            firstEvent.time,
+          ),
         );
         return newMap; // Return the new Map to update the state
       });
@@ -371,12 +371,12 @@ export default function DNWYLContainer({
       />
       <div className={isFormSubmitted ? "my-3 max-w-2xl" : "hidden"}>
         <div id="calculationInfo" className="my-3">
-          <h2 id="timeOfDayMessage" className="font-semibold text-2xl">
+          <h2 id="timeOfDayMessage" className="text-2xl font-semibold">
             Good {greeting}!
           </h2>
           {/*  Kind of want to consider moving this down under the clock at some point  */}
           <div className="my-2">
-            <h3 id="timeRemaining" className="font-medium text-xl">
+            <h3 id="timeRemaining" className="text-xl font-medium">
               You have {Math.floor(remainingLife.years)} years left of your
               estimated {Math.ceil(remainingLife.lifespan)} year life.
             </h3>
@@ -414,10 +414,10 @@ export default function DNWYLContainer({
                     {is24HourTime
                       ? time.hours.toString().padStart(2, "0")
                       : time.hours <= 12
-                      ? time.hours === 0
-                        ? 12
-                        : time.hours
-                      : time.hours - 12}
+                        ? time.hours === 0
+                          ? 12
+                          : time.hours
+                        : time.hours - 12}
                   </strong>
                   <BlinkingTick />
                   {time.minutes.toString().padStart(2, "0")}
@@ -456,7 +456,7 @@ export default function DNWYLContainer({
                                     {new Date(
                                       value.year,
                                       value.month - 1,
-                                      value.day
+                                      value.day,
                                     ).toLocaleDateString()}
                                   </div>
                                 );
@@ -490,14 +490,14 @@ export default function DNWYLContainer({
                         {new Date(event.date).toLocaleDateString()} {event.time}
                       </span>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </div>
             <div className="my-10 space-y-5">
               {/*  Button to toggle between 12 and 24 hour time  */}
               <div className="form-control">
-                <label className="label cursor-pointer flex flex-row justify-center gap-4">
+                <label className="label flex cursor-pointer flex-row justify-center gap-4">
                   <span className="label-text">24 Hour Time</span>
                   <input
                     type="checkbox"
@@ -508,10 +508,10 @@ export default function DNWYLContainer({
                   <span className="label-text">12 Hour Time</span>
                 </label>
               </div>
-              <div className="space-y-3 sm:space-y-0 sm:space-x-3 sm:flex sm:justify-center">
+              <div className="space-y-3 sm:flex sm:justify-center sm:space-x-3 sm:space-y-0">
                 <ShareButton is24HourTime={is24HourTime} time={time} />
                 <button
-                  className="btn btn-primary-content w-full sm:w-auto"
+                  className="btn-primary-content btn w-full sm:w-auto"
                   onClick={
                     // Function to alert the user that the feature is not yet implemented
                     () => alert("This feature is coming soon.")
@@ -533,7 +533,7 @@ export default function DNWYLContainer({
             <form className="flex flex-col items-center">
               <div
                 id="significantEventsFormContainer"
-                className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
+                className="grid w-full grid-cols-1 gap-4 md:grid-cols-3"
               >
                 {significantEvents.map((i) => (
                   <SignificantEventDiv
@@ -548,7 +548,7 @@ export default function DNWYLContainer({
               <button
                 type="button"
                 id="addEvent"
-                className="btn btn-primary-content my-3 max-w-xs w-full"
+                className="btn-primary-content btn my-3 w-full max-w-xs"
                 onClick={() => {
                   setSignificantEvents([...significantEvents, uuidv4()]);
                 }}

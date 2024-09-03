@@ -46,7 +46,7 @@ async function calculateSignificantEvent(
     lifespan: number;
   },
   eventName: string,
-  eventDate: string
+  eventDate: string,
 ) {
   "use server";
   const response = await fetch(`${url}/significant_events`, {
@@ -74,10 +74,10 @@ export default async function Page() {
     <PageContainer>
       <div>
         <h1 className="text-3xl font-semibold">Life in 24 Hours Calculator</h1>
-        <div className="py-3 space-y-5 max-w-2xl">
+        <div className="max-w-2xl space-y-5 py-3">
           {/* Thinking about moving this stuff to the onboarding part of the app.
               Collapsed in some way when you get to the main page. */}
-          <h2 className="text-xl font-medium mt-5">
+          <h2 className="mt-5 text-xl font-medium">
             What if your life was 24 hours long?
           </h2>
           <p>

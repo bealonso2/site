@@ -19,7 +19,7 @@ const TabNavigation = () => {
       <Link
         href=""
         onClick={(e) => e.preventDefault()}
-        className="tab tab-bordered tooltip"
+        className="tab-bordered tab tooltip"
       >
         <div className="tooltip" data-tip="Coming Soon">
           <span>Match Predictions</span>

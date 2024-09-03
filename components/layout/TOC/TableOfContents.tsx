@@ -10,7 +10,7 @@ const TOC: React.FC<TOCProps> = () => {
 
   const renderTOC = (
     headings: Heading[],
-    currentLevel = 2
+    currentLevel = 2,
   ): JSX.Element | null => {
     const items: JSX.Element[] = [];
     let index = 0;
@@ -37,7 +37,7 @@ const TOC: React.FC<TOCProps> = () => {
             <a href={`#${heading.id}`}>{heading.text}</a>
             {/* Recursively render subheadings if any */}
             {subHeadings.length > 0 && renderTOC(subHeadings, currentLevel + 1)}
-          </li>
+          </li>,
         );
       } else {
         index++;

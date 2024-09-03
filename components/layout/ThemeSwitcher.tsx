@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const useTheme: () => [
   string,
-  React.Dispatch<React.SetStateAction<string>>
+  React.Dispatch<React.SetStateAction<string>>,
 ] = () => {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
@@ -13,7 +13,7 @@ const useTheme: () => [
         return savedTheme;
       } else {
         const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
+          "(prefers-color-scheme: dark)",
         ).matches;
         return prefersDark ? "dark" : "light";
       }
@@ -61,7 +61,7 @@ export const ThemeSwitcher = () => {
 
         {/* sun icon */}
         <svg
-          className="swap-off fill-current w-10 h-10"
+          className="swap-off h-10 w-10 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -70,7 +70,7 @@ export const ThemeSwitcher = () => {
 
         {/* moon icon */}
         <svg
-          className="swap-on fill-current w-10 h-10"
+          className="swap-on h-10 w-10 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >

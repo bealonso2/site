@@ -54,7 +54,7 @@ const getQuery = async (query: string, key: string): Promise<any> => {
 
     // Delete the database file after the connection is closed
     unlink(dbFileName).catch((error) =>
-      console.error("Error deleting database file", error)
+      console.error("Error deleting database file", error),
     );
   });
 
@@ -69,7 +69,7 @@ export const getPositionData = async (): Promise<any> => {
       ON team_positions.simulation_uuid = simulations.uuid
     ORDER BY id DESC, team;
   `,
-    resultsKey
+    resultsKey,
   );
 };
 
@@ -81,7 +81,7 @@ export const getAverageFinishData = async (): Promise<any> => {
       ON average_results.simulation_uuid = simulations.uuid
     ORDER BY id DESC, place;
   `,
-    resultsKey
+    resultsKey,
   );
 };
 
@@ -93,7 +93,7 @@ export const getCurrentPoints = async (): Promise<any> => {
       ON team_to_points.simulation_uuid = simulations.uuid
     ORDER BY id DESC, points DESC;
   `,
-    resultsKey
+    resultsKey,
   );
 };
 
@@ -103,7 +103,7 @@ export const getSimulationsData = async (): Promise<any> => {
     SELECT * FROM simulations
     ORDER BY id DESC, date DESC;
   `,
-    resultsKey
+    resultsKey,
   );
 };
 
@@ -112,6 +112,6 @@ export const getCrests = async (): Promise<any> => {
     `
     SELECT * FROM team_to_crests;
   `,
-    dataKey
+    dataKey,
   );
 };

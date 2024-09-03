@@ -23,7 +23,7 @@ export default function TableControls({
 
   // Dropdown to toggle between seasons
   return (
-    <div className="flex flex-col items-center sm:flex-row justify-evenly gap-y-2">
+    <div className="flex flex-col items-center justify-evenly gap-y-2 sm:flex-row">
       <label className="mr-2">
         Forecast from
         <select className="ml-2" value={date} onChange={handleDateChange}>

@@ -20,7 +20,7 @@ const Equation: React.FC<EquationProps> = ({ text }) => {
     }
   }, [text]);
 
-  return <div ref={equationRef} className="flex flex-col items-center my-8" />;
+  return <div ref={equationRef} className="my-8 flex flex-col items-center" />;
 };
 
 export default Equation;
