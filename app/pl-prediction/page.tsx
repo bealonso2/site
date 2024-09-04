@@ -1,11 +1,20 @@
 import FootballContainer from "@/components/pl-prediction/FootballContainer";
 import {
   getAverageFinishData,
+  getCrests,
+  getCurrentPoints,
   getPositionData,
   getSimulationsData,
-  getCurrentPoints,
-  getCrests,
 } from "@/lib/football/data";
+import { generateMetadata } from "@/utils/metadata";
+
+export const metadata = generateMetadata({
+  title: "Premier League Prediction",
+  description:
+    "Forecast the final standings of the English Premier League based on historical data.",
+  keywords: "Premier League, football, soccer, prediction, PL, EPL",
+  canonicalPath: "pl-prediction",
+});
 
 // Force the page to never revalidate
 export const revalidate = false;

@@ -2,6 +2,16 @@ import PageContainerArticle from "@/components/layout/PageContainerArticle";
 import TOC from "@/components/layout/TOC/TableOfContents";
 import Equation from "@/components/pl-prediction/Equation";
 import TabNavigation from "@/components/pl-prediction/TabNavigation";
+import { generateMetadata } from "@/utils/metadata";
+
+export const metadata = generateMetadata({
+  title: "About Premier League Prediction",
+  description:
+    "Learn about the methodology, model, and architecture used to forecast the final standings of the English Premier League.",
+  keywords:
+    "Premier League, football, soccer, prediction, PL, EPL, AWS, Machine Learning, Elo",
+  canonicalPath: "pl-prediction/about",
+});
 
 export default function About() {
   return (

@@ -2,6 +2,15 @@
 import "@/app/24-hours/main.css";
 import DNWYLContainer from "@/components/24-hours/Container";
 import PageContainer from "@/components/layout/PageContainer";
+import { generateMetadata } from "@/utils/metadata";
+
+export const metadata = generateMetadata({
+  title: "Life in 24 Hours Calculator",
+  description:
+    "Calculate your remaining time on Earth as if your life was 24 hours long.",
+  keywords: "life, time, calculator, mortality, death",
+  canonicalPath: "24-hours",
+});
 
 // URL:
 const url = "https://n9y1gnbx8d.execute-api.us-east-1.amazonaws.com/Prod";
