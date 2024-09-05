@@ -7,9 +7,9 @@ import { generateMetadata } from "@/utils/metadata";
 export const metadata = generateMetadata({
   title: "About Premier League Prediction",
   description:
-    "Learn about the methodology, model, and architecture used to forecast the final standings of the English Premier League.",
+    "Learn about the methodology, machine learning model, and architecture used to forecast the final standings of the English Premier League.",
   keywords:
-    "Premier League, football, soccer, prediction, PL, EPL, AWS, Machine Learning, Elo",
+    "Premier League, machine learning, ML, football, soccer, prediction, PL, EPL, AWS, Elo",
   canonicalPath: "pl-prediction/about",
 });
 
@@ -19,8 +19,9 @@ export default function About() {
       <h1>About Premier League Prediction</h1>
       <TabNavigation />
       <p>
-        This is a web app that forecasts the final standings of the English
-        Premier League based on historical data. The data is sourced from{" "}
+        This is a machine learning model that forecasts the final standings of
+        the English Premier League based on historical data. The data is sourced
+        from{" "}
         <a
           href="
             https://www.football-data.org
@@ -100,7 +101,6 @@ export default function About() {
           "\\text{Expected Win} = 1 \\div \\left(1 + 10^{\\frac{\\text{Loser Elo} - \\text{Winner Elo}}{400}}\\right)"
         }
       />
-      {/* <Equation text={"\\;\\;"} /> */}
       <Equation
         text={
           "\\text{Change in Winner Elo} = K \\times (1 - \\text{Expected Win})"
