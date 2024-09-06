@@ -104,7 +104,7 @@ export default function FootballContainer({
   }, [simulationUUID, avgFinishData, positionData, currentPoints]);
 
   return (
-    <PageContainer>
+    <PageContainer className="mx-auto max-w-screen-lg">
       <div className="mb-10 flex flex-row justify-between gap-10">
         <h1 className="mt-auto text-3xl font-semibold">
           Premier League Prediction
