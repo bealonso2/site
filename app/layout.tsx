@@ -66,8 +66,11 @@ export default function RootLayout({
         <ThemeProvider />
         <header className="navbar px-4">
           <div className="navbar-start">
-            <a href="/" className="btn btn-ghost text-xl">
+            <a href="/" className="btn btn-ghost hidden text-xl md:flex">
               Brian Alonso
+            </a>
+            <a href="/" className="btn btn-ghost text-xl md:hidden">
+              BA
             </a>
           </div>
           <div className="navbar-center hidden md:flex">
