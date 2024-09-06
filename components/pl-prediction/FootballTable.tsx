@@ -115,13 +115,24 @@ function TeamEntry({
     ? strippedTeamName.replace("United", "Utd")
     : strippedTeamName.replace("United", "");
   strippedTeamName = strippedTeamName.replace("Nottingham", "Nott'm");
-  strippedTeamName = strippedTeamName.replace("Hotspur", "");
   strippedTeamName = strippedTeamName.replace("AFC", "");
   strippedTeamName = strippedTeamName.replace("& Hove Albion", "");
   strippedTeamName = strippedTeamName.replace(
     "Wolverhampton Wanderers",
     "Wolves",
   );
+
+  // Special logic for Spuds
+  var additionalClasses = "";
+  var dataTip = null;
+  if (strippedTeamName.toLowerCase().includes("tottenham")) {
+    strippedTeamName = "Spurs";
+    additionalClasses += " tooltip";
+    dataTip = "💩";
+  } else {
+    additionalClasses += " overflow-x-hidden";
+  }
+
   return (
     <div className="flex items-center justify-between">
       <Image
@@ -131,7 +142,10 @@ function TeamEntry({
         height={32}
         className="mr-2 h-8 w-8"
       />
-      <span className="mr-1 overflow-x-hidden text-ellipsis sm:mr-2">
+      <span
+        className={`mr-1 text-ellipsis sm:mr-2 ${additionalClasses}`}
+        data-tip={dataTip}
+      >
         {strippedTeamName}
       </span>
       <span className="justify-end text-nowrap text-xs font-thin">
