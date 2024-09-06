@@ -21,7 +21,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
 
   return (
     <PageContainer>
-      <div className="text-md w-full max-w-md md:max-w-xl">
+      <div className="text-md mx-auto w-full max-w-md md:max-w-xl">
         <div className="animate-fadeIn-delay-1 space-y-4 opacity-0 md:my-8">
           <h1 className="text-3xl font-semibold">Hi, I&apos;m Brian.</h1>
           <p>
