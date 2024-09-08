@@ -1,7 +1,6 @@
 "use client";
 
 export default function PrintButton() {
-  // This doesn't work on Safari for some reason
   const handlePrint = () => {
     window.print();
   };

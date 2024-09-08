@@ -6,6 +6,13 @@
   * {
     line-height: 27px; /* Maximizes the page size on Chrome */
   }
+
+  html,
+  body {
+    width: 8.5in;
+    height: 100%; /* Letter size height */
+    overflow: hidden; /* Hide overflow content */
+  }
 }
 
 /* Print page styles */
