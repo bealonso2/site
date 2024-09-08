@@ -35,7 +35,7 @@ export default function About() {
             <h1 className="m-0 self-center">Brian Alonso</h1>
             <div className="flex flex-col">
               <span className="font-semibold">Raleigh, North Carolina</span>
-              <span className="flex flex-col gap-1 sm:flex-row">
+              <span className="flex flex-row flex-wrap justify-between gap-2">
                 <a href="https://balonso.com">Website</a>
                 <span className="hidden sm:inline"> | </span>
                 <a href="mailto:alonsobrian2@gmail.com">Email</a>
@@ -84,7 +84,7 @@ export default function About() {
           <h2>Education</h2>
           <h3>B.S. Aerospace Engineering</h3>
           <h4>August 2018 - May 2022 | North Carolina State University</h4>
-          <div className="flex flex-row flex-wrap justify-between gap-1">
+          <div className="flex flex-row flex-wrap justify-start gap-2">
             <span>Computer Programming Minor</span>
             <span className="hidden sm:inline">|</span>
             <span>GPA: 3.98</span>
