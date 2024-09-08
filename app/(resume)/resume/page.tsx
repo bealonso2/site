@@ -23,8 +23,8 @@ export default function About() {
         <PrintButton />
       </header>
       <hr className="no-print" />
-      <main className="flex min-h-screen flex-col items-stretch justify-between p-12">
-        <article className="prose mx-auto max-w-screen-md prose-headings:my-0.5 prose-h2:mt-2 prose-h3:mt-1.5 prose-p:m-0 prose-ul:m-0">
+      <main className="flex min-h-screen flex-col items-stretch justify-between p-6 sm:p-12">
+        <article className="prose mx-auto max-w-screen-md text-xs prose-headings:my-0.5 prose-h2:mt-2 prose-h3:mt-1.5 prose-p:m-0 prose-ul:m-0 sm:text-base">
           <div className="flex flex-row justify-between">
             <h1 className="m-0 self-center">Brian Alonso</h1>
             <div className="flex flex-col">
@@ -78,9 +78,9 @@ export default function About() {
           <h4>August 2018 - May 2022 | North Carolina State University</h4>
           <div className="flex flex-row justify-between">
             <span>Computer Programming Minor</span>
-            <span>|</span>
+            <span className="hidden sm:inline">|</span>
             <span>GPA: 3.98</span>
-            <span>|</span>
+            <span className="hidden sm:inline">|</span>
             <span>AIAA Chair: 2021-2022</span>
           </div>
           <h2>Projects</h2>
