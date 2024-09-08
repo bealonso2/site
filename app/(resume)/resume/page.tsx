@@ -35,16 +35,18 @@ export default function About() {
             <h1 className="m-0 self-center">Brian Alonso</h1>
             <div className="flex flex-col">
               <span className="font-semibold">Raleigh, North Carolina</span>
-              <span>
-                <a href="https://balonso.com">Website</a> |{" "}
-                <a href="mailto:alonsobrian2@gmail.com">Email</a> |{" "}
+              <span className="flex flex-col gap-1 sm:flex-row">
+                <a href="https://balonso.com">Website</a>
+                <span className="hidden sm:inline"> | </span>
+                <a href="mailto:alonsobrian2@gmail.com">Email</a>
+                <span className="hidden sm:inline"> | </span>
                 <a href="https://github.com/bealonso2">GitHub</a>
               </span>
             </div>
           </div>
           <hr className="mb-2 mt-1" />
           <p>
-            Experienced engineer skilled in Python and scientific computing, and
+            Experienced engineer skilled in Python, scientific computing, and
             aerospace structural analysis, leading the development of
             engineering tools and AWS automation, with a strong track record of
             collaborating within teams to solve complex technical challenges.
@@ -82,7 +84,7 @@ export default function About() {
           <h2>Education</h2>
           <h3>B.S. Aerospace Engineering</h3>
           <h4>August 2018 - May 2022 | North Carolina State University</h4>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row flex-wrap justify-between gap-1">
             <span>Computer Programming Minor</span>
             <span className="hidden sm:inline">|</span>
             <span>GPA: 3.98</span>
