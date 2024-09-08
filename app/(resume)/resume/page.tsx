@@ -1,4 +1,3 @@
-import PrintButton from "@/components/resume/PrintButton";
 import { generateMetadata } from "@/utils/metadata";
 import "./styles.css";
 
@@ -20,7 +19,14 @@ export default function About() {
             Brian Alonso
           </a>
         </h1>
-        <PrintButton />
+        {/* TODO: Automatically print resume and upload to S3 as a post-build step */}
+        <a
+          href="https://resume.s3.amazonaws.com/Brian%20Alonso%20Resume.pdf"
+          className="self-center"
+          download="Brian Alonso Resume.pdf"
+        >
+          Download as PDF
+        </a>
       </header>
       <hr className="no-print" />
       <main className="flex min-h-screen flex-col items-stretch justify-between p-6 sm:p-12">
