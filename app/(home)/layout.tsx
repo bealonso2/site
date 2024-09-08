@@ -3,8 +3,8 @@ import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
-import { NavMenu } from "../components/layout/NavMenu";
-import "./globals.css";
+import { NavMenu } from "../../components/layout/NavMenu";
+import "../../app/globals.css";
 
 const RobotoFlex = Roboto_Flex({
   subsets: ["latin"],

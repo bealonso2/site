@@ -1,5 +1,5 @@
 // Import .main.css file
-import "@/app/24-hours/main.css";
+import "./main.css";
 import DNWYLContainer from "@/components/24-hours/Container";
 import PageContainer from "@/components/layout/PageContainer";
 import { generateMetadata } from "@/utils/metadata";

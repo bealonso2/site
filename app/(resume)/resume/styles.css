@@ -1,0 +1,15 @@
+/* Print-specific styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+  * {
+    line-height: 27px; /* Maximizes the page size on Chrome */
+  }
+}
+
+/* Print page styles */
+@page {
+  size: letter;
+  margin: 0in;
+}
