@@ -15,9 +15,7 @@ export default function About() {
       {/* Add a button to download the page as a pdf */}
       <header className="no-print flex flex-row justify-between p-4">
         <h1 className="m-0">
-          <a href="/" target="_blank">
-            Brian Alonso
-          </a>
+          <a href="/">Brian Alonso</a>
         </h1>
         {/* TODO: Automatically print resume and upload to S3 as a post-build step */}
         <a

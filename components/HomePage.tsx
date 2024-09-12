@@ -57,8 +57,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             >
               GitHub
             </a>
-            . Read my long-form thoughts on the intersection of artificial
-            intelligence/machine learning and the climate crisis, personal
+            . Read my long-form thoughts on climate and AI/ML, personal
             development, and software engineering{" "}
             <a
               href="https://blog.balonso.com"
