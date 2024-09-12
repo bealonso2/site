@@ -25,7 +25,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
         <div className="animate-fadeIn-delay-1 space-y-4 opacity-0 md:my-8">
           <h1 className="text-3xl font-semibold">Hi, I&apos;m Brian.</h1>
           <p>
-            I&apos;ve been a stress engineer and engineering tool developer at{" "}
+            I&apos;ve been an engineering tool developer and stress engineer at{" "}
             <a
               href="https://collieraerospace.com"
               target="_blank"
@@ -57,7 +57,8 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             >
               GitHub
             </a>
-            . Read my long-form thoughts on the climate crisis, personal
+            . Read my long-form thoughts on the intersection of artificial
+            intelligence/machine learning and the climate crisis, personal
             development, and software engineering{" "}
             <a
               href="https://blog.balonso.com"

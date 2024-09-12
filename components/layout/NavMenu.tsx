@@ -24,23 +24,23 @@ const links = [
       },
     ],
   },
-  {
-    name: "Products",
-    links: [
-      {
-        name: "Gmail Cleanup",
-        url: "https://gmailcleanup.com",
-      },
-      // {
-      //   name: "LuckyLink",
-      //   url: "https://luckylink.app",
-      // },
-      // {
-      //   name: "EarthWallet",
-      //   url: "https://earthwallet.app",
-      // },
-    ],
-  },
+  // {
+  //   name: "Products",
+  //   links: [
+  //     {
+  //       name: "Gmail Cleanup",
+  //       url: "https://gmailcleanup.com",
+  //     },
+  //     {
+  //       name: "LuckyLink",
+  //       url: "https://luckylink.app",
+  //     },
+  //     {
+  //       name: "EarthWallet",
+  //       url: "https://earthwallet.app",
+  //     },
+  //   ],
+  // },
 ];
 
 export const NavMenu = ({ className }: { className: string }) => {
