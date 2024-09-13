@@ -107,6 +107,23 @@ export const getSimulationsData = async (): Promise<any> => {
   );
 };
 
+export const getUpcomingMatches = async (): Promise<any> => {
+  return getQuery(
+    `
+    SELECT * 
+    FROM upcoming_results 
+    WHERE simulation_uuid = (
+      SELECT simulation_uuid 
+      FROM upcoming_results 
+      ORDER BY utc_date DESC 
+      LIMIT 1
+    )
+    ORDER BY utc_date ASC;
+    `,
+    resultsKey,
+  );
+};
+
 export const getCrests = async (): Promise<any> => {
   return getQuery(
     `

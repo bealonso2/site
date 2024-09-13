@@ -17,13 +17,10 @@ const TabNavigation = () => {
         League Table Prediction
       </Link>
       <Link
-        href=""
-        onClick={(e) => e.preventDefault()}
-        className="tab-bordered tab tooltip"
+        href="/pl-prediction/matches"
+        className={`tab ${pathname === "/pl-prediction/matches" ? "tab-active" : ""}`}
       >
-        <div className="tooltip" data-tip="Coming Soon">
-          <span>Match Predictions</span>
-        </div>
+        Match Predictions
       </Link>
       <Link
         href="/pl-prediction/about"
