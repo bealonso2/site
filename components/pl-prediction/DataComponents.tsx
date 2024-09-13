@@ -60,7 +60,9 @@ export function TeamEntry({
   }
 
   return (
-    <div className={`flex items-center ${points ? "justify-between" : ""}`}>
+    <div
+      className={`flex items-center ${typeof points !== "undefined" ? "justify-between" : ""}`}
+    >
       <Image
         src={crest}
         alt={`${team} crest`}
@@ -69,12 +71,12 @@ export function TeamEntry({
         className="mr-2 h-8 w-8"
       />
       <span
-        className={`${points ? "mr-1 text-ellipsis sm:mr-2" : ""} ${additionalClasses}`}
+        className={`${typeof points !== "undefined" ? "mr-1 text-ellipsis sm:mr-2" : ""} ${additionalClasses}`}
         data-tip={dataTip}
       >
         {strippedTeamName}
       </span>
-      {points && (
+      {typeof points !== "undefined" && (
         <span className="justify-end text-nowrap text-xs font-thin">
           {points} pts.
         </span>
