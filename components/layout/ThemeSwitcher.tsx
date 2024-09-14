@@ -1,52 +1,15 @@
 "use client";
-
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-const useTheme: () => [
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-] = () => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme) {
-        return savedTheme;
-      } else {
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        return prefersDark ? "dark" : "light";
-      }
-    }
-    return "light"; // Default theme
-  });
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-      // Listen for changes to the system preference
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const handleChange = (e: MediaQueryListEvent) => {
-        setTheme(e.matches ? "dark" : "light");
-      };
-      mediaQuery.addEventListener("change", handleChange);
-
-      // Cleanup listener on component unmount
-      return () => {
-        mediaQuery.removeEventListener("change", handleChange);
-      };
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  return [theme, setTheme];
-};
-
 export const ThemeSwitcher = () => {
-  const [theme, setTheme] = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Avoid mismatch between server and client rendered content
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
 
   return (
     <>
@@ -55,7 +18,7 @@ export const ThemeSwitcher = () => {
         <input
           type="checkbox"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          checked={theme === "dark"}
+          checked={theme === "light"}
           readOnly
         />
 
