@@ -93,10 +93,12 @@ export default function MatchesContainer({
       {upcomingMatches.length === 0 ? (
         <p className="m-10 h-screen text-center">No upcoming matches.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {upcomingMatches.map((match: any, index: number) => (
-            <Match key={index} match={match} teamToCrest={teamToCrest} />
-          ))}
+        <div className="overflow-x-auto">
+          <div className="mt-8 grid grid-cols-1 justify-center gap-8 sm:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]">
+            {upcomingMatches.map((match: any, index: number) => (
+              <Match key={index} match={match} teamToCrest={teamToCrest} />
+            ))}
+          </div>
         </div>
       )}
     </PageContainer>
