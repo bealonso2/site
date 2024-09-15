@@ -3,11 +3,13 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // Avoid mismatch between server and client rendered content
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!mounted) return null;
 
@@ -17,8 +19,10 @@ export const ThemeSwitcher = () => {
         {/* this hidden checkbox controls the state */}
         <input
           type="checkbox"
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          checked={theme === "light"}
+          // TODO: Once the theme is overwritten (saved in local storage),
+          // system theme changes won't be reflected
+          onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
+          checked={resolvedTheme === "light"}
           readOnly
         />
 

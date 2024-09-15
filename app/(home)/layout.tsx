@@ -44,11 +44,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-base-200">
+    <html lang="en" className="bg-base-200" suppressHydrationWarning>
       <body className={`${RobotoFlex.className} font-light`}>
         <ThemeProvider
           attribute="data-theme"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem={true}
         >
           <header className="navbar px-4">
