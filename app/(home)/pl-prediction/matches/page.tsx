@@ -7,7 +7,7 @@ export const metadata = generateMetadata({
   description:
     "Predictions of the outcomes of upcoming Premier League matches.",
   keywords: "Premier League, football, soccer, prediction, PL, EPL",
-  canonicalPath: "pl-prediction",
+  canonicalPath: "pl-prediction/matches",
 });
 
 // Force the page to never revalidate
