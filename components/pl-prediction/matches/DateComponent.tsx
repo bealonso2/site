@@ -12,13 +12,19 @@ export function DateComponent({
   const [formattedDate, setFormattedDate] = useState<string>("");
 
   useEffect(() => {
-    const formatted = new Date(date + "Z").toLocaleString(undefined, {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    });
+    // Date is currently in the format "YYYY-MM-DD HH:MM:SS" and we want to
+    // tell the browser it is UTC time so it can convert it to the user's local
+    // time zone
+    const formatted = new Date(`${date.replace(" ", "T")}Z`).toLocaleString(
+      undefined,
+      {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      },
+    );
     setFormattedDate(formatted);
   }, [date]);
 
