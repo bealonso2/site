@@ -12,19 +12,21 @@ const TabNavigation = () => {
     >
       <Link
         href="/pl-prediction"
-        className={`tab ${pathname.startsWith("/pl-prediction") && pathname === "/pl-prediction" ? "tab-active" : ""}`}
+        className={`tab ${pathname === "/pl-prediction" ? "tab-active" : ""}`}
       >
         League Table Prediction
       </Link>
       <Link
         href="/pl-prediction/matches"
-        className={`tab ${pathname.startsWith("/pl-prediction/matches") ? "tab-active" : ""}`}
+        className={`tab ${pathname === "/pl-prediction/matches" ? "tab-active" : ""}`}
       >
         Match Predictions
       </Link>
       <Link
         href="/pl-prediction/about"
-        className={`tab ${pathname.startsWith("/pl-prediction/about") ? "tab-active" : ""}`}
+        className={`tab ${
+          pathname === "/pl-prediction/about" ? "tab-active" : ""
+        }`}
       >
         About
       </Link>
