@@ -18,19 +18,29 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.ico",
+        url: "/favicon-16x16.png",
         rel: "icon",
         sizes: "16x16",
       },
       {
-        url: "/favicon.ico",
+        url: "/favicon-32x32.png",
         rel: "icon",
         sizes: "32x32",
+      },
+      {
+        url: "/android-chrome-192x192.png",
+        rel: "android-chrome",
+        sizes: "192x192",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        rel: "android-chrome",
+        sizes: "512x512",
       },
     ],
     apple: [
       {
-        url: "/favicon.ico",
+        url: "/apple-touch-icon.png",
         rel: "apple-touch-icon",
         sizes: "180x180",
       },
