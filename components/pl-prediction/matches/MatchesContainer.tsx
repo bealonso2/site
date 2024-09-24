@@ -2,8 +2,9 @@
 
 import PageContainer from "@/components/layout/PageContainer";
 import TabNavigation from "@/components/pl-prediction/TabNavigation";
-import React, { ChangeEvent, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Match from "./Match";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Match {
   utc_date: string;
@@ -14,6 +15,15 @@ interface Match {
 
 type SortCriteria = "date" | "best";
 
+// Array of valid sort criteria
+// Note: This is stupid, why am I even using TypeScript?
+const validSortCriteria: SortCriteria[] = ["date", "best"];
+
+// Function to check if a value is a valid SortCriteria
+const isValidSortCriteria = (value: any): value is SortCriteria => {
+  return validSortCriteria.includes(value);
+};
+
 export default function MatchesContainer({
   upcomingMatches,
   teamToCrest,
@@ -21,11 +31,30 @@ export default function MatchesContainer({
   upcomingMatches: any;
   teamToCrest: any;
 }) {
-  const [sortCriteria, setSortCriteria] = useState<SortCriteria>("date"); // Default sorting by date
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const sortQuery = searchParams.get("sort");
+  const [sortCriteria, setSortCriteria] = useState<SortCriteria>(
+    isValidSortCriteria(sortQuery) ? sortQuery : "date",
+  ); // Default sorting by date if no query is provided
 
-  const handleSortChange = (event: ChangeEvent<HTMLSelectElement>): void => {
-    setSortCriteria(event.target.value as SortCriteria);
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSortCriteria = event.target.value;
+
+    // Check if criteria is a valid SortCriteria
+    if (isValidSortCriteria(newSortCriteria)) {
+      setSortCriteria(newSortCriteria);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("sort", newSortCriteria);
+      router.replace(`?${params.toString()}`);
+    }
   };
+
+  useEffect(() => {
+    if (isValidSortCriteria(sortQuery) && sortQuery !== sortCriteria) {
+      setSortCriteria(sortQuery);
+    }
+  }, [sortQuery]);
 
   const sortMatches = (matches: Match[], criteria: SortCriteria): Match[] => {
     return matches.slice().sort((a, b) => {
