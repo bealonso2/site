@@ -139,13 +139,13 @@ export default function MatchesContainer({
       {/* Dropdown to sort matches */}
       <div className="join mx-auto mt-10">
         <label
-          className="label join-item rounded-md border p-2 text-sm sm:text-base"
+          className="label join-item select-bordered rounded-md border p-2 text-sm sm:text-base"
           htmlFor="sort"
         >
-          Sort by:
+          Sort by
         </label>
         <select
-          className="join-item select select-bordered text-sm sm:text-base"
+          className="border-base join-item select select-bordered text-sm sm:text-base"
           id="sort"
           value={sortCriteria}
           onChange={handleSortChange}
