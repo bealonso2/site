@@ -2,9 +2,9 @@
 
 import PageContainer from "@/components/layout/PageContainer";
 import TabNavigation from "@/components/pl-prediction/TabNavigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useCallback } from "react";
 import Match from "./Match";
-import { useRouter, useSearchParams } from "next/navigation";
+import { SortCriteria, SortDropdown } from "./SortComponent";
 
 interface Match {
   utc_date: string;
@@ -13,17 +13,6 @@ interface Match {
   away_win_probability: number;
 }
 
-type SortCriteria = "date" | "best";
-
-// Array of valid sort criteria
-// Note: This is stupid, why am I even using TypeScript?
-const validSortCriteria: SortCriteria[] = ["date", "best"];
-
-// Function to check if a value is a valid SortCriteria
-const isValidSortCriteria = (value: any): value is SortCriteria => {
-  return validSortCriteria.includes(value);
-};
-
 export default function MatchesContainer({
   upcomingMatches,
   teamToCrest,
@@ -31,30 +20,8 @@ export default function MatchesContainer({
   upcomingMatches: any;
   teamToCrest: any;
 }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const sortQuery = searchParams.get("sort");
-  const [sortCriteria, setSortCriteria] = useState<SortCriteria>(
-    isValidSortCriteria(sortQuery) ? sortQuery : "date",
-  ); // Default sorting by date if no query is provided
-
-  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newSortCriteria = event.target.value;
-
-    // Check if criteria is a valid SortCriteria
-    if (isValidSortCriteria(newSortCriteria)) {
-      setSortCriteria(newSortCriteria);
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("sort", newSortCriteria);
-      router.replace(`?${params.toString()}`);
-    }
-  };
-
-  useEffect(() => {
-    if (isValidSortCriteria(sortQuery) && sortQuery !== sortCriteria) {
-      setSortCriteria(sortQuery);
-    }
-  }, [sortQuery]);
+  const [sortedMatches, setSortedMatches] =
+    React.useState<Match[]>(upcomingMatches);
 
   const sortMatches = (matches: Match[], criteria: SortCriteria): Match[] => {
     return matches.slice().sort((a, b) => {
@@ -85,7 +52,13 @@ export default function MatchesContainer({
     });
   };
 
-  const sortedMatches = sortMatches(upcomingMatches, sortCriteria);
+  // Update the sorted matches when the sort criteria changes
+  const updateSortedMatches = useCallback(
+    (criteria: SortCriteria) => {
+      setSortedMatches(sortMatches(upcomingMatches, criteria));
+    },
+    [upcomingMatches],
+  );
 
   return (
     <PageContainer className="mx-auto max-w-screen-lg">
@@ -166,23 +139,9 @@ export default function MatchesContainer({
       <TabNavigation />
 
       {/* Dropdown to sort matches */}
-      <div className="join mx-auto mt-10">
-        <label
-          className="label join-item select-bordered rounded-md border p-2 text-sm sm:text-base"
-          htmlFor="sort"
-        >
-          Sort by
-        </label>
-        <select
-          className="border-base join-item select select-bordered text-sm sm:text-base"
-          id="sort"
-          value={sortCriteria}
-          onChange={handleSortChange}
-        >
-          <option value="date">Date</option>
-          <option value="best">Best Matches</option>
-        </select>
-      </div>
+      <Suspense>
+        <SortDropdown updateSortedMatches={updateSortedMatches} />
+      </Suspense>
 
       {/* Display the upcoming match data */}
       {upcomingMatches.length === 0 ? (
