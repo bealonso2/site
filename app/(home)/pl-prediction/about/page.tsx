@@ -9,7 +9,7 @@ export const metadata = generateMetadata({
   description:
     "Learn about the methodology, machine learning model, and architecture used to forecast the final standings of the English Premier League.",
   keywords:
-    "Premier League, machine learning, ML, football, soccer, prediction, PL, EPL, AWS, Elo",
+    "Premier League, machine learning, ML, football, soccer, prediction, PL, AWS, Docker container",
   canonicalPath: "pl-prediction/about",
 });
 
@@ -40,7 +40,7 @@ export default function About() {
         ></a>
         FiveThirtyEight club soccer predictions.
       </p>
-      <TOC />
+      <TOC minLevel={2} maxLevel={3} />
       <h2>Model</h2>
       <h3>Methodology</h3>
       <p>
