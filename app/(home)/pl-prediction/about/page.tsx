@@ -52,7 +52,6 @@ export default function About() {
         how likely a result is in a given match.
       </p>
       <h4>Elo Calculation</h4>
-
       <p>
         Before the season, each club is assigned an Elo rating based on their
         performance in the previous season. The Elo ratings of all clubs are
@@ -161,12 +160,20 @@ export default function About() {
         distribute of where each team is likely to finish in the final league
         table.
       </p>
+      <h2>Computing Infrastructure</h2>
+      <p>
+        This model is deployed on the AWS cloud using ECS, Fargate, and S3.
+        Docker containers are used to manage the model and the data pipeline.
+        The model is run on a schedule based on the Premier League fixture list
+        which is updated every time the model is run. EventBridge is used to
+        trigger the model runs.
+      </p>
       <h2>Other Ideas</h2>
       <p>
-        It would be great to incorporate goals into the model. Right now the
-        model has no concept of a margin of victory. More seasons of data could
-        also be used to train the model. At the beginning of the season, the
-        model looks too much like a table of the clubs market value.
+        The next big step is incorporating goals into the model. Right now the
+        model has no concept of the margin of victory. More seasons of data
+        could also be used to train the model. At the beginning of the season,
+        the model looks too much like a table of the clubs market value.
       </p>
       <h2 className="">Model Revisions</h2>
       <table className="table">
