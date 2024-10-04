@@ -17,6 +17,7 @@ export default function About() {
   return (
     <PageContainerArticle>
       <h1>About Premier League Prediction</h1>
+      {/* TODO - remove prose here */}
       <TabNavigation />
       <p>
         This is a machine learning model that forecasts the final standings of
