@@ -57,8 +57,8 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             >
               GitHub
             </a>
-            . Read my long-form thoughts on climate and AI/ML, personal
-            development, and software engineering{" "}
+            . Read my long-form thoughts on personal development and climate
+            AI/ML{" "}
             <a
               href="https://blog.balonso.com"
               target="_blank"
@@ -68,7 +68,25 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             </a>
             .
           </p>
-          <p></p>
+          <p>
+            Currently building:{" "}
+            <a
+              href="https://github.com/bealonso2/climate-ml-masters"
+              target="_blank"
+              className="a-enhanced"
+            >
+              Climate ML Masters
+            </a>{" "}
+            and the{" "}
+            <a
+              href="https://playlifeisavideogame.com"
+              target="_blank"
+              className="a-enhanced"
+            >
+              Life is a Video Game
+            </a>{" "}
+            personal development platform.
+          </p>
         </div>
         <div className="space-y-4">
           <div className="animate-fadeIn-delay-2 opacity-0">

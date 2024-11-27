@@ -11,6 +11,10 @@ const links = [
     name: "Projects",
     links: [
       {
+        name: "Life is a Video Game",
+        url: "https://playlifeisavideogame.com",
+      },
+      {
         name: "Premier League Prediction",
         url: "/pl-prediction",
       },
@@ -23,6 +27,10 @@ const links = [
         url: "/24-hours",
       },
     ],
+  },
+  {
+    name: "Tools",
+    links: [{ name: "ChatGPT to Apple Notes", url: "https://aitonotes.com" }],
   },
   // {
   //   name: "Products",
