@@ -108,12 +108,7 @@ export default function RootLayout({
             <Analytics />
           </div>
           <footer className="footer items-center bg-base-200 p-4">
-            <aside className="grid-flow-col items-center">
-              <a className="link-hover link" href="/">
-                Brian Alonso
-              </a>
-            </aside>
-            <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+            <nav className="grid-flow-col gap-4 place-self-center">
               <a href="https://x.com/thebrianalonso" target="_blank">
                 <svg
                   width="24"
