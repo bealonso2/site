@@ -43,7 +43,7 @@ export default function Page() {
         Human instinct for self-preservation is a powerful motivator for action.
         Our ability to adapt to changing environments forms a strong foundation
         for addressing existential risks. Emotions tied to cooperation, hope,
-        and the search for purpose further amplify humanity's capacity for
+        and the search for purpose further amplify humanity&apos;s capacity for
         long-term survival.
       </p>
       <h2>Evolutionary Limits on Survival</h2>
@@ -57,7 +57,7 @@ export default function Page() {
       </p>
       <p>
         It is essential to recognize and address these limitations to
-        effectively pursue humanity's long-term survival.
+        effectively pursue humanity&apos;s long-term survival.
       </p>
       <h2>Inspiration</h2>
       <ul>
