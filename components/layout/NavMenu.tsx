@@ -8,6 +8,10 @@ const links = [
     url: "https://blog.balonso.com",
   },
   {
+    name: "YouTube",
+    url: "https://www.youtube.com/@thebrianalonso",
+  },
+  {
     name: "Projects",
     links: [
       {
@@ -22,15 +26,12 @@ const links = [
       //   name: "Random Footballer",
       //   url: "https://randomfootballer.com",
       // },
+      { name: "ChatGPT to Apple Notes", url: "https://aitonotes.com" },
       {
         name: "Life in 24 Hours Calculator",
         url: "/24-hours",
       },
     ],
-  },
-  {
-    name: "Tools",
-    links: [{ name: "ChatGPT to Apple Notes", url: "https://aitonotes.com" }],
   },
   // {
   //   name: "Products",

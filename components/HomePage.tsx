@@ -41,7 +41,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             .
           </p>
           <p>
-            I live in Raleigh, North Carolina. Keep up with me on{" "}
+            I live in Raleigh, North Carolina and am documenting my journey on{" "}
             <a
               href="https://x.com/thebrianalonso"
               target="_blank"
@@ -51,11 +51,11 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             </a>{" "}
             and{" "}
             <a
-              href="https://github.com/bealonso2"
+              href="https://youtube.com/@thebrianalonso"
               target="_blank"
               className="a-enhanced"
             >
-              GitHub
+              YouTube
             </a>
             . Read my long-form thoughts on personal development and climate
             AI/ML{" "}
@@ -66,10 +66,14 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
             >
               on my blog
             </a>
+            . My why is summarized in{" "}
+            <a href="/survival-imperative" className="a-enhanced">
+              The Survival Imperative
+            </a>
             .
           </p>
           <p>
-            Currently building:{" "}
+            I&apos;m currently building:{" "}
             <a
               href="https://github.com/bealonso2/climate-ml-masters"
               target="_blank"
@@ -137,8 +141,6 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
               <h4></h4>
               <h5 className="date-experience">2018-2022</h5>
               <h4>B.S. Aerospace Engineering</h4>
-              <h4>Computer Programming Minor</h4>
-              <h4>AIAA President</h4>
             </div>
           </div>
         </div>
