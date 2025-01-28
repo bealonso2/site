@@ -8,7 +8,7 @@ const TabNavigation = () => {
   return (
     <div
       role="tablist"
-      className="tabs tabs-lifted tabs-xs sm:tabs-sm md:tabs-md lg:tabs-lg"
+      className="not-prose tabs tabs-bordered tabs-xs sm:tabs-sm md:tabs-md lg:tabs-lg"
     >
       <Link
         href="/pl-prediction"
