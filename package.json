@@ -17,8 +17,10 @@
     "next": "^14.2.5",
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
+    "plotly.js": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-plotly.js": "^2.6.0",
     "sqlite3": "^5.1.7",
     "uuid": "^10.0.0"
   },
@@ -29,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-plotly.js": "^2.6.3",
     "@types/uuid": "^10.0.0",
     "daisyui": "^4.11.1",
     "eslint": "^8",

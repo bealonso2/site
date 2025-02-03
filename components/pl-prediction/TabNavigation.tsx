@@ -23,6 +23,14 @@ const TabNavigation = () => {
         Match Predictions
       </Link>
       <Link
+        href="/pl-prediction/timeline"
+        className={`tab hidden md:block ${
+          pathname === "/pl-prediction/timeline" ? "tab-active" : ""
+        }`}
+      >
+        Table Timeline
+      </Link>
+      <Link
         href="/pl-prediction/about"
         className={`tab ${
           pathname === "/pl-prediction/about" ? "tab-active" : ""
