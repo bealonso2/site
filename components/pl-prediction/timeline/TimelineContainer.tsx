@@ -2,14 +2,10 @@
 
 import PageContainer from "@/components/layout/PageContainer";
 import TabNavigation from "@/components/pl-prediction/TabNavigation";
-import dynamic from "next/dynamic";
-import { Data } from "plotly.js";
 import { useMemo, useState } from "react";
 import { PremierLeagueLogoSvg } from "../PremierLeagueSvg";
+import TableTimeline from "./TableTimeline";
 import TableControls from "./TimelineControls";
-
-// Dynamically import Plotly.js without SSR
-const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 interface AvgFinishData {
   team: string;
@@ -175,36 +171,7 @@ export default function TimelineContainer({
         - Dates on the X axis. Hover over the middle of the chart to see the table at that date.
       */}
 
-      {/* Display the table timeline */}
-      <Plot
-        data={traces as Data[]}
-        layout={{
-          title: {
-            text: "Predicted Premier League Standings",
-          },
-          xaxis: {
-            type: "date",
-          },
-          yaxis: {
-            title: { text: "Predicted Position" },
-            autorange: "reversed", // 1st place at the top
-            range: [1, 20],
-            tickmode: "linear",
-          },
-          legend: {
-            orientation: "h",
-          },
-          images: plotImages as any,
-          paper_bgcolor: "transparent",
-          plot_bgcolor: "transparent",
-          dragmode: false,
-        }}
-        useResizeHandler
-        style={{ width: "100%", height: "800px" }}
-        config={{
-          displayModeBar: false,
-        }}
-      />
+      <TableTimeline traces={traces} plotImages={plotImages} />
 
       <TableControls
         season={season}
