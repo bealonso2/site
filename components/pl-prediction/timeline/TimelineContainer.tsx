@@ -106,53 +106,17 @@ export default function TimelineContainer({
   );
 
   // Build the traces from the team data
-  const traces = Object.entries(teamData).map(([team, data]) => ({
-    x: data.map(({ date }) => date),
-    y: data.map(({ place }) => place),
-    name: team,
-    type: "scatter",
-    mode: "lines",
-    hoverinfo: "none", // No tooltip on hover
-  }));
-
-  // Max and min trace dates
-  const maxDate = Math.max(
-    ...traces.map((trace) => new Date(trace.x[trace.x.length - 1]).getTime()),
-  );
-  const minDate = Math.min(
-    ...traces.map((trace) => new Date(trace.x[0]).getTime()),
-  );
-
-  // Set default images to last data point
-  const plotImages = traces.map((trace) => ({
-    source: teamToCrest[trace.name], // Image URL
-    x:
-      (Date.parse(trace.x[trace.x.length - 1]) - minDate) / (maxDate - minDate), // Normalized X-axis position
-    y: trace.y[trace.y.length - 1],
-    xref: "paper", // "paper" makes it use normalized [0,1] range
-    yref: "y",
-    sizex: 0.75,
-    sizey: 0.75,
-    xanchor: "center",
-    yanchor: "middle",
-    layer: "above",
-  }));
-
-  //   // Images for all data points
-  //   const all = traces.flatMap((trace) =>
-  //     trace.x.map((xValue, index) => ({
-  //       source: teamToCrest[trace.name], // Image URL
-  //       x: (Date.parse(xValue) - minDate) / (maxDate - minDate), // Normalized X-axis position
-  //       y: trace.y[index],
-  //       xref: "paper", // "paper" makes it use normalized [0,1] range
-  //       yref: "y",
-  //       sizex: 0.75,
-  //       sizey: 0.75,
-  //       xanchor: "center",
-  //       yanchor: "middle",
-  //       layer: "above",
-  //     })),
-  //   );
+  const dataPerTeam = Object.entries(teamData)
+    .map(
+      ([team, data]) =>
+        ({
+          x: data.map(({ date }) => date),
+          y: data.map(({ place }) => place),
+          name: team,
+          crestUrl: teamToCrest[team],
+        }) as { x: string[]; y: number[]; name: string; crestUrl: string },
+    )
+    .sort((a, b) => b.y[b.y.length - 1] - a.y[a.y.length - 1]);
 
   return (
     <PageContainer className="mx-auto max-w-screen-xl">
@@ -162,6 +126,7 @@ export default function TimelineContainer({
           <PremierLeagueLogoSvg />
         </div>
       </div>
+
       {/* Links to other pages related to the project */}
       <TabNavigation />
 
@@ -170,9 +135,7 @@ export default function TimelineContainer({
         - Teams on the side. Hover on the team to isolate their data.
         - Dates on the X axis. Hover over the middle of the chart to see the table at that date.
       */}
-
-      <TableTimeline traces={traces} plotImages={plotImages} />
-
+      <TableTimeline teamData={dataPerTeam} />
       <TableControls
         season={season}
         seasons={seasons}
