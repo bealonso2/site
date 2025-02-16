@@ -1,7 +1,7 @@
 "use client";
 
 import * as d3 from "d3";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 export default function TableTimeline({
   teamData,
@@ -16,8 +16,11 @@ export default function TableTimeline({
 }) {
   // Find the min and max dates
   const firstTeam = teamData[0];
-  const minDate = new Date(firstTeam.x[0]);
-  const maxDate = new Date(firstTeam.x[firstTeam.x.length - 1]);
+  const minDate = useMemo(() => new Date(firstTeam.x[0]), [firstTeam.x]);
+  const maxDate = useMemo(
+    () => new Date(firstTeam.x[firstTeam.x.length - 1]),
+    [firstTeam.x],
+  );
 
   // Create a reference to the SVG element
   const svgRef = useRef<SVGSVGElement | null>(null);
