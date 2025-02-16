@@ -3,10 +3,11 @@ import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Roboto_Flex } from "next/font/google";
+import { Lato } from "next/font/google";
 import { NavMenu } from "../../components/layout/NavMenu";
 
-const RobotoFlex = Roboto_Flex({
+const lato = Lato({
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -55,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-base-200" suppressHydrationWarning>
-      <body className={`${RobotoFlex.className} font-light`}>
+      <body className={`${lato.className} font-light`}>
         <ThemeProvider
           attribute="data-theme"
           defaultTheme="system"
