@@ -6,7 +6,13 @@ import { useEffect, useRef } from "react";
 export default function TableTimeline({
   teamData,
 }: {
-  teamData: { x: string[]; y: number[]; name: string; crestUrl: string }[];
+  teamData: {
+    x: string[];
+    y: number[];
+    name: string;
+    crestUrl: string;
+    primaryColor: string;
+  }[];
 }) {
   // Find the min and max dates
   const firstTeam = teamData[0];
@@ -88,6 +94,20 @@ export default function TableTimeline({
 
       // Plot all teams
       teamData.forEach((team) => {
+        // Add line
+        const line = d3
+          .line<string>()
+          .x((d) => xScale(new Date(d)))
+          .y((d, i) => yScale(team.y[i]));
+
+        plotArea
+          .append("path")
+          .datum(team.x)
+          .attr("fill", "none")
+          .attr("stroke", team.primaryColor)
+          .attr("stroke-width", 1.5)
+          .attr("d", line);
+
         // Add images
         plotArea
           .selectAll(`image.${team.name}`)
@@ -101,17 +121,19 @@ export default function TableTimeline({
           .attr("width", crestSize)
           .attr("height", crestSize)
           .on("mouseover", function (event, d) {
-            // Note: can also increase the size of the crest or something here
+            const xPosition = event.pageX;
+            const svgWidth = svgRef.current ? svgRef.current.clientWidth : 0;
+            const offset = xPosition > svgWidth / 2 ? -150 : 10; // Adjust offset based on position
             tooltip
               .style("display", "block")
               .html(
                 `<div style="text-align: center;">
               <strong>${team.name}</strong><br/>
               ${d3.timeFormat("%B %d, %Y")(new Date(d))}<br/>
-              Predicted Place: ${team.y[team.x.indexOf(d)].toFixed(2)}
+              Average Finish: ${team.y[team.x.indexOf(d)].toFixed(2)}
             </div>`,
               )
-              .style("left", `${event.pageX + 10}px`)
+              .style("left", `${xPosition + offset}px`)
               .style("top", `${event.pageY + 10}px`);
           })
           .on("mouseout", function () {
@@ -131,5 +153,12 @@ export default function TableTimeline({
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  return <svg ref={svgRef} width="100%" height={defaultHeight + 50}></svg>; // Increased height to accommodate rotated x-axis labels
+  return (
+    <svg
+      className="my-10"
+      ref={svgRef}
+      width="100%"
+      height={defaultHeight + 50}
+    ></svg>
+  ); // Increased height to accommodate rotated x-axis labels
 }

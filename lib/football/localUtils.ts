@@ -1,3 +1,4 @@
+import { Vibrant } from "node-vibrant/node";
 export function mapAvgFinishData(avgFinishData: any) {
   // Organize avgFinishData by simulation_uuid
   var avgFinishDataMap: any = {};
@@ -46,3 +47,29 @@ export function createCrestsMap(crests: any) {
   });
   return crestsMap;
 }
+
+export async function getPrimaryColors(
+  crestsMap: Map<string, string>,
+): Promise<Map<string, string>> {
+  // From crests map, get the primary color for each team
+  const teamToPrimaryColor: any = {};
+
+  for (const [team, crest] of Object.entries(crestsMap)) {
+    teamToPrimaryColor[team] = await getPrimaryColor(crest);
+  }
+
+  return teamToPrimaryColor;
+}
+
+const getPrimaryColor = async (crest: string): Promise<string> => {
+  try {
+    const palette = await Vibrant.from(crest).getPalette();
+    if (palette.Vibrant) {
+      const [r, g, b] = palette.Vibrant.rgb;
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+  } catch (error) {
+    console.error("Error extracting primary color:", error);
+  }
+  return "steelblue";
+};

@@ -18,11 +18,11 @@ interface AvgFinishData {
 export default function TimelineContainer({
   avgFinishData,
   seasonToDates,
-  teamToCrest,
+  teamToCrestAndColor: teamToCrest,
 }: {
   avgFinishData: Map<string, AvgFinishData[]>;
   seasonToDates: any;
-  teamToCrest: any;
+  teamToCrestAndColor: any;
 }) {
   // Get the most recent season
   const seasons = Object.keys(seasonToDates).sort(
@@ -57,7 +57,8 @@ export default function TimelineContainer({
           uuid,
           data.map(({ team, place }: { team: string; place: number }) => ({
             team,
-            crest: teamToCrest[team],
+            crest: teamToCrest[team].crest,
+            primaryColor: teamToCrest[team].primaryColor,
             place,
           })),
         ]),
@@ -113,8 +114,15 @@ export default function TimelineContainer({
           x: data.map(({ date }) => date),
           y: data.map(({ place }) => place),
           name: team,
-          crestUrl: teamToCrest[team],
-        }) as { x: string[]; y: number[]; name: string; crestUrl: string },
+          crestUrl: teamToCrest[team].crest,
+          primaryColor: teamToCrest[team].primaryColor,
+        }) as {
+          x: string[];
+          y: number[];
+          name: string;
+          crestUrl: string;
+          primaryColor: string;
+        },
     )
     .sort((a, b) => b.y[b.y.length - 1] - a.y[a.y.length - 1]);
 

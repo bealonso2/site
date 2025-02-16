@@ -6,6 +6,7 @@ import {
 } from "@/lib/football/data";
 import {
   createCrestsMap,
+  getPrimaryColors,
   mapAvgFinishData,
   mapSimulationDataToSeasonDates,
 } from "@/lib/football/localUtils";
@@ -36,11 +37,19 @@ export default async function Matches() {
   // Organize crests by team
   var crestsMap: any = createCrestsMap(crests);
 
+  // From crests map, get the primary color for each team
+  var teamToPrimaryColor: any = await getPrimaryColors(crestsMap);
+
+  // Combine crests and primary colors into one map (team -> crest, primary color)
+  for (const [team, primaryColor] of Object.entries(teamToPrimaryColor)) {
+    crestsMap[team] = { crest: crestsMap[team], primaryColor };
+  }
+
   return (
     <TimelineContainer
       avgFinishData={avgFinishDataMap}
       seasonToDates={seasonToDatesMap}
-      teamToCrest={crestsMap}
+      teamToCrestAndColor={crestsMap}
     />
   );
 }
