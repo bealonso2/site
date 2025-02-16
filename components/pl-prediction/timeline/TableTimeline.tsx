@@ -151,7 +151,7 @@ export default function TableTimeline({
 
     // Cleanup event listener on unmount
     return () => window.removeEventListener("resize", resize);
-  }, []);
+  }, [minDate, maxDate, teamData]);
 
   return (
     <svg
