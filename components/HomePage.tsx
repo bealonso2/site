@@ -1,6 +1,7 @@
 "use client";
 import { calculateTimeDifference } from "@/lib/home/calculateTimeDifference";
 import { useEffect, useState } from "react";
+import { CrestLinkWithText } from "./crest/Crest";
 import PageContainer from "./layout/PageContainer";
 
 export default function HomePage({ initialTime }: { initialTime: string }) {
@@ -23,6 +24,7 @@ export default function HomePage({ initialTime }: { initialTime: string }) {
     <PageContainer>
       <div className="text-md mx-auto w-full max-w-md md:max-w-xl">
         <div className="animate-fadeIn-delay-1 space-y-4 opacity-0 md:my-8">
+          <CrestLinkWithText />
           <h1 className="text-3xl font-semibold">Hi, I&apos;m Brian.</h1>
           <p>
             I&apos;ve been an engineering tool developer and stress engineer at{" "}
