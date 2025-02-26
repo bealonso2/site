@@ -26,7 +26,7 @@ const config: Config = {
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
-    themes: ["dark", "light"],
+    themes: ["lofi"],
     // themes: [
     //   {
     //     mytheme: {
