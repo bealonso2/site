@@ -7,10 +7,10 @@ const links = [
     name: "Blog",
     url: "https://blog.balonso.com",
   },
-  {
-    name: "YouTube",
-    url: "https://www.youtube.com/@thebrianalonso",
-  },
+  // {
+  //   name: "YouTube",
+  //   url: "https://www.youtube.com/@thebrianalonso",
+  // },
   {
     name: "Projects",
     links: [

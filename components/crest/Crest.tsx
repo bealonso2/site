@@ -100,10 +100,11 @@ export const Crest = () => (
 );
 
 export const CrestLinkWithText = () => (
-  <a href="/" className="flex flex-col items-center">
+  <a href="/" className="flex flex-col items-center gap-4">
     <Crest />
-    <p className="mt-4 text-center text-xs italic" style={{ width: "192px" }}>
+    <p className="text-s text-center italic" style={{ width: "192px" }}>
       Human Flourishing for the Benefit of Earth
     </p>
+    <h1 className="text-3xl font-bold">Brian Alonso</h1>
   </a>
 );
