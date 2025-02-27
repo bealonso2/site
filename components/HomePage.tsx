@@ -29,7 +29,7 @@ export default function HomePage() {
             <CrestLinkWithText />
           </div>
         </div>
-        <div className="flex w-2/3 flex-col items-center">
+        <div className="flex flex-col items-center md:w-2/3">
           <InformationWidget title="About">
             <p>Hi 👋, I&apos;m Brian.</p>
             <p>
