@@ -1,4 +1,5 @@
 "use client";
+import { config } from "@/config";
 import { useEffect, useRef } from "react";
 
 const SignupForm = () => {
@@ -15,7 +16,7 @@ const SignupForm = () => {
     script.async = true;
     script.dataset.buttonColor = "#000000";
     script.dataset.buttonTextColor = "#FFFFFF";
-    script.dataset.site = "https://thinking-out-loud.ghost.io/";
+    script.dataset.site = config.ghost_url;
     script.dataset.locale = "en";
 
     // @ts-ignore
