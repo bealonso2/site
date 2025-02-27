@@ -15,7 +15,7 @@ function InformationWidget({
       <div className="collapse-title">
         <h2 className="text-lg font-semibold">{title}</h2>
       </div>
-      <div className="prose collapse-content">{children}</div>
+      <div className="prose collapse-content bg-base-100">{children}</div>
     </div>
   );
 }
@@ -29,7 +29,7 @@ export default function HomePage() {
             <CrestLinkWithText />
           </div>
         </div>
-        <div className="flex w-full flex-col items-center">
+        <div className="flex w-2/3 flex-col items-center">
           <InformationWidget title="About">
             <p>Hi 👋, I&apos;m Brian.</p>
             <p>
