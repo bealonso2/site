@@ -1,4 +1,5 @@
 import SignupForm from "./blog/SignupButton";
+import { StoriesList } from "./blog/StoriesList";
 import { CrestLinkWithText } from "./crest/Crest";
 import PageContainer from "./layout/PageContainer";
 
@@ -41,16 +42,8 @@ export default function HomePage() {
               others lead more fulfilling lives.
             </p>
           </InformationWidget>
-          <InformationWidget title="Short Stories">
-            <p>
-              <a
-                href="http://thinking-out-loud.ghost.io"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Find my short stories here.
-              </a>
-            </p>
+          <InformationWidget title="Latest Short Stories">
+            <StoriesList />
           </InformationWidget>
           <InformationWidget title="Projects">
             <p>Outside of work, I am working on:</p>
