@@ -37,8 +37,8 @@ export default function HomePage() {
               based in Raleigh, North Carolina.
             </p>
             <p>
-              In my pursuit of human flourishing, I share my journey online to
-              help others live more fulfilling lives.
+              I document my pursuit of human flourishing to inspire and help
+              others lead more fulfilling lives.
             </p>
           </InformationWidget>
           <InformationWidget title="Short Stories">
