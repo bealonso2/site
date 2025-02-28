@@ -42,7 +42,7 @@ export default function HomePage() {
               others lead more fulfilling lives.
             </p>
           </InformationWidget>
-          <InformationWidget title="Latest Short Stories">
+          <InformationWidget title="Short Stories">
             <StoriesList />
           </InformationWidget>
           <InformationWidget title="Projects">

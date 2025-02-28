@@ -21,35 +21,38 @@ const fetchPosts = unstable_cache(
 export const StoriesList = async () => {
   // Fetch the stories
   const posts = await fetchPosts();
+  const postsFiltered = posts.filter(
+    (post: any) =>
+      post.tags && post.tags.some((tag: any) => tag.name === "Short Stories"),
+  );
 
-  if (!posts) {
-    <p>
-      <a href={config.ghost_url} target="_blank" rel="noopener noreferrer">
-        Find my short stories here.
-      </a>
-    </p>;
+  console.log(postsFiltered.length);
+  if (!postsFiltered.length) {
+    return (
+      <p>
+        <a href={config.ghost_url} target="_blank" rel="noopener noreferrer">
+          Find my short stories here.
+        </a>
+      </p>
+    );
   }
 
   // Return the stories
   return (
     <ul>
-      {posts
-        .filter(
-          (post: any) =>
-            post.tags &&
-            post.tags.some((tag: any) => tag.name === "Short Stories"),
-        )
+      {postsFiltered
         .sort(
           (a: any, b: any) =>
             new Date(b.published_at).getTime() -
             new Date(a.published_at).getTime(),
         )
         .slice(0, 5)
-        .map((post: any) => (
+        .map((post: any, index: number) => (
           <li key={post.id}>
             <a href={post.url} target="_blank" rel="noopener noreferrer">
               {post.title}
             </a>
+            {index === 0 && " - New!"}
           </li>
         ))}
     </ul>
