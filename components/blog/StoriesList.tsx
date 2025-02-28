@@ -26,7 +26,6 @@ export const StoriesList = async () => {
       post.tags && post.tags.some((tag: any) => tag.name === "Short Stories"),
   );
 
-  console.log(postsFiltered.length);
   if (!postsFiltered.length) {
     return (
       <p>
