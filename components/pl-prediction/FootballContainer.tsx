@@ -9,14 +9,12 @@ import TabNavigation from "./TabNavigation";
 
 export default function FootballContainer({
   avgFinishData,
-  positionData,
-  currentPoints,
+  supplementalData,
   seasonToDates,
   teamToCrest,
 }: {
   avgFinishData: any;
-  positionData: any;
-  currentPoints: any;
+  supplementalData: any;
   seasonToDates: any;
   teamToCrest: any;
 }) {
@@ -41,11 +39,8 @@ export default function FootballContainer({
   const [avgFinishDataState, setAvgFinishDataState] = useState<any[]>(
     avgFinishData[simulationUUID],
   );
-  const [positionDataState, setPositionDataState] = useState<any>(
-    positionData[simulationUUID],
-  );
-  const [currentPointsState, setCurrentPointsState] = useState<any>(
-    currentPoints[simulationUUID],
+  const [supplementalDataState, setSupplementalData] = useState<any>(
+    supplementalData[simulationUUID],
   );
   // // Use the search params to determine the active view
   // const searchParams = useSearchParams();
@@ -99,9 +94,8 @@ export default function FootballContainer({
   // Update data when the uuid changes
   useEffect(() => {
     setAvgFinishDataState(avgFinishData[simulationUUID] || {});
-    setPositionDataState(positionData[simulationUUID] || {});
-    setCurrentPointsState(currentPoints[simulationUUID] || {});
-  }, [simulationUUID, avgFinishData, positionData, currentPoints]);
+    setSupplementalData(supplementalData[simulationUUID] || {});
+  }, [simulationUUID, avgFinishData, supplementalData]);
 
   return (
     <PageContainer className="mx-auto max-w-screen-lg">
@@ -117,8 +111,7 @@ export default function FootballContainer({
       <TabNavigation />
       <FootballTable
         avgFinishData={avgFinishDataState}
-        positionData={positionDataState}
-        currentPoints={currentPointsState}
+        supplementalData={supplementalDataState}
         teamToCrest={teamToCrest}
       />
       <TableControls

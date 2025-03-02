@@ -10,6 +10,7 @@ import {
   createCrestsMap,
   mapAvgFinishData,
   mapSimulationDataToSeasonDates,
+  mapSupplementalData,
 } from "@/lib/football/localUtils";
 import { generateMetadata } from "@/utils/metadata";
 
@@ -37,35 +38,10 @@ export default async function Football() {
   // Organize avgFinishData by simulation_uuid
   var avgFinishDataMap: any = mapAvgFinishData(avgFinishData);
 
-  // Organize positionData by simulation_uuid
-  var positionDataMap: any = {};
-
-  positionData.forEach((result: any) => {
-    // Ensure simulation_uuid exists
-    if (!positionDataMap[result.simulation_uuid]) {
-      positionDataMap[result.simulation_uuid] = {};
-    }
-
-    // Ensure team exists within simulation_uuid
-    if (!positionDataMap[result.simulation_uuid][result.team]) {
-      positionDataMap[result.simulation_uuid][result.team] = {};
-    }
-
-    // Assign position to count within team
-    positionDataMap[result.simulation_uuid][result.team][result.position] =
-      result.count;
-  });
-
-  // Organize current points by simulation_uuid
-  var currentPointsMap: any = {};
-
-  currentPoints.forEach((result: any) => {
-    currentPointsMap[result.simulation_uuid] =
-      currentPointsMap[result.simulation_uuid] || {};
-
-    // Update the points for the team
-    currentPointsMap[result.simulation_uuid][result.team] = result.points;
-  });
+  var supplementalDataMap: any = mapSupplementalData(
+    positionData,
+    currentPoints,
+  );
 
   // Organize crests by team
   var crestsMap: any = createCrestsMap(crests);
@@ -73,8 +49,7 @@ export default async function Football() {
   return (
     <FootballContainer
       avgFinishData={avgFinishDataMap}
-      positionData={positionDataMap}
-      currentPoints={currentPointsMap}
+      supplementalData={supplementalDataMap}
       seasonToDates={seasonToDatesMap}
       teamToCrest={crestsMap}
     />

@@ -1,6 +1,10 @@
 import * as d3 from "d3";
 import { useMemo } from "react";
-import { ProbabilityTableData, TeamEntry } from "./DataComponents";
+import {
+  ProbabilityDataType,
+  ProbabilityTableData,
+  TeamEntry,
+} from "./DataComponents";
 
 type BarPlotProps = {
   width: number;
@@ -82,8 +86,7 @@ function PositionsHistogram({
 
 export default function FootballTable({
   avgFinishData,
-  positionData,
-  currentPoints,
+  supplementalData,
   teamToCrest,
 }: {
   avgFinishData: {
@@ -93,21 +96,27 @@ export default function FootballTable({
     top_4: number;
     win_premier_league: number;
   }[];
-  positionData: { [key: string]: { [key: string]: number } };
-  currentPoints: { [key: string]: number };
+  supplementalData: {
+    [key: string]: {
+      positions: { [key: string]: number };
+      points: number;
+      max_position: number;
+      min_position: number;
+    };
+  };
   teamToCrest: { [key: string]: string };
 }) {
   // Determine the total count of all positions for the first team
   const totalCount = Object.values(
-    positionData[Object.keys(positionData)[0]],
+    supplementalData[Object.keys(supplementalData)[0]].positions,
   ).reduce((a, b) => a + b, 0);
 
   // Normalize the data. Store the largest value of all the teams
   var maxPct = 0;
-  const normalizedPositionData = Object.entries(positionData).reduce(
-    (acc, [team, positionData]) => {
+  const normalizedPositionData = Object.entries(supplementalData).reduce(
+    (acc, [team, supplementalData]) => {
       // Divide each count (value) by the total count to get a percentage
-      const newPositionData = Object.entries(positionData).reduce(
+      const newPositionData = Object.entries(supplementalData.positions).reduce(
         (acc, [position, count]) => {
           const normalizedCount = count / totalCount;
           maxPct = Math.max(maxPct, normalizedCount);
@@ -148,7 +157,7 @@ export default function FootballTable({
                 <TeamEntry
                   team={row.team}
                   crest={teamToCrest[row.team]}
-                  points={currentPoints?.[row.team] ?? 0}
+                  points={supplementalData[row.team].points}
                 />
               </td>
               <td className="text-center">
@@ -160,9 +169,24 @@ export default function FootballTable({
                   maxPctFinish={maxPct}
                 />
               </td>
-              <ProbabilityTableData data={row.bottom_3} />
-              <ProbabilityTableData data={row.top_4} />
-              <ProbabilityTableData data={row.win_premier_league} />
+              <ProbabilityTableData
+                data={row.bottom_3}
+                dataType={ProbabilityDataType.Relegation}
+                isConfirmedTrue={supplementalData[row.team].max_position > 17}
+                isConfirmedFalse={supplementalData[row.team].min_position <= 17}
+              />
+              <ProbabilityTableData
+                data={row.top_4}
+                dataType={ProbabilityDataType.Top4}
+                isConfirmedTrue={supplementalData[row.team].min_position <= 4}
+                isConfirmedFalse={supplementalData[row.team].max_position > 4}
+              />
+              <ProbabilityTableData
+                data={row.win_premier_league}
+                dataType={ProbabilityDataType.Champion}
+                isConfirmedTrue={supplementalData[row.team].min_position === 1}
+                isConfirmedFalse={supplementalData[row.team].max_position > 1}
+              />
             </tr>
           ))}
         </tbody>

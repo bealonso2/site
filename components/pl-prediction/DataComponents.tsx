@@ -1,8 +1,13 @@
 import Image from "next/image";
 
-function getProbabilityText(data: number): string {
-  if (data === 1) {
-    return "✓";
+export enum ProbabilityDataType {
+  Relegation,
+  Champion,
+  Top4,
+}
+function getProbabilityTextNoType(data: number): string {
+  if (data > 0.99) {
+    return ">99%";
   } else if (data < 0.01) {
     return "<0.1%";
   } else {
@@ -10,14 +15,49 @@ function getProbabilityText(data: number): string {
   }
 }
 
+function getProbabilityText(
+  data: number,
+  dataType: ProbabilityDataType,
+  isConfirmedTrue: boolean,
+  isConfirmedFalse: boolean,
+): string {
+  if (isConfirmedTrue) {
+    if (dataType === ProbabilityDataType.Champion) {
+      return "🏆";
+    }
+    if (dataType === ProbabilityDataType.Top4) {
+      return "✅";
+    }
+    if (dataType === ProbabilityDataType.Relegation) {
+      return "🔻";
+    }
+    return "✓";
+  } else if (isConfirmedFalse) {
+    return "❌";
+  }
+
+  return getProbabilityTextNoType(data);
+}
+
 export function ProbabilityTableData({
   data,
   className = "text-center",
+  dataType,
+  isConfirmedTrue = false,
+  isConfirmedFalse = false,
 }: {
   data: number;
   className?: string;
+  dataType: ProbabilityDataType;
+  isConfirmedTrue: boolean;
+  isConfirmedFalse: boolean;
 }) {
-  const tdText = getProbabilityText(data);
+  const tdText = getProbabilityText(
+    data,
+    dataType,
+    isConfirmedTrue,
+    isConfirmedFalse,
+  );
   return <td className={className}>{tdText}</td>;
 }
 
@@ -28,7 +68,7 @@ export function ProbabilitySpanData({
   data: number;
   className?: string;
 }) {
-  const spanText = getProbabilityText(data);
+  const spanText = getProbabilityTextNoType(data);
   return <span className={className}>{spanText}</span>;
 }
 

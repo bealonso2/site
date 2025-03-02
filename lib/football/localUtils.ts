@@ -73,3 +73,69 @@ const getPrimaryColor = async (crest: string): Promise<string> => {
   }
   return "steelblue";
 };
+
+export function mapSupplementalData(positionData: any, currentPoints: any) {
+  var supplementalDataMap: any = {};
+
+  // Organize positionData by simulation_uuid
+  positionData.forEach((result: any) => {
+    // Ensure simulation_uuid exists
+    if (!supplementalDataMap[result.simulation_uuid]) {
+      supplementalDataMap[result.simulation_uuid] = {};
+    }
+
+    // Ensure team exists within simulation_uuid
+    if (!supplementalDataMap[result.simulation_uuid][result.team]) {
+      supplementalDataMap[result.simulation_uuid][result.team] = {
+        positions: {},
+      };
+    }
+
+    // Assign position to count within team
+    supplementalDataMap[result.simulation_uuid][result.team].positions[
+      result.position
+    ] = result.count;
+  });
+
+  // Organize current points by simulation_uuid
+  var currentPointsMap: any = {};
+
+  // Organize max and min possible position by simulation_uuid
+  var maxPositionMap: any = {};
+  var minPositionMap: any = {};
+
+  currentPoints.forEach((result: any) => {
+    currentPointsMap[result.simulation_uuid] =
+      currentPointsMap[result.simulation_uuid] || {};
+
+    // Update the points for the team
+    currentPointsMap[result.simulation_uuid][result.team] = result.points;
+
+    // Update the max position for the team
+    maxPositionMap[result.simulation_uuid] =
+      maxPositionMap[result.simulation_uuid] || {};
+
+    maxPositionMap[result.simulation_uuid][result.team] =
+      result.max_possible_position;
+
+    // Update the min position for the team
+    minPositionMap[result.simulation_uuid] =
+      minPositionMap[result.simulation_uuid] || {};
+
+    minPositionMap[result.simulation_uuid][result.team] =
+      result.min_possible_position;
+  });
+
+  // Merge points, max and min positions, and positions into a single object
+  for (let uuid in supplementalDataMap) {
+    for (let team in supplementalDataMap[uuid]) {
+      supplementalDataMap[uuid][team]["points"] =
+        currentPointsMap[uuid][team] || 0;
+      supplementalDataMap[uuid][team]["max_position"] =
+        maxPositionMap[uuid][team] || 0;
+      supplementalDataMap[uuid][team]["min_position"] =
+        minPositionMap[uuid][team] || 0;
+    }
+  }
+  return supplementalDataMap;
+}
