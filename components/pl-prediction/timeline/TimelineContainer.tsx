@@ -15,6 +15,11 @@ interface AvgFinishData {
   win_premier_league: number;
 }
 
+function normalizePlace(place: number, max: number, min: number) {
+  // Normalize the place to a value between 1 and 20
+  return ((place - min) / (max - min)) * 19 + 1;
+}
+
 export default function TimelineContainer({
   avgFinishData,
   seasonToDates,
@@ -73,6 +78,22 @@ export default function TimelineContainer({
       .map(({ team }) => team),
   );
 
+  // Find max and min place for each date/simulation uuid
+  const maxMinPlacePerUUID = Object.fromEntries(
+    Object.entries(datesAndUUIDs as Map<string, string>).map(([date, uuid]) => {
+      const places =
+        uuidToPositions[uuid]?.map(({ place }: { place: number }) => place) ||
+        [];
+      return [
+        uuid,
+        {
+          maxPlace: Math.max(...places),
+          minPlace: Math.min(...places),
+        },
+      ];
+    }),
+  );
+
   // Flatten data
   const flatData = Object.entries(datesAndUUIDs as Map<string, string>)
     .reverse()
@@ -89,7 +110,11 @@ export default function TimelineContainer({
             crest: string;
           }) => ({
             date: date,
-            place: place,
+            place: normalizePlace(
+              place,
+              maxMinPlacePerUUID[uuid].maxPlace,
+              maxMinPlacePerUUID[uuid].minPlace,
+            ),
             team: team,
             crest: crest,
           }),
@@ -105,6 +130,10 @@ export default function TimelineContainer({
         .map(({ date, place }) => ({ date, place })),
     ]),
   );
+
+  // Normalize
+
+  console.log("maxMinPlacePerUUID", maxMinPlacePerUUID);
 
   // Build the traces from the team data
   const dataPerTeam = Object.entries(teamData)
