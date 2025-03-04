@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   const body = JSON.parse(rawBody);
 
   // Verify the event type before invalidating the cache
-  if (body.event === "post.published") {
+  if (body.event.startsWith("post")) {
     // Invalidate all data tagged with 'posts' in the cache
     revalidateTag("posts");
   }

@@ -15,7 +15,7 @@ const fetchPosts = unstable_cache(
     }
   },
   ["posts"],
-  { revalidate: false, tags: ["posts"] },
+  { revalidate: false },
 );
 
 export const StoriesList = async () => {
