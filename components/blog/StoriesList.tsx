@@ -1,32 +1,37 @@
 import { config } from "@/config";
-import { unstable_cache } from "next/cache";
+import { titleCase } from "title-case";
+import { parseStringPromise } from "xml2js";
 
-const fetchPosts = unstable_cache(
-  async () => {
-    try {
-      const res = await fetch(
-        `${config.ghost_url}/ghost/api/content/posts/?key=${process.env.GHOST_CONTENT_API_KEY}&include=tags`,
-      );
-      const data = await res.json();
-      return data.posts;
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-      return [];
-    }
-  },
-  ["posts"],
-  { revalidate: false },
-);
+async function fetchPosts() {
+  const res = await fetch(`${config.ghost_url}/sitemap-posts.xml`, {
+    next: { revalidate: 3600 }, // Re-fetch every hour
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch sitemap");
+
+  const xml = await res.text();
+  const result = await parseStringPromise(xml);
+
+  return result.urlset.url.map((entry: any) => ({
+    url: entry.loc[0],
+    lastmod: entry.lastmod ? entry.lastmod[0] : null,
+  }));
+}
+
+function getPostTitleFromUrl(url: string) {
+  // Strip the base URL and trailing slash
+  url = url.replace(config.ghost_url, "");
+  url = url.replace(/\/$/, "");
+
+  // Make the url title case
+  url = url.replace(/-/g, " ");
+  return titleCase(url);
+}
 
 export const StoriesList = async () => {
-  // Fetch the stories
   const posts = await fetchPosts();
-  const postsFiltered = posts.filter(
-    (post: any) =>
-      post.tags && post.tags.some((tag: any) => tag.name === "Short Stories"),
-  );
 
-  if (!postsFiltered.length) {
+  if (!posts.length) {
     return (
       <p>
         <a href={config.ghost_url} target="_blank" rel="noopener noreferrer">
@@ -36,24 +41,24 @@ export const StoriesList = async () => {
     );
   }
 
+  // Sort the posts by last modified date
+  posts.sort((a: any, b: any) => {
+    if (!a.lastmod) return 1;
+    if (!b.lastmod) return -1;
+    return new Date(b.lastmod).getTime() - new Date(a.lastmod).getTime();
+  });
+
   // Return the stories
   return (
     <ul>
-      {postsFiltered
-        .sort(
-          (a: any, b: any) =>
-            new Date(b.published_at).getTime() -
-            new Date(a.published_at).getTime(),
-        )
-        .slice(0, 5)
-        .map((post: any, index: number) => (
-          <li key={post.id}>
-            <a href={post.url} target="_blank" rel="noopener noreferrer">
-              {post.title}
-            </a>
-            {index === 0 && " - New!"}
-          </li>
-        ))}
+      {posts.slice(0, 5).map((post: any, index: number) => (
+        <li key={post.url}>
+          <a href={post.url} target="_blank" rel="noopener noreferrer">
+            {getPostTitleFromUrl(post.url)}
+          </a>
+          {index === 0 && " - New!"}
+        </li>
+      ))}
     </ul>
   );
 };
