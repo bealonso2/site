@@ -11,6 +11,7 @@ import {
   mapSimulationDataToSeasonDates,
 } from "@/lib/football/localUtils";
 import { generateMetadata } from "@/utils/metadata";
+import { unstable_cache } from "next/cache";
 
 export const metadata = generateMetadata({
   title: "Table Timeline",
@@ -22,11 +23,24 @@ export const metadata = generateMetadata({
 // Force the page to never revalidate
 export const revalidate = false;
 
-export default async function Matches() {
+const getCachedData = unstable_cache(
+  async () => {
+    const avgFinishData = await getAverageFinishData();
+    const simulationData = await getSimulationsData();
+    const crests = await getCrests();
+    return {
+      avgFinishData,
+      simulationData,
+      crests,
+    };
+  },
+  ["timeline-football-data"],
+  { tags: ["football-data"] },
+);
+
+export default async function TableTimelinePage() {
   // TODO: Are these functions cached? Or am I calling them when building this page and the home page?
-  const avgFinishData = await getAverageFinishData();
-  const simulationData = await getSimulationsData();
-  const crests = await getCrests();
+  const { avgFinishData, simulationData, crests } = await getCachedData();
 
   // Organize the data by season and date
   var seasonToDatesMap: any = mapSimulationDataToSeasonDates(simulationData);
