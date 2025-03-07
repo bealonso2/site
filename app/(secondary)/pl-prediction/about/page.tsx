@@ -17,7 +17,6 @@ export default function About() {
   return (
     <PageContainerArticle>
       <h1>About Premier League Prediction</h1>
-      {/* TODO - remove prose here */}
       <TabNavigation />
       <p>
         This is a machine learning model that forecasts the final standings of
@@ -169,12 +168,29 @@ export default function About() {
         which is updated every time the model is run. EventBridge is used to
         trigger the model runs.
       </p>
+      <h3>Front End</h3>
+      <p>Here are a few facts about how the data is displayed on this site:</p>
+      <ul>
+        <li>The pages are statically generated</li>
+        <li>The underlying data updates every time the model runs</li>
+      </ul>
+      <p>
+        This is accomplished by caching the data and triggering a webhook to
+        invalidate the cache when the model is run. This means that only the
+        affected pages are rebuilt when the model is run.
+      </p>
       <h2>Other Ideas</h2>
       <p>
         The next big step is incorporating goals into the model. Right now the
         model has no concept of the margin of victory. More seasons of data
         could also be used to train the model. At the beginning of the season,
         the model looks too much like a table of the clubs market value.
+      </p>
+      <p>
+        Additionally, injuries and squad depth play a large role in the outcome
+        of matches. However, data on lineups, injuries, and squads are not
+        included in the tier I have access to from football-data.org so these
+        factors are not included in the current model.
       </p>
       <h2 className="">Model Revisions</h2>
       <table className="table">
