@@ -1,26 +1,21 @@
-"use client";
-import React, { useEffect, useRef } from "react";
 import katex from "katex";
-import "katex/dist/katex.min.css"; // Import KaTeX CSS for styling
+import "katex/dist/katex.min.css";
 
 interface EquationProps {
   text: string;
 }
 
-const Equation: React.FC<EquationProps> = ({ text }) => {
-  const equationRef = useRef<HTMLDivElement>(null);
+export default function Equation({ text }: EquationProps) {
+  // Render KaTeX to HTML string on the server
+  const html = katex.renderToString(text, {
+    output: "html", // Ensures HTML output
+  });
 
-  useEffect(() => {
-    if (equationRef.current) {
-      // Clear the content of the div before rendering the LaTeX string
-      equationRef.current.innerHTML = "";
-      katex.render(text, equationRef.current, {
-        throwOnError: false,
-      });
-    }
-  }, [text]);
-
-  return <div ref={equationRef} className="my-8 flex flex-col items-center" />;
-};
-
-export default Equation;
+  // Return pre-rendered HTML with dangerouslySetInnerHTML
+  return (
+    <div
+      className="my-6 text-center"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
