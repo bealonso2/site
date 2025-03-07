@@ -11,7 +11,6 @@ import {
   mapSimulationDataToSeasonDates,
 } from "@/lib/football/localUtils";
 import { generateMetadata } from "@/utils/metadata";
-import { unstable_cache } from "next/cache";
 
 export const metadata = generateMetadata({
   title: "Table Timeline",
@@ -23,30 +22,25 @@ export const metadata = generateMetadata({
 // Force the page to never revalidate
 export const revalidate = false;
 
-const getCachedData = unstable_cache(
-  async () => {
-    const avgFinishData = await getAverageFinishData();
-    const simulationData = await getSimulationsData();
-    const crests = await getCrests();
-    return {
-      avgFinishData,
-      simulationData,
-      crests,
-    };
-  },
-  ["timeline-football-data"],
-  { tags: ["football-data"] },
-);
-
 export default async function TableTimelinePage() {
-  // TODO: Are these functions cached? Or am I calling them when building this page and the home page?
-  const { avgFinishData, simulationData, crests } = await getCachedData();
+  // Get data not dependent on simulation_uuid
+  const simulationData = await getSimulationsData();
+  const crests = await getCrests();
+
+  // Call avgFinishData with all simulation_uuids and combine into one array
+  const avgFinishData = Promise.all(
+    simulationData.map((simulation: any) =>
+      getAverageFinishData(simulation.uuid),
+    ),
+  ).then((results) => results.flat());
+
+  // TODO: use already organized data by season
 
   // Organize the data by season and date
   var seasonToDatesMap: any = mapSimulationDataToSeasonDates(simulationData);
 
   // Organize avgFinishData by simulation_uuid
-  var avgFinishDataMap: any = mapAvgFinishData(avgFinishData);
+  var avgFinishDataMap: any = mapAvgFinishData(await avgFinishData);
 
   // Organize crests by team
   var crestsMap: any = createCrestsMap(crests);

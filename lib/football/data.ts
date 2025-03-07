@@ -2,8 +2,10 @@
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { unlink, writeFile } from "fs/promises";
+import { unstable_cache } from "next/cache";
 import sqlite3 from "sqlite3";
 import { v4 as uuidv4 } from "uuid";
+
 sqlite3.verbose();
 
 // Define the S3 bucket and database files
@@ -11,7 +13,12 @@ const bucketName = "pl-prediction";
 const resultsKey = "2024/results.db";
 const dataKey = "2024/data.db";
 
-const getQuery = async (query: string, key: string): Promise<any> => {
+// Core function to fetch and query S3 SQLite database
+const getQuery = async (
+  query: string,
+  key: string,
+  parameters: any[] = [],
+): Promise<any> => {
   const s3Client = new S3Client({});
 
   const command = new GetObjectCommand({ Bucket: bucketName, Key: key });
@@ -19,97 +26,100 @@ const getQuery = async (query: string, key: string): Promise<any> => {
   const s3Db = response.Body;
 
   if (!s3Db) {
-    console.error("Error fetching database from S3");
-    return;
+    throw new Error("Failed to fetch database from S3");
   }
 
-  // Generate a unique database name
   const dbFileName = `${uuidv4()}.db`;
 
-  // Write the database to a file
+  // Write the database to a temporary file
   // @ts-ignore
   await writeFile(dbFileName, s3Db);
 
   const db = new sqlite3.Database(dbFileName);
 
-  const promise = new Promise((resolve, reject) => {
-    // Query the database for simulations
-    db.all(query, (err, rows) => {
-      if (err) {
-        console.error(err.message);
-        reject(err);
-        return;
-      }
-      // Resolve the promise with the rows
-      resolve(rows);
+  try {
+    return await new Promise((resolve, reject) => {
+      db.all(query, parameters, (err, rows) => {
+        if (err) {
+          console.error(err.message);
+          reject(err);
+          return;
+        }
+        resolve(rows);
+      });
     });
-  });
-
-  // Close the database connection
-  db.close((err) => {
-    if (err) {
-      console.error("Error closing the database", err.message);
-      return;
-    }
-
-    // Delete the database file after the connection is closed
-    unlink(dbFileName).catch((error) =>
-      console.error("Error deleting database file", error),
-    );
-  });
-
-  return promise;
+  } finally {
+    // Ensure the database is closed and file is deleted
+    db.close((err) => {
+      if (err) console.error("Error closing the database", err.message);
+      unlink(dbFileName).catch((error) =>
+        console.error("Error deleting database file", error),
+      );
+    });
+  }
 };
 
-export const getPositionData = async (): Promise<any> => {
-  return getQuery(
-    `
-    SELECT * FROM team_positions
-    JOIN simulations
-      ON team_positions.simulation_uuid = simulations.uuid
-    ORDER BY id DESC, team;
-  `,
-    resultsKey,
+// Cached query helper
+const cachedQuery = (query: string, key: string, simulation_uuid?: string) =>
+  unstable_cache(
+    () => getQuery(query, key, simulation_uuid ? [simulation_uuid] : []),
+    [key, query, simulation_uuid ? simulation_uuid : ""],
+    {
+      tags: ["football-data"],
+      revalidate: false,
+    },
   );
-};
 
-export const getAverageFinishData = async (): Promise<any> => {
-  return getQuery(
+// Exported cached server actions
+export const getPositionData = async (simulationUuid: string) =>
+  cachedQuery(
     `
-    SELECT * FROM average_results
-    JOIN simulations
-      ON average_results.simulation_uuid = simulations.uuid
-    ORDER BY id DESC, place;
-  `,
+      SELECT * FROM team_positions
+      JOIN simulations
+        ON team_positions.simulation_uuid = simulations.uuid
+      WHERE simulation_uuid = ?
+      ORDER BY id DESC, team;
+    `,
     resultsKey,
-  );
-};
+    simulationUuid,
+  )();
 
-export const getCurrentPoints = async (): Promise<any> => {
-  return getQuery(
+export const getAverageFinishData = async (simulationUuid: string) =>
+  cachedQuery(
     `
-    SELECT * FROM team_to_points
-    JOIN simulations
-      ON team_to_points.simulation_uuid = simulations.uuid
-    ORDER BY id DESC, points DESC;
-  `,
+      SELECT * FROM average_results
+      JOIN simulations
+        ON average_results.simulation_uuid = simulations.uuid
+      WHERE simulation_uuid = ?
+      ORDER BY id DESC, place;
+    `,
     resultsKey,
-  );
-};
+    simulationUuid,
+  )();
 
-export const getSimulationsData = async (): Promise<any> => {
-  return getQuery(
+export const getCurrentPoints = async (simulationUuid: string) =>
+  cachedQuery(
     `
+      SELECT * FROM team_to_points
+      JOIN simulations
+        ON team_to_points.simulation_uuid = simulations.uuid
+      WHERE simulation_uuid = ?
+      ORDER BY id DESC, points DESC;
+    `,
+    resultsKey,
+    simulationUuid,
+  )();
+
+export const getSimulationsData = cachedQuery(
+  `
     SELECT * FROM simulations
     ORDER BY id DESC, date DESC;
   `,
-    resultsKey,
-  );
-};
+  resultsKey,
+);
 
-export const getUpcomingMatches = async (): Promise<any> => {
-  return getQuery(
-    `
+export const getUpcomingMatches = cachedQuery(
+  `
     SELECT * 
     FROM upcoming_results 
     WHERE simulation_uuid = (
@@ -119,16 +129,13 @@ export const getUpcomingMatches = async (): Promise<any> => {
       LIMIT 1
     )
     ORDER BY utc_date ASC;
-    `,
-    resultsKey,
-  );
-};
+  `,
+  resultsKey,
+);
 
-export const getCrests = async (): Promise<any> => {
-  return getQuery(
-    `
+export const getCrests = cachedQuery(
+  `
     SELECT * FROM team_to_crests;
   `,
-    dataKey,
-  );
-};
+  dataKey,
+);

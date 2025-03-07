@@ -13,7 +13,6 @@ import {
   mapSupplementalData,
 } from "@/lib/football/localUtils";
 import { generateMetadata } from "@/utils/metadata";
-import { unstable_cache } from "next/cache";
 
 export const metadata = generateMetadata({
   title: "Premier League Prediction",
@@ -26,38 +25,35 @@ export const metadata = generateMetadata({
 // Force the page to never revalidate
 export const revalidate = false;
 
-const getCachedData = unstable_cache(
-  async () => {
-    const avgFinishData = await getAverageFinishData();
-    const positionData = await getPositionData();
-    const simulationData = await getSimulationsData();
-    const currentPoints = await getCurrentPoints();
-    const crests = await getCrests();
-    return {
-      avgFinishData,
-      positionData,
-      simulationData,
-      currentPoints,
-      crests,
-    };
-  },
-  ["all-football-data"],
-  { tags: ["football-data"] },
-);
-
 export default async function Football() {
-  const { avgFinishData, positionData, simulationData, currentPoints, crests } =
-    await getCachedData();
+  // Get data not dependent on simulation_uuid
+  const simulationData = await getSimulationsData();
+  const crests = await getCrests();
+
+  // Call avgFinishData, positionData, and currentPoints with all simulation_uuids and combine into one array
+  const avgFinishData = Promise.all(
+    simulationData.map((simulation: any) =>
+      getAverageFinishData(simulation.uuid),
+    ),
+  ).then((results) => results.flat());
+  const positionData = Promise.all(
+    simulationData.map((simulation: any) => getPositionData(simulation.uuid)),
+  ).then((results) => results.flat());
+  const currentPoints = Promise.all(
+    simulationData.map((simulation: any) => getCurrentPoints(simulation.uuid)),
+  ).then((results) => results.flat());
+
+  // TODO: use already organized data by season
 
   // Organize the data by season and date
   var seasonToDatesMap: any = mapSimulationDataToSeasonDates(simulationData);
 
   // Organize avgFinishData by simulation_uuid
-  var avgFinishDataMap: any = mapAvgFinishData(avgFinishData);
+  var avgFinishDataMap: any = mapAvgFinishData(await avgFinishData);
 
   var supplementalDataMap: any = mapSupplementalData(
-    positionData,
-    currentPoints,
+    await positionData,
+    await currentPoints,
   );
 
   // Organize crests by team
