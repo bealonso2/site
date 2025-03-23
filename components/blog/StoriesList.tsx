@@ -1,31 +1,26 @@
 import { config } from "@/config";
-import { titleCase } from "title-case";
-import { parseStringPromise } from "xml2js";
+import Parser from "rss-parser";
 
-async function fetchPosts() {
-  const res = await fetch(`${config.ghost_url}/sitemap-posts.xml`, {
-    next: { revalidate: 3600 }, // Re-fetch every hour
-  });
+// Revalidate every hour
+export const revalidate = 3600;
 
-  if (!res.ok) throw new Error("Failed to fetch sitemap");
+async function fetchPosts(): Promise<
+  { url: string; lastmod: string; title: string }[]
+> {
+  const parser: Parser = new Parser({});
+  const feedUrl = `${config.ghost_url}/feed/`;
 
-  const xml = await res.text();
-  const result = await parseStringPromise(xml);
+  const feed = await parser.parseURL(feedUrl);
 
-  return result.urlset.url.map((entry: any) => ({
-    url: entry.loc[0],
-    lastmod: entry.lastmod ? entry.lastmod[0] : null,
+  if (!feed.items) {
+    throw new Error("Failed to fetch posts");
+  }
+
+  return feed.items.map((entry: any) => ({
+    url: entry.link,
+    lastmod: entry.isoDate,
+    title: entry.title,
   }));
-}
-
-function getPostTitleFromUrl(url: string) {
-  // Strip the base URL and trailing slash
-  url = url.replace(config.ghost_url, "");
-  url = url.replace(/\/$/, "");
-
-  // Make the url title case
-  url = url.replace(/-/g, " ");
-  return titleCase(url);
 }
 
 export const StoriesList = async () => {
@@ -54,7 +49,7 @@ export const StoriesList = async () => {
       {posts.slice(0, 5).map((post: any, index: number) => (
         <li key={post.url}>
           <a href={post.url} target="_blank" rel="noopener noreferrer">
-            {getPostTitleFromUrl(post.url)}
+            {post.title}
           </a>
           {index === 0 && " - New!"}
         </li>
