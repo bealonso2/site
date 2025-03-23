@@ -16,7 +16,7 @@ const SignupForm = () => {
     script.async = true;
     script.dataset.buttonColor = "#000000";
     script.dataset.buttonTextColor = "#FFFFFF";
-    script.dataset.site = config.ghost_url;
+    script.dataset.site = config.bearblog_url;
     script.dataset.locale = "en";
 
     // @ts-ignore

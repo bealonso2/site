@@ -1,4 +1,3 @@
-import SignupForm from "./blog/SignupButton";
 import { StoriesList } from "./blog/StoriesList";
 import { CrestLinkWithText } from "./crest/Crest";
 import PageContainer from "./layout/PageContainer";
@@ -81,8 +80,8 @@ export default function HomePage() {
                 </a>
               </li>
             </ul>
-            <p>Sign up to receive my short stories:</p>
-            <SignupForm />
+            {/* <p>Sign up to receive my short stories:</p>
+            <SignupForm /> */}
             {/* <li>
                 <a
                   href="https://youtube.com/@thebrianalonso"

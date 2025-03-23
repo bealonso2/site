@@ -1,14 +1,14 @@
 import { config } from "@/config";
 import Parser from "rss-parser";
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Revalidate every day
+export const revalidate = 60 * 60 * 24;
 
 async function fetchPosts(): Promise<
   { url: string; lastmod: string; title: string }[]
 > {
   const parser: Parser = new Parser({});
-  const feedUrl = `${config.ghost_url}/feed/`;
+  const feedUrl = `${config.bearblog_url}feed/?q=short-stories`;
 
   const feed = await parser.parseURL(feedUrl);
 
@@ -29,7 +29,7 @@ export const StoriesList = async () => {
   if (!posts.length) {
     return (
       <p>
-        <a href={config.ghost_url} target="_blank" rel="noopener noreferrer">
+        <a href={config.bearblog_url} target="_blank" rel="noopener noreferrer">
           Find my short stories here.
         </a>
       </p>
