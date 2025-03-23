@@ -62,13 +62,26 @@ export default function HomePage() {
             </ul>
           </InformationWidget>
           <InformationWidget title="Connect">
-            <p>
-              Find me on{" "}
-              <a href="https://x.com/thebrianalonso" target="_blank">
-                X
-              </a>{" "}
-              and sign up to receive my short stories:
-            </p>
+            <ul>
+              <li>
+                <a href="mailto:brian@balonso.com">Email</a>
+              </li>
+              <li>
+                <a
+                  href="https://brian.bearblog.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Bear blog
+                </a>
+              </li>
+              <li>
+                <a href="https://x.com/thebrianalonso" target="_blank">
+                  X
+                </a>
+              </li>
+            </ul>
+            <p>Sign up to receive my short stories:</p>
             <SignupForm />
             {/* <li>
                 <a

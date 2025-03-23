@@ -18,6 +18,7 @@ export const metadata = generateMetadata({
       alt: "Brian Alonso",
     },
   ],
+  description: "Brian Alonso's personal website",
 });
 
 export default function Home() {

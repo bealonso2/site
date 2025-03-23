@@ -4,8 +4,8 @@ const links = [
     url: "https://x.com/thebrianalonso",
   },
   {
-    name: "Blog",
-    url: "https://blog.balonso.com",
+    name: "Bear blog",
+    url: "https://brian.bearblog.dev",
   },
   // {
   //   name: "YouTube",
@@ -14,10 +14,10 @@ const links = [
   {
     name: "Projects",
     links: [
-      {
-        name: "Life is a Video Game",
-        url: "https://playlifeisavideogame.com",
-      },
+      // {
+      //   name: "Life is a Video Game",
+      //   url: "https://playlifeisavideogame.com",
+      // },
       {
         name: "Premier League Prediction",
         url: "/pl-prediction",
