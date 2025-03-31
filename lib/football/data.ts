@@ -1,5 +1,6 @@
 "use server";
 
+import { config } from "@/config";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { unlink, writeFile } from "fs/promises";
 import { unstable_cache } from "next/cache";
@@ -65,7 +66,7 @@ const cachedQuery = (query: string, key: string, simulation_uuid?: string) =>
     () => getQuery(query, key, simulation_uuid ? [simulation_uuid] : []),
     [key, query, simulation_uuid ? simulation_uuid : ""],
     {
-      tags: ["football-data"],
+      tags: [config.football_data_cache_tag],
       revalidate: false,
     },
   );
