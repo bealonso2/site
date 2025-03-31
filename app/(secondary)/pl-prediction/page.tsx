@@ -1,5 +1,4 @@
 import FootballContainer from "@/components/pl-prediction/FootballContainer";
-import { config } from "@/config";
 import {
   getAverageFinishData,
   getCrests,
@@ -23,9 +22,8 @@ export const metadata = generateMetadata({
   canonicalPath: "pl-prediction",
 });
 
-// Force the page to never revalidate unless the cache is invalidated
+// Force the page to never revalidate
 export const revalidate = false;
-export const revalidateTag = config.football_data_cache_tag;
 
 export default async function Football() {
   // Get data not dependent on simulation_uuid
