@@ -64,7 +64,12 @@ const getQuery = async (
 const cachedQuery = (query: string, key: string, simulation_uuid?: string) =>
   unstable_cache(
     () => getQuery(query, key, simulation_uuid ? [simulation_uuid] : []),
-    [key, query, simulation_uuid ? simulation_uuid : ""],
+    [
+      key,
+      query,
+      simulation_uuid ? simulation_uuid : "",
+      config.football_data_cache_tag,
+    ],
     {
       tags: [config.football_data_cache_tag],
       revalidate: false,

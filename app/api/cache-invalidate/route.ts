@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 const CACHE_INVALIDATION_SECRET = process.env.CACHE_INVALIDATION_SECRET;
@@ -21,6 +21,11 @@ export async function POST(request: NextRequest) {
 
   // Invalidate the cache tag
   revalidateTag(tag);
+
+  // Hard code revalidate pl-prediction routes
+  if (tag === "football-data") {
+    revalidatePath("/(secondary)/pl-prediction");
+  }
 
   return NextResponse.json(
     { message: `Cache tag '${tag}' successfully invalidated` },
