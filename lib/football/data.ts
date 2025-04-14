@@ -67,7 +67,6 @@ const cachedQuery = (query: string, key: string, simulation_uuid?: string) =>
     [key, query, simulation_uuid ? simulation_uuid : ""],
     {
       tags: [config.football_data_cache_tag],
-      revalidate: false,
     },
   );
 

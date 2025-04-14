@@ -22,8 +22,8 @@ export const metadata = generateMetadata({
   canonicalPath: "pl-prediction",
 });
 
-// Force the page to never revalidate
-export const revalidate = false;
+// Revalidate the page every hour
+export const revalidate = 3600;
 
 export default async function Football() {
   // Get data not dependent on simulation_uuid

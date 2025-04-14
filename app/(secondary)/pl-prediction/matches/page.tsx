@@ -10,8 +10,8 @@ export const metadata = generateMetadata({
   canonicalPath: "pl-prediction/matches",
 });
 
-// Force the page to never revalidate
-export const revalidate = false;
+// Revalidate the page every hour
+export const revalidate = 3600;
 
 export default async function Matches() {
   const upcomingMatches = await getUpcomingMatches();

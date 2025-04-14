@@ -19,8 +19,8 @@ export const metadata = generateMetadata({
   canonicalPath: "pl-prediction/timeline",
 });
 
-// Force the page to never revalidate
-export const revalidate = false;
+// Revalidate the page every hour
+export const revalidate = 3600;
 
 export default async function TableTimelinePage() {
   // Get data not dependent on simulation_uuid
