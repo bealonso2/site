@@ -29,7 +29,7 @@ export const StoriesList = async () => {
   if (!posts.length) {
     return (
       <p>
-        <a href={config.bearblog_url} target="_blank" rel="noopener noreferrer">
+        <a href={config.bearblog_url} target="_blank" rel="noopener">
           Find my short stories here.
         </a>
       </p>
@@ -48,7 +48,7 @@ export const StoriesList = async () => {
     <ul>
       {posts.slice(0, 5).map((post: any, index: number) => (
         <li key={post.url}>
-          <a href={post.url} target="_blank" rel="noopener noreferrer">
+          <a href={post.url} target="_blank" rel="noopener">
             {post.title}
           </a>
           {index === 0 && " - New!"}
