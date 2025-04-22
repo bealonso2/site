@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "stories.balonso.com"
+        }
+      ],
+      "destination": "https://brian.bearblog.dev/$1",
+      "permanent": true
+    }
+  ]
+}
