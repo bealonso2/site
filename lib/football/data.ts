@@ -11,8 +11,8 @@ sqlite3.verbose();
 
 // Define the S3 bucket and database files
 const bucketName = "pl-prediction";
-const resultsKey = "2024/results.db";
-const dataKey = "2024/data.db";
+const resultsKey = "2025/results.db";
+const dataKey = "2025/data.db";
 
 // Core function to fetch and query S3 SQLite database
 const getQuery = async (
