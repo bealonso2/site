@@ -67,18 +67,27 @@ export default function HomePage() {
               </li>
               <li>
                 <a
-                  href="https://brian.bearblog.dev"
+                  href="https://brian.bearblog.dev/subscribe"
+                  target="_blank"
+                >
+                  Writing (Subscribe)
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://github.com/bealonso2/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Bear blog
+                  GitHub
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="https://x.com/thebrianalonso" target="_blank">
                   X
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* <p>Sign up to receive my short stories:</p>
             <SignupForm /> */}

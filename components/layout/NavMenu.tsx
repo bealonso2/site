@@ -1,10 +1,10 @@
 const links = [
+  // {
+  //   name: "X",
+  //   url: "https://x.com/thebrianalonso",
+  // },
   {
-    name: "X",
-    url: "https://x.com/thebrianalonso",
-  },
-  {
-    name: "Bear blog",
+    name: "Writing",
     url: "https://brian.bearblog.dev",
   },
   // {
