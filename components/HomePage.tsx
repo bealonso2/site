@@ -63,7 +63,7 @@ export default function HomePage() {
           <InformationWidget title="Connect">
             <ul>
               <li>
-                <a href="mailto:brian@balonso.com">Email</a>
+                <a href="mailto:brian@balonso.com" rel="me">Email</a>
               </li>
               <li>
                 <a
