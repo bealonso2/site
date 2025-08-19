@@ -21,7 +21,7 @@ export function generateMetadata({
   title = "Brian Alonso",
   description = "Human Flourishing for the Benefit of Earth",
   keywords = "Brian Alonso, aerospace engineer, software developer",
-  baseUrl = "https://www.balonso.com",
+  baseUrl = "https://balonso.com",
   canonicalPath = "",
   opengraphImages = [],
   twitterImages = [],
