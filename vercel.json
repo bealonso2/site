@@ -10,6 +10,17 @@
       ],
       "destination": "https://brian.bearblog.dev/$1",
       "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "blog.balonso.com"
+        }
+      ],
+      "destination": "https://balonso.com/$1",
+      "permanent": true
     }
   ]
 }
