@@ -5,11 +5,21 @@ date: 2026-10-15
 updated: 2026-10-15
 ---
 {% assign newestFirst = collections.posts | reverse %}
+<script>
+  // /all/?q=blog: hide posts without that tag before the list is drawn, so the full list
+  // never flashes. ~= matches one tag in a space-separated list, so posts can have several.
+  const tag = new URLSearchParams(location.search).get("q");
+  if (tag) {
+    const style = document.createElement("style");
+    style.textContent = `ul.blog-posts li:not([data-tags~="${CSS.escape(tag)}"]) { display: none; }`;
+    document.head.append(style);
+  }
+</script>
 {% render "post-list.liquid", posts: newestFirst %}
 
 {%- comment -%}
   Filter links for every tag used by a post. /all/?q=blog shows only posts tagged blog
-  (the script below hides the rest); without JavaScript the full list still shows.
+  (the script above the list hides the rest); without JavaScript the full list still shows.
 {%- endcomment -%}
 {%- assign tagList = "" %}
 {%- for post in collections.posts %}{% for tag in post.data.tags %}{% if tag != "posts" %}
@@ -23,11 +33,8 @@ updated: 2026-10-15
   <a href="/all/" id="show-all" hidden>show all</a>
 </p>
 <script>
-  const tag = new URLSearchParams(location.search).get("q");
+  // `tag` comes from the script above the list.
   if (tag) {
-    for (const post of document.querySelectorAll("ul.blog-posts li")) {
-      post.hidden = !post.dataset.tags.split(" ").includes(tag);
-    }
     for (const link of document.querySelectorAll("#tag-filter [data-tag]")) {
       if (link.dataset.tag === tag) link.setAttribute("aria-current", "page");
     }

@@ -1,9 +1,3 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap');
-
 :root {
     --width: 820px;
     --font-main: 'Bungee Shade', serif;
@@ -227,10 +221,6 @@ img.invertible {
 
 
 /* Additions for the 11ty build */
-ul.blog-posts li[hidden] {
-    display: none;
-}
-
 #tag-filter a[aria-current] {
     font-weight: bold;
 }

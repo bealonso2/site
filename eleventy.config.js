@@ -13,7 +13,6 @@ const isDateOnly = (d) => d.getUTCHours() === 0 && d.getUTCMinutes() === 0 && d.
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/img");
-  eleventyConfig.addPassthroughCopy("content/css");
 
   // Footnotes, and heading ids (`## Work` gets id="work") so #links to sections work.
   eleventyConfig.amendLibrary("md", (md) => {
