@@ -1,11 +1,12 @@
 [
-  { "source": "https://blog.balonso.com", "target": "https://balonso.com", "status": "301", "condition": null },
-  { "source": "https://stories.balonso.com", "target": "https://balonso.com", "status": "301", "condition": null },
-  { "source": "/feed/", "target": "/feed.xml", "status": "301", "condition": null },
-  { "source": "/feed", "target": "/feed.xml", "status": "301", "condition": null },
-  { "source": "/blog/", "target": "/all/?q=blog", "status": "301", "condition": null },
-  { "source": "/blog", "target": "/all/?q=blog", "status": "301", "condition": null },
-  { "source": "/short-stories/", "target": "/all/?q=short-stories", "status": "301", "condition": null },
-  { "source": "/short-stories", "target": "/all/?q=short-stories", "status": "301", "condition": null },
-  { "source": "/<*>", "target": "/404.html", "status": "404", "condition": null }
+  { "source": "https://www.balonso.com", "target": "https://balonso.com", "status": "301" },
+  { "source": "https://blog.balonso.com", "target": "https://balonso.com", "status": "301" },
+  { "source": "https://stories.balonso.com", "target": "https://balonso.com", "status": "301" },
+  { "source": "/feed/", "target": "/feed.xml", "status": "301" },
+  { "source": "/feed", "target": "/feed.xml", "status": "301" },
+  { "source": "/blog/", "target": "/all/?q=blog", "status": "301" },
+  { "source": "/blog", "target": "/all/?q=blog", "status": "301" },
+  { "source": "/short-stories/", "target": "/all/?q=short-stories", "status": "301" },
+  { "source": "/short-stories", "target": "/all/?q=short-stories", "status": "301" },
+  { "source": "/<*>", "target": "/404.html", "status": "404-200" }
 ]
