@@ -1,0 +1,10 @@
+<ul class="blog-posts">
+  {%- for post in posts %}
+  {%- assign postTags = "" %}
+  {%- for tag in post.data.tags %}{% if tag != "posts" %}{% assign postTags = postTags | append: " " | append: tag %}{% endif %}{% endfor %}
+  <li data-tags="{{ postTags | strip }}">
+    <span><i><time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | bearDate }}</time></i></span>
+    <a href="{{ post.url }}">{{ post.data.title }}</a>
+  </li>
+  {%- endfor %}
+</ul>

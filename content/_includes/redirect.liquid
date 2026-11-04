@@ -1,0 +1,16 @@
+{%- comment -%}
+  A page that just forwards to another URL. Set `layout: redirect.liquid` and
+  `redirect: /where/to/` in its front matter.
+{%- endcomment -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }} | {{ site.title }}</title>
+  <meta http-equiv="refresh" content="0; url={{ redirect }}">
+  <meta name="robots" content="noindex">
+</head>
+<body>
+  <p>{{ title }} has moved to <a href="{{ redirect }}">{{ redirect }}</a>.</p>
+</body>
+</html>

@@ -1,0 +1,9 @@
+---
+layout: base.liquid
+bodyClass: page
+---
+{%- comment -%} Pages tagged `slash` (slash pages like /about) get their title as a "/about" heading. {%- endcomment %}
+{%- if tags contains "slash" %}
+<h1 id="{{ title | slugify }}">/{{ title }}</h1>
+{%- endif %}
+{{ content }}

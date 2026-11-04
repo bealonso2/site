@@ -1,0 +1,58 @@
+{%- if page.url == "/" -%}
+  {%- assign pageTitle = site.title -%}
+{%- else -%}
+  {%- assign pageTitle = title | append: " | " | append: site.title -%}
+{%- endif -%}
+{%- comment -%} Auto description: the page text, skipping a post's title and date (everything up to </time></i></p>). {%- endcomment -%}
+{%- assign bodyText = content | split: "</time></i></p>" | last -%}
+{%- assign description = description | default: bodyText | replace: "<", " <" | strip_html | truncatewords: 28 | default: site.description -%}
+{%- assign image = image | default: site.image | prepend: site.url -%}
+{%- assign canonicalUrl = canonical | default: page.url | prepend: site.url -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  <title>{{ pageTitle }}</title>
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  <meta name="description" content="{{ description | escape }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ title | default: site.title | escape }}">
+  <meta property="og:type" content="{% if bodyClass == "post" %}article{% else %}website{% endif %}">
+  <meta property="og:url" content="{{ canonicalUrl }}">
+  <meta property="og:description" content="{{ description | escape }}">
+  <meta property="og:image" content="{{ image }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="{{ site.title }}">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E🌷%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="{{ bodyClass }}">
+  <header>
+    <a class="title" href="/">
+      <h1>{{ site.title }}</h1>
+    </a>
+    <nav>
+      <p><a href="/all/">All Posts</a> <a href="/slashes/">All Pages</a></p>
+    </nav>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    <p>Follow using <u><a href="/feed.xml">rss</a></u> or <u><a href="mailto:{{ site.email }}">say hi</a></u>.</p>
+    <div class="h-card">
+      <div>
+        <img class="u-photo invertible" src="/img/email-profile.svg" alt="Brian Alonso Crest" style="width: 80px;">
+      </div>
+      <div>
+        <a class="p-name u-url" rel="me" href="{{ site.url }}">{{ site.title }}</a>
+      </div>
+      <p class="p-note" style="max-width: 500px; margin: 0 auto;">Human flourishing for the benefit of Earth.</p>
+    </div>
+    <p><a href="https://xn--sr8hvo.ws/previous">←</a>
+    <a href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
+    <a href="https://xn--sr8hvo.ws/next">→</a></p>
+  </footer>
+</body>
+</html>

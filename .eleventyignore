@@ -1,0 +1,2 @@
+# Files in content/ that should never be built.
+content/11ty migration.md
