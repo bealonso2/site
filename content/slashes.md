@@ -12,8 +12,8 @@ updated: 2026-01-07
 - [/about](/about)
 - [/ideas](/ideas)
 - [/now](/now)
-- [/contact](/contact)
-- [/pl prediction](/pl-prediction)
+- [/contact](/contact)<!-- - [/pl prediction](/pl-prediction) -->
 - [/chipotle](/chipotle)
+- [/changelog](/changelog)
 
 <div class="tenor-gif-embed" data-postid="4671343" data-share-method="host" data-aspect-ratio="1.42038" data-width="50%"></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script>
