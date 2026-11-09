@@ -12,6 +12,7 @@ updated: 2026-01-07
 - [/about](/about)
 - [/ideas](/ideas)
 - [/now](/now)
+- [/books](/books)
 - [/contact](/contact)<!-- - [/pl prediction](/pl-prediction) -->
 - [/chipotle](/chipotle)
 - [/changelog](/changelog)
