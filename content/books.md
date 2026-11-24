@@ -3,20 +3,21 @@ title: books
 tags: slash
 permalink: /books/
 date: 2026-10-15
-updated: 2026-11-17T18:27:23-05:00
+updated: 2026-11-24T18:51:09-05:00
 ---
 
 ---
 
 **Take a book leave a book:** if any of these books sound interesting to you and I happen to own the physical copy, [send me an email](/contact) and I will happily loan you mine.
 
-I'm in search of East of Eden, Notes from the Underground, and Crime and Punishment.
+I'm in search of East of Eden, Notes from  Underground, and Crime and Punishment.
 
 ---
 
 | Title | Author | Finished | Rating |
 |---|---|---|---|
-| Walkable City: How Downtown Can Save America, One Step at a Time | Jeff Speck |  |  |
+| Do Androids Dream of Electric Sheep? | Phillip K. Dick |  |  |
+| Walkable City: How Downtown Can Save America, One Step at a Time | Jeff Speck | 2026-11-22 | ★★★ |
 | The Autobiography of Benjamin Franklin | Benjamin Franklin | 2026-11-14 |  |
 | The Man in the High Castle | Phillip K. Dick | 2026-10-23 |  |
 | Biological War: A Scenario | Annie Jacobsen | 2026-10-11 |  |
