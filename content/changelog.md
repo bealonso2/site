@@ -3,8 +3,11 @@ title: changelog
 tags: slash
 permalink: /changelog/
 date: 2026-11-09T06:48:27-05:00
-updated: 2026-11-09T07:27:04-05:00
+updated: 2026-11-24T19:19:35-05:00
 ---
+
+## 2026-11-24
+Ranking every album I physically own. Added [/albums](/albums)
 
 ## 2026-11-07
 Goodbye goodreads! Added [/books](/books)

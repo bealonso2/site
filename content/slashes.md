@@ -3,7 +3,7 @@ tags: slash
 permalink: /slashes/
 title: slashes
 date: 2025-08-19T01:29:00+00:00
-updated: 2026-01-07
+updated: 2026-11-24T19:19:35-05:00
 ---
 
 - [/all](/all)
@@ -12,6 +12,7 @@ updated: 2026-01-07
 - [/about](/about)
 - [/ideas](/ideas)
 - [/now](/now)
+- [/albums](/albums)
 - [/books](/books)
 - [/contact](/contact)<!-- - [/pl prediction](/pl-prediction) -->
 - [/chipotle](/chipotle)
